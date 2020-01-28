@@ -4,6 +4,7 @@ import $ from 'jquery';
 import moment from 'moment';
 import RestaurantList from './restaurantList'
 import Modal from "react-responsive-modal";
+import {Config} from '../../config/Config'
 
 class CuisineManagement extends React.Component {
     constructor(props) {
@@ -20,7 +21,8 @@ class CuisineManagement extends React.Component {
             toggleId : '',
             value:'select',
             isModalOpen:false,
-            isChecked:false
+            isChecked:false,
+            editimage:''
         }
     }
 
@@ -29,40 +31,39 @@ class CuisineManagement extends React.Component {
     }
 
     formSubmit = (e,id) => {
+        console.log(this.state.myImage)
         e.preventDefault();
         let userId = parseInt(localStorage.getItem('userId'))
             if(id < this.state.editId) {
                 var myData = {
                     admin_id : userId,
                     cuisine_name : this.state.addcausine,
-                    // image : item.image,
+                    image : this.state.myImage,
                     id:this.state.editId,
                 }
             } else {
                 var myData = {
-                    admin_id : userId,
-                    cuisine_name : this.state.addcausine,
-                    // image : this.state.myImage,
-                    id:this.state.id,
+                    admin_id : 5 ,
+                    cuisine_name : this.state.addcausine ,
+                    image : this.state.myImage
                 }
             }
-        const type = "add-cuisine"
-        let BaseUrl = `http://posapp.younggeeks.net/posApi/api/${type}`;
+        const type = "add-cuisine"        
+        let BaseUrl = `${Config.url}`;
         axios({
             method:'post',
-            url:BaseUrl,
+            url:BaseUrl+type,
             data:myData
         }).then((res) => {  
-            if(res.status === 200) {
-                window.location.reload();
-            }
+            console.log(res)
         }).catch((err) => {
             console.log(err)
         })
     }
 
     componentDidMount() {
-        axios.get(`http://posapp.younggeeks.net/posApi/api/all-cuisine`)
+        let BaseUrl=`${Config.url}`
+        axios.get(BaseUrl+`all-cuisine`)
         .then(response => {
             this.setState({allList:response.data.response.data})
         }) .catch (error => {
@@ -70,20 +71,20 @@ class CuisineManagement extends React.Component {
         })
     }
 
-    onLogo = event => {
+    onLogo = event =>{
         if (event.target.files && event.target.files[0]) {
             let file = event.target.files[0];
-            if(file.size < 307200){
+            console.log(file)
+            if(file.size < 50000){
                 $("#remove_image").show();
                 this.setState({showLogoImage:URL.createObjectURL(event.target.files[0])});
                 let reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onloadend = () => {
-                    this.setState({
-                        myImage: reader.result
-                    });
-                }
+                    this.setState({ myImage: reader.result });
+                }                
             }else{
+                
                 this.setState({LogoImageError:'File is too big'})
                 console.log("File is too big");
             }
@@ -91,7 +92,9 @@ class CuisineManagement extends React.Component {
     }
 
     deleteList = (id) => {
-        axios.post(`http://posapp.younggeeks.net/posApi/api/delete-cuisine/${id}`)
+         let BaseUrl=`${Config.url}`
+
+        axios.post(BaseUrl+`${id}`)
         .then(res => {
             console.log(res)
             if(res.status === 200) {
@@ -105,6 +108,7 @@ class CuisineManagement extends React.Component {
     edit = (item) => {
         this.setState({editId:item.id})
         this.setState({addcausine:item.cuisine_name})
+        this.setState({editimage:item.image});
     }
 
     toggle = (id) => {
@@ -168,7 +172,8 @@ class CuisineManagement extends React.Component {
                                         <div className="form-group">
                                             <label className="col-sm-4 control-label" style={{paddingtop: "3px"}}>Image</label>
                                             <div className="col-sm-5">
-                                                <input type="file" name="image" onChange={(e) => this.onLogo(e)}/>
+                                                <input type="file" name="image" onChange={this.onLogo}/>
+                                                <img src={this.state.editimage} width='8%' />
                                             </div>
                                         </div>
                                         <div className="form-group">
@@ -184,8 +189,7 @@ class CuisineManagement extends React.Component {
                                     <select className="form-control input-sm pull-right" style={{width: "150px"}}  onChange={(e) => this.onChange(e,this.state.allList)} value={this.state.value}>
                                         <option >Sort By</option>
                                         <option value="Alpha">Alphabetical</option>
-                                        <option value="latestAdded">Latest Added</option>
-                                        
+                                        <option value="latestAdded">Latest Added</option>                                        
                                     </select>
                                     <div className="clearfix"></div>
                                 </div>
@@ -205,10 +209,10 @@ class CuisineManagement extends React.Component {
                                             <tbody>
                                                     {this.state.allList.map((item,key) => {
                                                         return (
-                                                            <tr>
+                                                            <tr key={item.id} >
                                                                 <td>{key=key+1}</td>
                                                                 <td style = {{color: "#63abf5", cursor: "pointer"}} onClick={this.onOpenModal}>{item.cuisine_name}</td>
-                                                                <td>-</td>
+                                                                <td><img src={item.image} width="30px"/></td>
                                                                 <td>{moment(item.updated_at).format('Do MMMM YYYY | h:mm a')}</td>
                                                                 <td>
                                                                     <button className="btn btn-primary btn-xs" onClick={(e) => this.edit(item)}>Edit</button> &nbsp;
@@ -234,7 +238,7 @@ class CuisineManagement extends React.Component {
                                 <h4 className="modal-title"><strong>Restaurant List</strong></h4>
                             </div>
                             <div className="modal-body">
-                                <div className="form-group">
+                                <div className="form-group">                                    
                                     <div className="input-group">
                                         <input type="text" className="form-control input-sm" placeholder="Search Restaurant"/>
                                         <span className="input-group-addon" style={{background: "none" ,padding: '0px' ,border: '0px' ,paddingLeft: "5px"}}><button className="btn btn-primary btn-sm"><i className="fa fa-search"></i> Search</button></span>

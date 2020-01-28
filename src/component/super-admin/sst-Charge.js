@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Config from '../../config/Config'
 
 class SstCharge extends React.Component {
     constructor(props) {
@@ -7,15 +8,19 @@ class SstCharge extends React.Component {
         this.state = {
             restaurantData : [],
             value:'select',
+            check:'1'
         }
+        this.checkAll=this.checkAll.bind(this)
     }
 
     componentDidMount() {
-        axios.get(`http://posapp.younggeeks.net/posApi/api/restaurents`)
+        let Baseurl =`${Config.url}`
+        axios.get(Baseurl+`restaurents`)
         .then(response => {
             this.setState({
                 restaurantData:response.data.response.data
             })
+            //console.log(this.state.restaurantData)
         }).catch(error => {
             console.log(error)
         })
@@ -25,58 +30,72 @@ class SstCharge extends React.Component {
         this.setState({value : e.target.value})
         if(e.target.value === 'Yes') {
             list.sort((a,b) => {
-                console.log(a)
-                console.log(b)
-                return a.sst_number - b.sst_number  
+                return b.sst_status - a.sst_status  
             })
         }
         if(e.target.value === 'No') { 
             list.sort((a,b) => {
-                return b.sst_number - a.sst_number  
+                return a.sst_status - b.sst_status  
             })
         }
     }
 
+    checkAll(){
+        let checkeds = document.getElementsByName('ChargeSst'); 
+        if(this.state.check=='1'){
+            for (let i = 0; i < checkeds.length; i++) {
+                checkeds[i].checked = true;
+            }
+            this.setState({check:'2'})  
+        }
+        else{            
+            for (let i = 0; i < checkeds.length; i++) {
+                checkeds[i].checked = false;                 
+            }
+            this.setState({check:'1'})  
+        }
+
+    }
     render() {
         return (
             <div>
-                <div class="content-wrapper">
-                    <section class="content-header">
+                <div className="content-wrapper">
+                    <section className="content-header">
                         <h1>
                             SST Charge
-                            <input type="text" class="form-control input-sm pull-right" placeholder="SST Amount (%)" style={{width: "150px", display: "inline" ,margin_left: "10px"}}/>
-                            <select class="form-control input-sm pull-right" style={{width: "100px", display: "inline"}} onChange={(e) => this.onChange(e,this.state.restaurantData)}>
+                            <input type="text" className="form-control input-sm pull-right" placeholder="SST Amount (%)" name="SST" style={{width: "150px", display: "inline" ,margin_left: "10px"}}/>
+                            <select className="form-control input-sm pull-right" style={{width: "100px", display: "inline"}} onChange={(e) => this.onChange(e,this.state.restaurantData)}>
                                 <option>Sort By</option>
                                 <option>Yes</option>
                                 <option>No</option>
                             </select>
                         </h1>
                     </section>
-                    <section class="content">
-                        <div class="row">
-                            <div class="col-md-12 col-xs-12">
-                                <div class="clearfix"></div>
-                                <div class="thumbnail">
-                                    <div class="table-responsive">
-                                        <table class="table table-striped" style={{margin_bottom:"0px"}}>
+                    <section className="content">
+                        <div className="row">
+                            <div className="col-md-12 col-xs-12">
+                                <div className="clearfix"></div>
+                                <div className="thumbnail">
+                                    <div className="table-responsive">
+                                        <table className="table table-striped" style={{margin_bottom:"0px"}}>
                                             <thead>
-                                                <tr class="bg-info">
+                                                <tr className="bg-info">
                                                     <th>#</th>
                                                     <th>Restaurant Name</th>
                                                     <th>SST Registered</th>
                                                     <th>SST Registration Number</th>
-                                                    <th><input type="checkbox"/> Charge SST To Consumer</th>
+                                                    <th><input type="checkbox" onClick={this.checkAll}/> Charge SST To Consumer</th>
                                                 </tr>
                                             </thead>
                                             {this.state.restaurantData.map((item,index) => {
                                                 return (
-                                                    <tbody>
-                                                        <tr>
-                                                            <td key={index}>{index=index+1}</td>
+                                                    <tbody key={item.id}>
+                                                        <tr >
+                                                            <td >{index=index+1}</td>
                                                             <td>{item.restro_name}</td>
                                                             {item.sst_status === 0 ? <td>No</td> : <td>Yes</td>}
                                                             <td>{item.sst_number}</td>
-                                                            {item.charge_cust === null ? <td><input type="checkbox" defaultChecked={false}/></td> : <td><input type="checkbox" defaultChecked={true}/></td>}
+                                                            {item.charge_cust === null ? <td><input type="checkbox" name='ChargeSst' defaultChecked={false}/></td> : <td><input type="checkbox" name='ChargeSst'  defaultChecked={true}/></td>}
                                                         </tr>
                                                     </tbody>
                                                 )

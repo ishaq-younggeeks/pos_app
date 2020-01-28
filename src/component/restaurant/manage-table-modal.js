@@ -87,7 +87,7 @@ class ManageTableModal extends Component {
                                             <i className="fa fa-check text-success"></i> Take Away<br/>
                                         </td>
                                         <td>
-                                            <a href="javascript:void(0);" className="btn btn-danger btn-xs"><i className="fa fa-times"></i></a>
+                                            <a href="#" className="btn btn-danger btn-xs"><i className="fa fa-times"></i></a>
                                         </td>
                                     </tr>
                                     <tr>
@@ -101,7 +101,7 @@ class ManageTableModal extends Component {
                                             <i className="fa fa-times text-danger"></i> Take Away<br/>
                                         </td>
                                         <td>
-                                            <a href="javascript:void(0);" className="btn btn-danger btn-xs"><i className="fa fa-times"></i></a>
+                                            <a href="#" className="btn btn-danger btn-xs"><i className="fa fa-times"></i></a>
                                         </td>
                                     </tr>
                                     <tr>
@@ -115,7 +115,7 @@ class ManageTableModal extends Component {
                                             <i className="fa fa-check text-success"></i> Take Away<br/>
                                         </td>
                                         <td>
-                                            <a href="javascript:void(0);" className="btn btn-danger btn-xs"><i className="fa fa-times"></i></a>
+                                            <a href="#" className="btn btn-danger btn-xs"><i className="fa fa-times"></i></a>
                                         </td>
                                     </tr>
                                 </tbody>

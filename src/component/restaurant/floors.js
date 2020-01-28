@@ -377,7 +377,7 @@ class Floor extends Component {
                                           <div className="form-group">
                                               <label>Floor Name / Number</label>
                                               <div>
-                                                <input type="text" classNameName="form-control input-sm" placeholder="Floor Name / Number" name="floor" defaultValue={this.state.floor} onChange={this.onChangeHandler}/>
+                                                <input type="text" className="form-control input-sm" placeholder="Floor Name / Number" name="floor" defaultValue={this.state.floor} onChange={this.onChangeHandler}/>
                                               </div>
                                           </div>
                                       </div>
@@ -385,7 +385,7 @@ class Floor extends Component {
                                           <div className="form-group">
                                               <label>Number of Tables</label>
                                               <div>
-                                                <input type="text" classNameName="form-control input-sm" placeholder="Number of Table" name="numberOfTables" defaultValue={this.state.numberOfTables} onChange={this.onChangeHandler}/>
+                                                <input type="text" className="form-control input-sm" placeholder="Number of Table" name="numberOfTables" defaultValue={this.state.numberOfTables} onChange={this.onChangeHandler}/>
                                               </div>
                                           </div>
                                       </div>
@@ -393,7 +393,7 @@ class Floor extends Component {
                                           <div className="form-group">
                                               <label>Number of POS per Floor</label>
                                               <div>
-                                                <input type="text" classNameName="form-control input-sm" placeholder="Number of POS per Floor" name="numberOfPos" defaultValue={this.state.numberOfPos} onChange={this.onChangeHandler}/>
+                                                <input type="text" className="form-control input-sm" placeholder="Number of POS per Floor" name="numberOfPos" defaultValue={this.state.numberOfPos} onChange={this.onChangeHandler}/>
                                               </div>
                                           </div>
                                       </div>
@@ -404,11 +404,11 @@ class Floor extends Component {
                                                   <label className="checkbox-inline">
                                                     {this.state.floorNameChecked === 0 ? <input type="checkbox" defaultChecked onChange={this.toggleChangePOS}/>:<input type="checkbox" checked={this.state.isPOS} onChange={this.toggleChangePOS}/> }POS
                                                   </label>
-                                                  <label classNameName="checkbox-inline">
+                                                  <label className="checkbox-inline">
                                                     {this.state.noOfTableChecked === 0 || this.state.noOfTableChecked === 4 ? <input type="checkbox" defaultChecked onChange={this.toggleChangeBar}/> :<input type="checkbox" checked={this.state.isBar} onChange={this.toggleChangeBar}/>}Bar
                                                   </label>
                                                   <label
-                                                    classNameName="checkbox-inline"
+                                                    className="checkbox-inline"
                                                     style={{ marginRight: "10px" }}
                                                     >
                                                     {this.state.kitchenChecked === 0 || this.state.kitchenChecked === 4 || this.state.kitchenChecked === 8 ?<input type="checkbox" defaultChecked onChange={this.isKitchen}/>:<input type="checkbox" checked={this.state.isKitchen} onChange={this.toggleChangeKitchen}/>}Kitchen
