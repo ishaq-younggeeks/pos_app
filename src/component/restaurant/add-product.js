@@ -49,7 +49,6 @@ class AddProduct extends Component {
         let arr = feature.toString(); 
         let category =this.state.category;   
         let arr2 = JSON.stringify(category);  
-        console.log(arr2);
      
         let data = {
             name:this.state.name,
@@ -67,6 +66,7 @@ class AddProduct extends Component {
             addOns:['Extra Cheese1'],
             addOnsPrice:['50'],
             banner:'img.png',
+            
         }
         axios.post('http://posapp.younggeeks.net/posApi/api/add-product', data)
         .then((response) => {
