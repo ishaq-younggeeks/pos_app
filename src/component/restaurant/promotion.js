@@ -472,7 +472,6 @@ class Promotion extends Component {
                                     </tbody>
                                 </table>
                             </div>
-
                         </div>
 
                     </div>
