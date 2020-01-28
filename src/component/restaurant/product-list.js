@@ -31,9 +31,6 @@ class ProductList extends Component {
     }).catch((err) => console.log(err));
   }
 
-  deleteHandler = () => {
-
-  }
   render() {
     return (
       <div className="content-wrapper">

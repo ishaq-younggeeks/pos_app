@@ -24,7 +24,9 @@ class AddProduct extends Component {
             ToFormat: [],
             redirect: false,
             status:'',
-            counter:'',product_name:'',tags:''
+            counter:'',
+            product_name:'',
+            tags:''
         }
         this.onChange = this.onChange.bind(this);
         this.removeItem = this.removeItem.bind(this);
@@ -44,7 +46,7 @@ class AddProduct extends Component {
         event.preventDefault(); 
         let user_id = localStorage.getItem("userId");
         let feature =this.state.product_feature;       
-        let arr = feature.toString();  
+        let arr = feature.toString(); 
         let category =this.state.category;   
         let arr2 = JSON.stringify(category);  
         console.log(arr2);
