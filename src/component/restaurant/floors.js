@@ -4,7 +4,7 @@ import FloorLayout from './floor-layout'
 import Modal from "react-responsive-modal";
 import { PostData, GetData, EditData } from './services/postData.js';
 import axios from 'axios'
-import {Config} from '../../config/Config'
+import Config from '../../config/Config'
 
 class Floor extends Component {
   state = {
@@ -42,7 +42,7 @@ class Floor extends Component {
         redirect: false
       })
     }*/
-    axios.post("http://posapp.younggeeks.net/posApi/api/all-floor")
+    axios.post(`${Config.url}all-floor`)
       .then(res => {
         this.setState({
           floorData: res.data.data
@@ -141,7 +141,7 @@ class Floor extends Component {
   previewData = (myId) => {
     const type = "get_floor_detail";
     const id = myId
-    let BaseUrl = `http://posapp.younggeeks.net/posApi/api/${type}/${id}`
+    let BaseUrl = `${Config.url}${type}/${id}`
     axios({
       method:'post',
       url:BaseUrl,

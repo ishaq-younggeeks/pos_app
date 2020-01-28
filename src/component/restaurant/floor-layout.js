@@ -7,12 +7,37 @@ class FloorLayout extends Component {
         super(props);
         this.state = {
             // id:this.props.match.params.id,
-            floorData : []
+            floorData : [],
+            selectedKitchenItem:""
         }
     }
 
-  
-    componentDidMount(){
+   updateKitchenItem = (myData) => {
+       console.log("working...");
+       console.log(myData);
+       this.setState({selectedKitchenItem:myData});
+       console.log("state saved",this.state.selectedKitchenItem);
+   /* let x = document.getElementById("add-cuisine");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "none";
+    }
+    */
+   }
+
+   saveKitchenItem=(event) =>{
+  //  event.preventDefault();
+    console.log(this.state.selectedKitchenItem)
+  //  event.preventDefault();
+    var newCuisine = this.refs.kitchenitemName.value;
+    if (newCuisine) {
+      this.refs.cuisineForm.reset();
+    }
+    console.log(newCuisine);
+  }
+
+    componentDidMount() {
         EditData('get_floor_detail',this.state.id).then(res=>{
             //let responseBusiness = res;
         })
@@ -111,14 +136,78 @@ class FloorLayout extends Component {
                                                 return (
                                                     <tr className="three_tr">
                                                         <td style={{borderTop: '0px'}}>
-                                                        <button >{item}</button>
+                                                        <button onClick={() => this.updateKitchenItem(myData.indexOf(item))} data-toggle="modal" data-target="#add-cuisine">{item}</button>
                                                         </td>
                                                     </tr>
                                                 )
                                             })}
                                      </tbody>
                                     </table>
-                                </div>
+                                    <div
+                                    className="modal fade"
+                                    id="add-cuisine"
+                                    tabIndex="-1"
+                                    role="dialog"
+                                    aria-labelledby="myModalLabel"
+                                    aria-hidden="true"
+                                    >
+                                    <div className="modal-dialog">
+                                        <div className="modal-content">
+                                        <div className="modal-header">
+                                            <button
+                                            type="button"
+                                            className="close"
+                                            data-dismiss="modal"
+                                            aria-hidden="true"
+                                            >
+                                            &times;
+                                            </button>
+                                            <h4 className="modal-title">
+                                            <strong>Edit Kitchen item</strong>
+                                            </h4>
+                                        </div>
+                                        <form ref="cuisineForm" method="">
+                                            <div className="modal-body">
+                                            <div className="form-group">
+                                                <label className="col-sm-4 control-label">
+                                                New Item name:
+                                                </label>
+                                                <div className="col-sm-5">
+                                                <input
+                                                    type="text"
+                                                    className="form-control input-sm"
+                                                    ref="kitchenitemName"
+                                                    id="kitchenName"
+                                                    name="kitchenitemName"
+                                                    onChange={this.kitchenitemName}
+                                                    placeholder="Enter new name"
+                                                />
+                                                </div>
+                                            </div>
+                                            <div className="form-group">
+                                                <label className="col-sm-4 control-label"></label>
+                                                <div className="col-sm-5">
+                                                <button
+                                                    type="button"
+                                                    className="btn btn-primary btn-sm"
+                                                    onClick={() => this.saveKitchenItem()}
+                                                >
+                                                    Submit
+                                                </button>
+                                                </div>
+                                            </div>
+                                            </div>
+                                        </form>
+                                        <div
+                                            className="modal-footer"
+                                            style={{ textAlign: "left" }}
+                                        >
+                                            
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                                    </div>
                                 <div className="col-md-3">
                                     <div className="clearfix"></div><br/>
                                     <table className="table">
@@ -169,6 +258,7 @@ class FloorLayout extends Component {
                                 </div>
                                 <div className="clearfix"></div>
                             </div>
+                            
                         </div>
                     </div>
                 </section>

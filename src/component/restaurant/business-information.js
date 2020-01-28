@@ -6,6 +6,8 @@ import { Redirect } from "react-router-dom";
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
+import Config from './../../config/Config';
+
 var add_cuisine = [];
 mapboxgl.accessToken = 'pk.eyJ1IjoidW1tZWVzaGt1bWFyIiwiYSI6ImNrMm9qcXkxczBnbWMzbXA1eWY2ZjIxenMifQ.Ao8swUOKC8QRSwgAIOl3EQ';
 class BusinessInformation extends Component {
@@ -202,6 +204,7 @@ class BusinessInformation extends Component {
       });
       console.log(res.response.data[0]);
       console.log(this.state);
+      
     });
   }
 
@@ -384,7 +387,7 @@ class BusinessInformation extends Component {
     console.log(this.state);
     axios
       .post(
-        "http://posapp.younggeeks.net/posApi/api/add-restaurent",
+        `${Config.url}add-restaurent`,
         this.state
       )
       .then(res => console.log("dffffffffff",res))
