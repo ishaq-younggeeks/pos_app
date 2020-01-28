@@ -91,18 +91,21 @@ class CuisineManagement extends React.Component {
         }
     }
 
-    deleteList = (id) => {
-         let BaseUrl=`${Config.url}`
-
-        axios.post(BaseUrl+`${id}`)
-        .then(res => {
-            console.log(res)
-            if(res.status === 200) {
-                window.location.reload();
-            }
-        }).catch(err => {
-            console.log(err)
-        })
+    deleteList = (item) => {
+        deleteList = (item) => {
+            let BaseUrl=`${Config.url}`
+            let type = "delete-cuisine"
+            console.log(item.id)
+            axios.post(BaseUrl+type+'/'+item.id)
+            .then(res => {
+                console.log(res)
+                if(res.status === 200) {
+                    window.location.reload();
+                }
+            }).catch(err => {
+                console.log(err)
+            })
+        }
     }
 
     edit = (item) => {
