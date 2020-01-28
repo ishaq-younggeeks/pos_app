@@ -1,0 +1,122 @@
+                <div class="modal fade" id="manage-table" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{zIndex: "10000"}}>
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title"><strong>Manage Floor</strong></h4>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#" method="">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Floor Name / Number</label>
+                                        <div>
+                                            <input type="text" class="form-control input-sm" placeholder="Table Number"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Number of Tables</label>
+                                        <div>
+                                            <input type="text" class="form-control input-sm" placeholder="Number of Tables"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Number of POS per Floor</label>
+                                        <div>
+                                            <input type="text" class="form-control input-sm" placeholder="Number of POS per Floor"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label></label>
+                                        <div>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox"/> POS
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox"/> Bar
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox"/> Kitchen
+                                            </label>
+                                            <label class="checkbox-inline">
+                                                <input type="checkbox"/> Drink
+                                            </label>
+                                            <label class="checkbox-inline" style={{marginLeft: "0px"}}>
+                                                <input type="checkbox"/> Take Away
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer" style="text-align: center;">
+                                <button type="submit" class="btn btn-primary btn-sm">Save</button>
+                            </div>
+                        </form>
+                        <div class="table-responsive thumbnail" style="margin-bottom: 0px;">
+                            <table class="table table-condensed table-striped" style={{marginBottom: "0px">
+                                <thead>
+                                    <tr>
+                                        <th>Floor Name / Number</th>
+                                        <th>Number of Tables</th>
+                                        <th>Number of POS per Floor</th>
+                                        <th></th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Floor 1</td>
+                                        <td>20</td>
+                                        <td>2</td>
+                                        <td>
+                                            <i class="fa fa-check text-success"></i> POS<br/>
+                                            <i class="fa fa-check text-success"></i> Bar<br/>
+                                            <i class="fa fa-check text-success"></i> Kitchen<br/>
+                                            <i class="fa fa-check text-success"></i> Take Away<br/>
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0);" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Floor 2</td>
+                                        <td>20</td>
+                                        <td>2</td>
+                                        <td>
+                                            <i class="fa fa-check text-success"></i> POS<br/>
+                                            <i class="fa fa-check text-success"></i> Bar<br/>
+                                            <i class="fa fa-check text-success"></i> Kitchen<br/>
+                                            <i class="fa fa-times text-danger"></i> Take Away<br/>
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0);" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Floor 3</td>
+                                        <td>20</td>
+                                        <td>2</td>
+                                        <td>
+                                            <i class="fa fa-check text-success"></i> POS<br/>
+                                            <i class="fa fa-check text-success"></i> Bar<br/>
+                                            <i class="fa fa-times text-danger"></i> Kitchen<br/>
+                                            <i class="fa fa-check text-success"></i> Take Away<br/>
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0);" class="btn btn-danger btn-xs"><i class="fa fa-times"></i></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

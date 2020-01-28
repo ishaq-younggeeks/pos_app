@@ -1,0 +1,24 @@
+.three_tr
+{
+    float: left;
+    width: 14%;
+}
+.three_tr button
+{
+    width: 53px;
+    padding: 15px;
+    background-color: #4472c8;
+    border: 1px #305186 solid;
+    color: #fff;
+    text-align: center;
+    font-weight: bold;
+    font-size: 18px;
+}
+.float-right
+{
+    float: right;
+}
+.first_tr button
+{
+    width: 95.2%!important;
+}
