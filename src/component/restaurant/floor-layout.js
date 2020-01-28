@@ -15,8 +15,7 @@ class FloorLayout extends Component {
     componentDidMount(){
         EditData('get_floor_detail',this.state.id).then(res=>{
             //let responseBusiness = res;
-        })
-        
+        })  
     }
 
     // createSquares = (data) => {
@@ -27,18 +26,17 @@ class FloorLayout extends Component {
     //             <tr className="three_tr">
     //                 <td style={{borderTop: '0px'}}><button className="resizeDiv">{i}</button></td>
     //             </tr>
-    //         )
-          
-          
+    //         )      
     //     }
     //     return rows;
     // }
+
     render() {
         let myData = []
         let Data = (this.props.floorLayData)
-            for(let i = 1 ;i <= Data.num_table;i++ ) {
-                myData.push(i)
-            }
+        for(let i = 1 ;i <= Data.num_table;i++ ) {
+            myData.push(i)
+        }
         const resizeDiv = {
             width:'100%',
             padding:'15px',
@@ -106,12 +104,11 @@ class FloorLayout extends Component {
                                             </td>
                                         </tr>
                                             {/* {this.createSquares(this.props.floorLayData)} */}
-                                     
                                             {myData.map((item) => {
                                                 return (
-                                                    <tr className="three_tr">
+                                                    <tr className="three_tr" key={item}>
                                                         <td style={{borderTop: '0px'}}>
-                                                        <button >{item}</button>
+                                                        <button>{item}</button>
                                                         </td>
                                                     </tr>
                                                 )
@@ -142,7 +139,7 @@ class FloorLayout extends Component {
                                         </tbody>
                                     </table>
                                     <div className="col-md-3">
-                                        <button class="fa fa-arrow-left" style={{fontSize:"18px", color:"rgb(68, 114, 200)", background:"none", border:"none", fontWeight:"bold", marginLeft:"30px", paddingBottom:"20px" }}onClick= {() => this.props.toggle()}>Back</button>
+                                        <button className="fa fa-arrow-left" style={{fontSize:"18px", color:"rgb(68, 114, 200)", background:"none", border:"none", fontWeight:"bold", marginLeft:"30px", paddingBottom:"20px" }}onClick= {() => this.props.toggle()}>Back</button>
                                         </div>
                                     {/* <div className="col-md-10">
                                     <table className="table">
