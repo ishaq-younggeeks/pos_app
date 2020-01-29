@@ -8,7 +8,8 @@ class FloorLayout extends Component {
         this.state = {
             // id:this.props.match.params.id,
             floorData : [],
-            selectedKitchenItem:""
+            selectedKitchenItem:"",
+            new_name:""
         }
     }
 
@@ -17,7 +18,7 @@ class FloorLayout extends Component {
        console.log(myData);
        this.setState({selectedKitchenItem:myData});
        console.log("state saved",this.state.selectedKitchenItem);
-   /* let x = document.getElementById("add-cuisine");
+   /* let x = document.getElementById("edit-kitchen");
     if (x.style.display === "none") {
       x.style.display = "block";
     } else {
@@ -30,13 +31,14 @@ class FloorLayout extends Component {
   //  event.preventDefault();
     console.log(this.state.selectedKitchenItem)
   //  event.preventDefault();
-    var newCuisine = this.refs.kitchenitemName.value;
-    if (newCuisine) {
-      this.refs.cuisineForm.reset();
+    var newKitchen_item = this.refs.kitchenitemName.value;
+    if (newKitchen_item) {
+        this.setState({new_name:newKitchen_item})
+      this.refs.kitchenForm.reset();
     }
-    console.log(newCuisine);
   }
-
+    
+    
     componentDidMount() {
         EditData('get_floor_detail',this.state.id).then(res=>{
             //let responseBusiness = res;
@@ -63,6 +65,10 @@ class FloorLayout extends Component {
         let Data = (this.props.floorLayData)
             for(let i = 1 ;i <= Data.num_table;i++ ) {
                 myData.push(i)
+            }
+            if(this.state.new_name!=""){
+                myData[this.state.selectedKitchenItem]=this.state.new_name;
+                this.state.new_name="";
             }
         const resizeDiv = {
             width:'100%',
@@ -136,7 +142,7 @@ class FloorLayout extends Component {
                                                 return (
                                                     <tr className="three_tr">
                                                         <td style={{borderTop: '0px'}}>
-                                                        <button onClick={() => this.updateKitchenItem(myData.indexOf(item))} data-toggle="modal" data-target="#add-cuisine">{item}</button>
+                                                        <button onClick={() => this.updateKitchenItem(myData.indexOf(item))} data-toggle="modal" data-target="#edit-kitchen">{item}</button>
                                                         </td>
                                                     </tr>
                                                 )
@@ -145,7 +151,7 @@ class FloorLayout extends Component {
                                     </table>
                                     <div
                                     className="modal fade"
-                                    id="add-cuisine"
+                                    id="edit-kitchen"
                                     tabIndex="-1"
                                     role="dialog"
                                     aria-labelledby="myModalLabel"
@@ -166,7 +172,7 @@ class FloorLayout extends Component {
                                             <strong>Edit Kitchen item</strong>
                                             </h4>
                                         </div>
-                                        <form ref="cuisineForm" method="">
+                                        <form ref="kitchenForm" method="">
                                             <div className="modal-body">
                                             <div className="form-group">
                                                 <label className="col-sm-4 control-label">

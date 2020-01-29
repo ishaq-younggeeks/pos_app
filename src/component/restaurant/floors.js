@@ -112,7 +112,7 @@ class Floor extends Component {
           floorLayoutData:data
         })
       }
-    axios.post("http://posapp.younggeeks.net/posApi/api/add_floor", data).then((res) => {
+    axios.post(`${Config.url}add_floor`, data).then((res) => {
       console.log(res)
       window.location.reload();
       this.setState({

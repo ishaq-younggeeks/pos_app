@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import $ from "jquery";
 import { PostData, GetData, EditData } from './services/postData.js';
 import axios from 'axios'
+import Config from './../../config/Config';
 
 var category = [];
 var add_modifier = [];
@@ -66,7 +67,7 @@ class AddProduct extends Component {
             addOnsPrice:['50'],
             banner:'img.png',
         }
-        axios.post('http://posapp.younggeeks.net/posApi/api/add-product', data)
+        axios.post(`${Config.url}add-product`, data)
         .then((response) => {
             window.location.reload(false);
             //Perform action based on response

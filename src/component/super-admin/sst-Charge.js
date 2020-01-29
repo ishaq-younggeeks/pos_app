@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Config from './../../config/Config'
 
 class SstCharge extends React.Component {
     constructor(props) {
@@ -11,7 +12,7 @@ class SstCharge extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`http://posapp.younggeeks.net/posApi/api/restaurents`)
+        axios.get(`${Config.url}restaurents`)
         .then(response => {
             this.setState({
                 restaurantData:response.data.response.data

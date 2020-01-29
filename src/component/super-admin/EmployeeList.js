@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import AddEmployee from './AddEmployee'
 import axios from 'axios'
+import Config from './../../config/Config'
 
 class EmployeesList extends Component {
     constructor(props) {
@@ -15,7 +16,7 @@ class EmployeesList extends Component {
     }
 
     componentDidMount() {
-        axios.get(`http://posapp.younggeeks.net/posApi/api/all-superemp`)
+        axios.get(`${Config.url}all-superemp`)
         .then(response => {
             this.setState({empList:response.data.data})
         }) .catch (error => {
@@ -30,7 +31,7 @@ class EmployeesList extends Component {
     }
 
     deleteList = (emp_id) => {
-        axios.post(`http://posapp.younggeeks.net/posApi/api/delete-superemp/${emp_id}`)
+        axios.post(`${Config.url}delete-superemp/${emp_id}`)
         .then(res => {
             console.log(res)
             if(res.status === 200) {
@@ -42,7 +43,7 @@ class EmployeesList extends Component {
     }
 
     editList = (emp_id,data,name) => {
-        let BaseUrl = `http://posapp.younggeeks.net/posApi/api/edit-superemp/${emp_id}`;
+        let BaseUrl = `${Config.url}edit-superemp/${emp_id}`;
         axios({
             method:'post',
             url:BaseUrl,

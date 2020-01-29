@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 import $ from 'jquery';
-
+import {Config} from './../../config/Config'
 class AddEmployee extends React.Component {
     constructor(props) {
     super(props)
@@ -36,7 +36,7 @@ class AddEmployee extends React.Component {
             }
             console.log(addData)
             const type = "add-superemp"
-            let BaseUrl = `http://posapp.younggeeks.net/posApi/api/${type}`;
+            let BaseUrl = `${Config.url}${type}`;
             axios({
             method:'post',
             url:BaseUrl,

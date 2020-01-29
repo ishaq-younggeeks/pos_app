@@ -4,6 +4,7 @@ import $ from 'jquery';
 import moment from 'moment';
 import RestaurantList from './restaurantList'
 import Modal from "react-responsive-modal";
+import Config from './../../config/Config'
 
 class CuisineManagement extends React.Component {
     constructor(props) {
@@ -47,7 +48,7 @@ class CuisineManagement extends React.Component {
                 }
             }
         const type = "add-cuisine"
-        let BaseUrl = `http://posapp.younggeeks.net/posApi/api/${type}`;
+        let BaseUrl = `${Config.url}${type}`;
         axios({
             method:'post',
             url:BaseUrl,
@@ -62,7 +63,7 @@ class CuisineManagement extends React.Component {
     }
 
     componentDidMount() {
-        axios.get(`http://posapp.younggeeks.net/posApi/api/all-cuisine`)
+        axios.get(`${Config.url}all-cuisine`)
         .then(response => {
             this.setState({allList:response.data.response.data})
         }) .catch (error => {
@@ -91,7 +92,7 @@ class CuisineManagement extends React.Component {
     }
 
     deleteList = (id) => {
-        axios.post(`http://posapp.younggeeks.net/posApi/api/delete-cuisine/${id}`)
+        axios.post(`${Config.url}delete-cuisine/${id}`)
         .then(res => {
             console.log(res)
             if(res.status === 200) {

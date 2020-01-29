@@ -138,7 +138,7 @@ class Promotion extends Component {
         //             }
         //         }
         //     const type = "add-cuisine"
-        //     let BaseUrl = `http://posapp.younggeeks.net/posApi/api/${type}`;
+        //     let BaseUrl = `${Config.url}${type}`;
         //     axios({
         //         method:'post',
         //         url:BaseUrl,
@@ -262,7 +262,7 @@ class Promotion extends Component {
           image : data.image,
           pro_id : data.pro_id
         }
-        let BaseUrl = `http://posapp.younggeeks.net/posApi/api/${type}/${id}`
+        let BaseUrl = `${Config.url}${type}/${id}`
         axios({
           method:'post',
           url:BaseUrl,

@@ -4,10 +4,10 @@ import {Config} from '../../../config/Config'
 export function PostData(type, userData) {
   console.log(type)
   console.log(userData)
-  // http://posapp.younggeeks.net/posApi/api/add-restaurent
+  // ${Config.url}add-restaurent
   return new Promise((resolve, reject) => {
     let BaseUrl = `${Config.url}`
-    // let BaseUrl = "http://posapp.younggeeks.net/posApi/api/";
+    // let BaseUrl = `${Config.url}`;
     fetch(BaseUrl + type, {
       method: "POST",
       body: JSON.stringify(userData),
@@ -126,7 +126,7 @@ export function EditData(type, id ) {
 //     date_to : data.date_to,
 //     image : data.image
 //   }
-//   let BaseUrl = `http://posapp.younggeeks.net/posApi/api/${type}/${id}`
+//   let BaseUrl = `${Config.url}${type}/${id}`
 //   axios({
 //     method:'post',
 //     url:BaseUrl,
