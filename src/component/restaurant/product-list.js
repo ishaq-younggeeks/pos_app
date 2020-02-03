@@ -13,7 +13,7 @@ class ProductList extends Component {
   componentDidMount() {
     GetData("all-product").then(res => {
       // 
-      
+      console.log("all product list ",res);
       if (res.data) {
         this.setState({
           allData: res.data,

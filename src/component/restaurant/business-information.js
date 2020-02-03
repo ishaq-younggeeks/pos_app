@@ -1996,14 +1996,14 @@ class BusinessInformation extends Component {
                                   border: "0px",
                                   width: "10%",
                                   float: "left",
-                                  fontSize: "12px"
+                                  fontSize: "12px",
                                 }}
                               >
                                 To
                               </span>
                               <input
-                                type="text"
-                                style={{ width: "23%", float: "left" }}
+                                type="time"
+                                style={{ width: "44%", float: "left" }}
                                 className="form-control input-sm"
                                 placeholder="Hour"
                                 name="mon_timing_to"
@@ -2013,7 +2013,7 @@ class BusinessInformation extends Component {
                                 value={this.state.mon_timing_to}
                                 onChange={this.onChange}
                               />
-                              <select
+                              {/*<select
                                 name="mon_to_format"
                                 style={{ width: "22%", float: "left" }}
                                 onChange={this.onChange}
@@ -2026,7 +2026,7 @@ class BusinessInformation extends Component {
                                 <option disabled value=""></option>
                                 <option value="AM">AM</option>
                                 <option value="PM">PM</option>
-                              </select>
+                              </select>*/}
                             </div>
                             <div>
                               <table style={{ width: "45%", float: "left" }}>
@@ -2088,8 +2088,8 @@ class BusinessInformation extends Component {
                           <div style={{ width: "100%", float: "left" }}>
                             <div style={{ width: "90%", float: "left" }}>
                               <input
-                                type="text"
-                                style={{ width: "22%", float: "left" }}
+                                type="time"
+                                style={{ width: "45%", float: "left" }}
                                 className="form-control input-sm"
                                 placeholder="Hour"
                                 name="tues_timing_from"
@@ -2099,7 +2099,7 @@ class BusinessInformation extends Component {
                                 onChange={this.onChange}
                                 value={this.state.tues_timing_from}
                               />
-                              <select
+                              {/*<select
                                 name="tues_from_format"
                                 style={{ width: "23%", float: "left" }}
                                 onChange={this.onChange}
@@ -2112,7 +2112,7 @@ class BusinessInformation extends Component {
                                 <option selected disabled value=""></option>
                                 <option value="AM">AM</option>
                                 <option value="PM">PM</option>
-                              </select>
+                              </select>*/}
                               <span
                                 className="input-group-addon"
                                 style={{
@@ -2125,8 +2125,8 @@ class BusinessInformation extends Component {
                                 To
                               </span>
                               <input
-                                type="text"
-                                style={{ width: "23%", float: "left" }}
+                                type="time"
+                                style={{ width: "44%", float: "left" }}
                                 className="form-control input-sm"
                                 placeholder="Hour"
                                 name="tues_timing_to"
@@ -2136,8 +2136,8 @@ class BusinessInformation extends Component {
                                 onChange={this.onChange}
                                 value={this.state.tues_timing_to}
                               />
-                              <select
-                                name="tues_to_format"
+                             {/* <select
+                              name="tues_to_format"
                                 style={{ width: "22%", float: "left" }}
                                 onChange={this.onChange}
                                 className="form-control input-sm"
@@ -2149,7 +2149,7 @@ class BusinessInformation extends Component {
                                 <option selected disabled value=""></option>
                                 <option value="AM">AM</option>
                                 <option value="PM">PM</option>
-                              </select>
+                              </select>*/}
                             </div>
                             <div>
                               <table style={{ width: "45%", float: "left" }}>

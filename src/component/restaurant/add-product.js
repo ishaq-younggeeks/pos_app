@@ -11,13 +11,18 @@ class AddProduct extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            name:'',
+            eating_opt:'',
+            product_feature:[],
+            description:'',
+            price:'',
             banner: [],
             fromtime: '',
             totime: '',
             from_format: '',
             to_format: '',
             bannerError: '',
-            category: category,
+            category: [],
             add_modifier: add_modifier,
             FromValues: [],
             ToValues: [],
@@ -25,7 +30,11 @@ class AddProduct extends Component {
             ToFormat: [],
             redirect: false,
             status:'',
-            counter:'',product_name:'',tags:''
+            counter:'',
+            product_name:'',
+            tags:'',
+            modifier:'',
+            id:0
         }
         this.onChange = this.onChange.bind(this);
         this.removeItem = this.removeItem.bind(this);
@@ -44,32 +53,39 @@ class AddProduct extends Component {
     productSave(event) {
         event.preventDefault(); 
         let user_id = localStorage.getItem("userId");
-        let feature =this.state.product_feature;       
-        let arr = feature.toString();  
-        let category =this.state.category;   
-        let arr2 = JSON.stringify(category);  
+      //  let feature =this.state.product_feature;       
+       // let arr = feature.toString();  
+       // let category =this.state.category;   
+       // let arr2 = JSON.stringify(category);  
         
      
         let data = {
             name:this.state.name,
             user_id,
             eating_opt:this.state.eating_opt,
-            product_feature:arr,
+            product_feature:`${this.state.product_feature}`,
             description:this.state.description,
-            category:arr2,
+            category:`${this.state.category}`,
             price:this.state.price,
             counter:this.state.counter,
             status:this.state.status,
             tags:this.state.tags,
-            fromtime:this.state.fromtime+' '+this.state.from_format,
-            totime:this.state.totime+' '+this.state.to_format,
-            addOns:['Extra Cheese1'],
-            addOnsPrice:['50'],
-            banner:'img.png',
+            //fromtime:this.state.fromtime+' '+this.state.from_format,
+            fromtime:this.state.fromtime,
+            //totime:this.state.totime+' '+this.state.to_format,
+            totime:this.state.totime,
+            //addOns:['Extra Cheese1'],
+            //addOnsPrice:['50'],
+            banner:this.state.banner,
+            modifier:'some data',
+            id:this.state.id
         }
-        axios.post(`${Config.url}add-product`, data)
-        .then((response) => {
-            window.location.reload(false);
+        console.log("data sending",data);
+        let myJSON = JSON.stringify(data);
+       // console.log("dataa",myJSON);
+        axios.post(`${Config.url}add-product1`, data)
+        .then((response) => {console.log(response)
+            //window.location.reload(false);
             //Perform action based on response
         }) 
         .catch(error => {
@@ -263,9 +279,29 @@ class AddProduct extends Component {
                     checkedEating.push(checkeds[i].value);
                 }
             }
+            
             values = checkedEating;
         }
+        else if (e.target.type === 'time') {
+            console.log("hitting")
+            var times = {}, re = /^\d+(?=:)/;
+
+            for (let i = 13, n = 1; i < 24; i++, n++) {
+                times[i] = n < 10 ? "0" + n : n
+                }
+
+                
+                var time = e.traget.value
+                , value = time.value
+                , match = value.match(re)[0];
+                let new_time=
+                (match && match >= 13 ? value.replace(re, times[match]) : value)
+                + (time.valueAsDate.getTime() < 43200000 ? " AM" : " PM")
+                values=new_time;
+                console.log("hitting",values)
+        }
         this.setState({ [e.target.name]: values })
+        console.log("values data",this.state);
     }
     render() {
         if (this.state.redirect) {
@@ -567,11 +603,11 @@ class AddProduct extends Component {
                                                     <div className="col-md-9 padnoneright">
                                                         <div className="input-group input-group-sm" style={{ width: '100%', float: 'left' }}>
                                                             <span className="input-group-addon">From</span>
-                                                            <input type="text" style={{ width: '22%', float: 'left' }} name="fromtime" className="form-control" placeholder="Hour" onChange={this.onChange} />
-                                                            <select name="from_format" style={{ width: '23%', float: 'left' }} onChange={this.onChange} className="form-control input-sm"><option selected disabled value=""></option><option value="AM">AM</option><option value="PM">PM</option></select>
+                                                            <input type="time" style={{ width: '45%', float: 'left' }} name="fromtime" className="form-control without_ampm" placeholder="Hour" onChange={this.onChange} />
+                                                {/*<select name="from_format" style={{ width: '13%', float: 'left' }} onChange={this.onChange} className="form-control input-sm"><option selected disabled value=""></option><option value="AM">AM</option><option value="PM">PM</option></select>*/}
                                                             <span className="input-group-addon" style={{ border: '0px', width: '10%', float: 'left', fontSize: '12px' }}>To</span>
-                                                            <input type="text" style={{ width: '23%', float: 'left' }} name="totime" className="form-control" placeholder="Hour" onChange={this.onChange} />
-                                                            <select name="to_format" style={{ width: '22%', float: 'left' }} onChange={this.onChange} className="form-control input-sm"><option selected disabled value=""></option><option value="AM">AM</option><option value="PM">PM</option></select>
+                                                            <input type="time" style={{ width: '45%', float: 'left' }} name="totime" className="form-control" placeholder="Hour" onChange={this.onChange} />
+                                                            {/*<select name="to_format" style={{ width: '22%', float: 'left' }} onChange={this.onChange} className="form-control input-sm"><option selected disabled value=""></option><option value="AM">AM</option><option value="PM">PM</option></select>*/}
                                                         </div>
                                                         <div>
                                                             <table style={{ width: '45%', float: 'left', marginLeft: '49px' }}>
