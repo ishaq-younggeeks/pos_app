@@ -4,11 +4,7 @@ import $ from 'jquery';
 import moment from 'moment';
 import RestaurantList from './restaurantList'
 import Modal from "react-responsive-modal";
-<<<<<<< HEAD
-import {Config} from '../../config/Config'
-=======
 import Config from './../../config/Config'
->>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
 
 class CuisineManagement extends React.Component {
     constructor(props) {
@@ -52,13 +48,8 @@ class CuisineManagement extends React.Component {
                     image : this.state.myImage
                 }
             }
-<<<<<<< HEAD
-        const type = "add-cuisine"        
-        let BaseUrl = `${Config.url}`;
-=======
         const type = "add-cuisine"
         let BaseUrl = `${Config.url}${type}`;
->>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
         axios({
             method:'post',
             url:BaseUrl+type,
@@ -71,12 +62,7 @@ class CuisineManagement extends React.Component {
     }
 
     componentDidMount() {
-<<<<<<< HEAD
-        let BaseUrl=`${Config.url}`
-        axios.get(BaseUrl+`all-cuisine`)
-=======
         axios.get(`${Config.url}all-cuisine`)
->>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
         .then(response => {
             this.setState({allList:response.data.response.data})
         }) .catch (error => {
@@ -104,23 +90,6 @@ class CuisineManagement extends React.Component {
         }
     }
 
-<<<<<<< HEAD
-    deleteList = (item) => {
-        deleteList = (item) => {
-            let BaseUrl=`${Config.url}`
-            let type = "delete-cuisine"
-            console.log(item.id)
-            axios.post(BaseUrl+type+'/'+item.id)
-            .then(res => {
-                console.log(res)
-                if(res.status === 200) {
-                    window.location.reload();
-                }
-            }).catch(err => {
-                console.log(err)
-            })
-        }
-=======
     deleteList = (id) => {
         axios.post(`${Config.url}delete-cuisine/${id}`)
         .then(res => {
@@ -131,7 +100,6 @@ class CuisineManagement extends React.Component {
         }).catch(err => {
             
         })
->>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
     }
 
     edit = (item) => {
