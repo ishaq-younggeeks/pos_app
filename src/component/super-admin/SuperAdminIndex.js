@@ -40,7 +40,7 @@ class SuperAdminIndex extends React.Component {
 }
 
   render() {
-    console.log("shfkdshfkshdfkhsdhfkshdfkhdsh",this.state.user)
+    
     return (
       <div className="skin-blue sidebar-mini">
        { this.state.user === 'superadmin' ? <div className="wrapper">

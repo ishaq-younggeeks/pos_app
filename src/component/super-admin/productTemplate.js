@@ -15,7 +15,7 @@ class ProductTemplate extends React.Component {
 
     componentDidMount(){
         GetData('getproducttemplate').then((result) => {
-            console.log(result)
+            
             this.setState({productData:result.data})
             this.setState({modalData:result.data.view})
         })
@@ -26,7 +26,7 @@ class ProductTemplate extends React.Component {
     }
 
     render() {
-        console.log(this.state.modalData)
+        
         return (
             <div>
                 <div className="content-wrapper">
@@ -62,7 +62,7 @@ class ProductTemplate extends React.Component {
                                             </thead>
                                             <tbody>
                                                 {/* {this.state.productData.map((item,index) => {
-                                                    console.log(item)
+                                                    
                                                     return (
                                                         <div> */}
                                                             <tr>

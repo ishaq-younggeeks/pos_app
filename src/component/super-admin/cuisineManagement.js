@@ -4,7 +4,11 @@ import $ from 'jquery';
 import moment from 'moment';
 import RestaurantList from './restaurantList'
 import Modal from "react-responsive-modal";
+<<<<<<< HEAD
 import {Config} from '../../config/Config'
+=======
+import Config from './../../config/Config'
+>>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
 
 class CuisineManagement extends React.Component {
     constructor(props) {
@@ -48,8 +52,13 @@ class CuisineManagement extends React.Component {
                     image : this.state.myImage
                 }
             }
+<<<<<<< HEAD
         const type = "add-cuisine"        
         let BaseUrl = `${Config.url}`;
+=======
+        const type = "add-cuisine"
+        let BaseUrl = `${Config.url}${type}`;
+>>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
         axios({
             method:'post',
             url:BaseUrl+type,
@@ -57,17 +66,21 @@ class CuisineManagement extends React.Component {
         }).then((res) => {  
             console.log(res)
         }).catch((err) => {
-            console.log(err)
+            
         })
     }
 
     componentDidMount() {
+<<<<<<< HEAD
         let BaseUrl=`${Config.url}`
         axios.get(BaseUrl+`all-cuisine`)
+=======
+        axios.get(`${Config.url}all-cuisine`)
+>>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
         .then(response => {
             this.setState({allList:response.data.response.data})
         }) .catch (error => {
-            console.log(error)
+            
         })
     }
 
@@ -86,11 +99,12 @@ class CuisineManagement extends React.Component {
             }else{
                 
                 this.setState({LogoImageError:'File is too big'})
-                console.log("File is too big");
+                
             }
         }
     }
 
+<<<<<<< HEAD
     deleteList = (item) => {
         deleteList = (item) => {
             let BaseUrl=`${Config.url}`
@@ -106,6 +120,18 @@ class CuisineManagement extends React.Component {
                 console.log(err)
             })
         }
+=======
+    deleteList = (id) => {
+        axios.post(`${Config.url}delete-cuisine/${id}`)
+        .then(res => {
+            
+            if(res.status === 200) {
+                window.location.reload();
+            }
+        }).catch(err => {
+            
+        })
+>>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
     }
 
     edit = (item) => {

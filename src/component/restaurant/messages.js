@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 
 class Message extends Component {
-    render(){
+   render(){
         const textCenter = {
             background: '#1c1a22',
             color: '#fff',

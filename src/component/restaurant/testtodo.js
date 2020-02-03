@@ -168,7 +168,7 @@ removeClick(i){
 handleSubmit(event) {
   //alert('A name was submitted: ' + this.state.values.join(', '));
   event.preventDefault();
-  console.log(this.state);
+  
 }
 
 render(){

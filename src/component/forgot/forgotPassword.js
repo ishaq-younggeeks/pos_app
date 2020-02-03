@@ -48,11 +48,11 @@ class ForgotPassword extends Component {
         if(this.state.email){
             PostData('send-otp', this.state).then((result) => {
                 let responseJson = result;
-                console.log(responseJson);
-                console.log(responseJson.response.result);
+                
+                
                 this.setState({emailMsg:responseJson.response.msg});
                 this.setState({emailResult:responseJson.response.result});
-                if(this.state.emailResult=='1'){
+                if(this.state.emailResult==='1'){
                     this.setState( {otpdisabled: !this.state.otpdisabled} );
                 }
             });
@@ -62,10 +62,10 @@ class ForgotPassword extends Component {
         if(this.state.otp){
             PostData('confirm-otp', this.state).then((result) => {
                 let responseJson = result;
-                console.log(responseJson);
+                
                 this.setState({otpMsg:responseJson.response.msg});
                 this.setState({otpResult:responseJson.response.result});
-                if(this.state.otpResult=='1'){
+                if(this.state.otpResult==='1'){
                     this.setState( {disabled: !this.state.disabled} );
                 }
             });
@@ -75,10 +75,10 @@ class ForgotPassword extends Component {
         if(this.state.password && this.state.conf_password){
             PostData('change-pass', this.state).then((result) => {
                 let responseJson = result;
-                console.log(responseJson);
+                
                 this.setState({successMsg:responseJson.response.msg});
                 this.setState({successResult:responseJson.response.result});
-                if(this.state.successResult=='1'){
+                if(this.state.successResult==='1'){
                     this.setState( {disabled: !this.state.disabled} );
                     this.setState( {otpdisabled: !this.state.otpdisabled} );
                 }

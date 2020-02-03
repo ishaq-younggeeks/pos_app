@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom';
 import $ from "jquery";
 import { PostData, GetData, EditData } from './services/postData.js';
 import axios from 'axios'
+import Config from './../../config/Config';
 
 var category = [];
 var add_modifier = [];
@@ -49,6 +50,7 @@ class AddProduct extends Component {
         let arr = feature.toString(); 
         let category =this.state.category;   
         let arr2 = JSON.stringify(category);  
+        
      
         let data = {
             name:this.state.name,
@@ -68,25 +70,24 @@ class AddProduct extends Component {
             banner:'img.png',
             
         }
-        axios.post('http://posapp.younggeeks.net/posApi/api/add-product', data)
+        axios.post(`${Config.url}add-product`, data)
         .then((response) => {
             window.location.reload(false);
             //Perform action based on response
         }) 
         .catch(error => {
-        console.log(error);
+        
         //Perform action based on error
         });
         // if (this.state.name) {
         //     PostData('add-product', this.state).then((res) => {
         //         //let responseJson = result;
-        //         //console.log(responseJson);
         //         //this.setState({success:responseJson.response.msg});
         //         // if(res.response.result===1){
         //         //     this.setState({redirect:true});
         //         //}
-        //         console.log("Response:");
-        //         console.log(res);
+        //         
+        //         
         //         if (res.response === 1) {
         //             this.setState({
         //                 redirect: !this.state.redirect
@@ -131,7 +132,7 @@ class AddProduct extends Component {
         //alert(itemIndex);
         add_modifier.splice(itemIndex, 1);
         this.setState({ add_modifier: add_modifier });
-        //console.log(this.state.add_modifier);
+        //
     }
     addModifier(modifierItem, modifierPrice) {
         // console.clear();
@@ -141,7 +142,7 @@ class AddProduct extends Component {
             done: false
         });
         this.setState({ add_modifier: add_modifier });
-        console.log(this.state.add_modifier)
+        
     }
     /*Add Modifier */
     /*Add Product Time */

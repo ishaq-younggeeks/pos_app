@@ -4,7 +4,7 @@ import FloorLayout from './floor-layout'
 import Modal from "react-responsive-modal";
 import { PostData, GetData, EditData } from './services/postData.js';
 import axios from 'axios'
-import {Config} from '../../config/Config'
+import Config from '../../config/Config'
 
 class Floor extends Component {
   state = {
@@ -42,7 +42,7 @@ class Floor extends Component {
         redirect: false
       })
     }*/
-    axios.post("http://posapp.younggeeks.net/posApi/api/all-floor")
+    axios.post(`${Config.url}all-floor`)
       .then(res => {
         this.setState({
           floorData: res.data.data
@@ -84,12 +84,12 @@ class Floor extends Component {
     e.preventDefault();
     let arr = [];
     for (let key in this.state) {
-      console.log(key)
+      
       if (this.state[key] === true) {
         arr.push(key);
       }
     }
-    console.log(arr)
+    
     let user_id = parseInt(localStorage.getItem('userId'))
     if(id<=this.state.editId) {
       var data = {
@@ -112,8 +112,8 @@ class Floor extends Component {
           floorLayoutData:data
         })
       }
-    axios.post("http://posapp.younggeeks.net/posApi/api/add_floor", data).then((res) => {
-      console.log(res)
+    axios.post(`${Config.url}add_floor`, data).then((res) => {
+      
       window.location.reload();
       this.setState({
         addFloorData:res.data.success.result
@@ -141,17 +141,17 @@ class Floor extends Component {
   previewData = (myId) => {
     const type = "get_floor_detail";
     const id = myId
-    let BaseUrl = `http://posapp.younggeeks.net/posApi/api/${type}/${id}`
+    let BaseUrl = `${Config.url}${type}/${id}`
     axios({
       method:'post',
       url:BaseUrl,
-    }) .then(response => {
+    }).then(response => {
       let responseData = response.data.data[0]
       if(myId === response.data.data[0].id) {
         this.setState({floorLayData : responseData})
       }
-    }) .catch(error => {
-      console.log(error)
+    }).catch(error => {
+      
     })
     return this.toggle()
   }
@@ -186,7 +186,7 @@ class Floor extends Component {
           window.location.reload();
         }
     }).catch(err => {
-      console.log(err)
+      
     })
   }
 

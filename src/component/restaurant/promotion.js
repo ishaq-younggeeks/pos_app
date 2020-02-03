@@ -14,7 +14,6 @@ class Promotion extends Component {
             success:'',
             image:'',
             allData:[],
-            deleteMsgStatus:'',
             ImageError:'',
             showLogoImage:'',
             eating_opt:'',
@@ -65,7 +64,12 @@ class Promotion extends Component {
     }
 
     componentDidMount(){
+<<<<<<< HEAD
         GetData('all-promo').then((result) => {            
+=======
+        GetData('all-promo').then((result) => {
+            
+>>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
             let responseData = result;
             this.setState({allData:responseData.data});
         })    
@@ -74,7 +78,11 @@ class Promotion extends Component {
     onLogo = event => {
         if (event.target.files && event.target.files[0]) {
             let file = event.target.files[0];
+<<<<<<< HEAD
                    
+=======
+            
+>>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
             if(file.size < 307200){
                 $("#remove_image").show();
                 this.setState({showLogoImage:URL.createObjectURL(event.target.files[0])});
@@ -84,7 +92,12 @@ class Promotion extends Component {
                     this.setState({ image: reader.result });
                 }
             } else {
+<<<<<<< HEAD
                 this.setState({ImageError:'File is too big'})               
+=======
+                this.setState({LogoImageError:'File is too big'})
+                
+>>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
             }
         }
     }
@@ -115,6 +128,7 @@ class Promotion extends Component {
                 eating_opt:this.state.eatingOpt||this.state.editEatingOpt ,
                 image:this.state.image||this.state.showLogoImage
             }
+<<<<<<< HEAD
             if(this.state.eating_opt) {
                 data.eating_opt=JSON.stringify(Object.assign({}, this.state.eating_opt)); 
             } else {
@@ -148,6 +162,27 @@ class Promotion extends Component {
     uncheck(){
         
     }  
+=======
+            
+            PostData('add-promotion',data).then((result) => {
+                
+                let responseJson = result;
+                this.setState({success:responseJson.response.msg});
+                this.setState({sResult:responseJson.response.result});
+            });
+        } else {
+            
+            PostData('add-promotion',this.state).then((result) => {
+                
+                
+                let responseJson = result;
+                this.setState({success:responseJson.response.msg});
+                this.setState({sResult:responseJson.response.result});
+            });
+        }
+    }
+
+>>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
     onChange(e){
         const checkedArr = [];
         let values;
@@ -217,17 +252,30 @@ class Promotion extends Component {
         if (window.confirm("Delete the item?")) {
             DeleteData('delete-prom',promoId).then((result) => {
                 let deleteResponse = result;
+<<<<<<< HEAD
                 this.setState({deleteMsgStatus:deleteResponse.response.msg});
                 if(deleteResponse.response.result==1){ window.location.reload(); }                
+=======
+                
+                this.setState({deleteMsgStatus:deleteResponse.response.msg});
+                if(deleteResponse.response.result==1){
+                    window.location.reload();
+                }
+                
+>>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
             });
         }
     }
 
     edit = (item) => {
+<<<<<<< HEAD
         const checkeds = document.getElementsByName('eating_opt'); 
         for (let i = 0; i < checkeds.length; i++) {
             checkeds[i].defaultChecked = false;                 
         }           
+=======
+        
+>>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
         this.setState({myToggle:this.state.myToggle + 1})
         this.setState({editId:item.id})
         this.setState({editName:item.name})
@@ -269,7 +317,10 @@ class Promotion extends Component {
 
     render() {
         
+<<<<<<< HEAD
         console.log(this.state.image)
+=======
+>>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
         if(this.state.sResult==='1'){
             window.location.reload();
         }

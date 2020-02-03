@@ -1,13 +1,12 @@
-import axios from 'axios'
 import {Config} from '../../../config/Config'
 
 export function PostData(type, userData) {
-  console.log(type)
-  console.log(userData)
-  // http://posapp.younggeeks.net/posApi/api/add-restaurent
+  
+  
+  // ${Config.url}add-restaurent
   return new Promise((resolve, reject) => {
     let BaseUrl = `${Config.url}`
-    // let BaseUrl = "http://posapp.younggeeks.net/posApi/api/";
+    // let BaseUrl = `${Config.url}`;
     fetch(BaseUrl + type, {
       method: "POST",
       body: JSON.stringify(userData),
@@ -25,6 +24,7 @@ export function PostData(type, userData) {
       .then(response => response.json())
       .then(responseJson => {
         resolve(responseJson);
+        
       })
       .catch(error => {
         reject(error);
@@ -98,13 +98,12 @@ export function EditData(type, id ) {
         "Access-Control-Allow-Credentials": "true",
         "Access-Control-Allow-Methods": "*",
         "Access-Control-Allow-Headers":
-          "Origin, Access-Control-Allow-Methods, Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Access-Control-Allow-Headers,Authorization,Content-Type"
+        "Origin, Access-Control-Allow-Methods, Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Access-Control-Allow-Headers,Authorization,Content-Type"
       }
     })
       .then(response => response.json())
       .then(responseJson => {
-        resolve(responseJson);
-        console.log(responseJson)
+        resolve(responseJson);  
       })
       .catch(error => {
         reject(error);
@@ -125,14 +124,14 @@ export function EditData(type, id ) {
 //     date_to : data.date_to,
 //     image : data.image
 //   }
-//   let BaseUrl = `http://posapp.younggeeks.net/posApi/api/${type}/${id}`
+//   let BaseUrl = `${Config.url}${type}/${id}`
 //   axios({
 //     method:'post',
 //     url:BaseUrl,
 //     data: myData,
 //   }) .then (response => {
-//     console.log(response)
+//     
 //   }) .catch (error => {
-//     console.log(error)
+//     
 //   })
 // }

@@ -6,6 +6,8 @@ import { Redirect } from "react-router-dom";
 import mapboxgl from 'mapbox-gl';
 import MapboxGeocoder from '@mapbox/mapbox-gl-geocoder';
 
+import Config from './../../config/Config';
+
 var add_cuisine = [];
 mapboxgl.accessToken = 'pk.eyJ1IjoidW1tZWVzaGt1bWFyIiwiYSI6ImNrMm9qcXkxczBnbWMzbXA1eWY2ZjIxenMifQ.Ao8swUOKC8QRSwgAIOl3EQ';
 class BusinessInformation extends Component {
@@ -200,8 +202,9 @@ class BusinessInformation extends Component {
         sun_from_format: res.response.data[0].sunday.substring(7, 9),
         sun_to_format: res.response.data[0].sunday.substring(17, 19)
       });
-      console.log(res.response.data[0]);
-      console.log(this.state);
+      
+      
+      
     });
   }
 
@@ -213,7 +216,6 @@ class BusinessInformation extends Component {
   //   this.setState({ user_id: userId });
   //   EditData("edit-restaurent", userId).then(res => {
   //     // let responseBusiness = result;
-  //     // console.log(JSON.parse(JSON.stringify(responseBusiness.response.data[0])));
   //     this.setState({ restData: responseBusiness.response.data[0] });
   //     this.setState({ cost_product: res.response.data[0].cost_product });
   //     this.setState({
@@ -263,10 +265,12 @@ class BusinessInformation extends Component {
   //       sun_from_format: res.response.data[0].sunday.substring(7, 9),
   //       sun_to_format: res.response.data[0].sunday.substring(17, 19)
   //     });
-  //     console.log(res.response.data[0]);
-  //     console.log(this.state);
+  //     
+  //     
   //   });
   // }
+
+  
 
   cuisineSave(event) {
     event.preventDefault();
@@ -287,7 +291,7 @@ class BusinessInformation extends Component {
       done: false
     });
     this.setState({ add_cuisine: add_cuisine });
-    //console.log(this.state.add_cuisine)
+    //
   }
   onCertiChange = event => {
     if (event.target.files && event.target.files[0]) {
@@ -308,7 +312,7 @@ class BusinessInformation extends Component {
         };
       } else {
         this.setState({ certImageError: "File is too big" });
-        console.log("File is too big");
+        
       }
     }
   };
@@ -330,7 +334,7 @@ class BusinessInformation extends Component {
         };
       } else {
         this.setState({ venueImageError: "File is too big" });
-        console.log("File is too big");
+        
       }
     }
   };
@@ -352,7 +356,7 @@ class BusinessInformation extends Component {
         };
       } else {
         this.setState({ cleanImageError: "File is too big" });
-        console.log("File is too big");
+        
       }
     }
   };
@@ -374,22 +378,21 @@ class BusinessInformation extends Component {
         };
       } else {
         this.setState({ restroImageError: "File is too big" });
-        console.log("File is too big");
+        
       }
     }
   };
 
   restaurantSave(event) {
     event.preventDefault();
-    console.log(this.state);
+    
     axios
       .post(
-        "http://posapp.younggeeks.net/posApi/api/add-restaurent",
+        `${Config.url}add-restaurent`,
         this.state
       )
-      .then(res => console.log("dffffffffff",res))
       .catch(err => {
-        console.log(err);
+        
       });
     // PostData("add-restaurent", this.state).then(res => res);
   }
@@ -606,7 +609,7 @@ class BusinessInformation extends Component {
     this.setState(prevState => ({
       monToFormat: [...prevState.monToFormat, ""]
     }));
-    //console.log(this.state.mon_timing_from);
+    //
   }
   /* Monday Clone */
 
@@ -696,7 +699,7 @@ class BusinessInformation extends Component {
     this.setState(prevState => ({
       tueToFormat: [...prevState.tueToFormat, ""]
     }));
-    //console.log(this.state.mon_timing_from);
+    //
   }
   tueRemoveClick(i) {
     let tueFromValues = [...this.state.tueFromValues];
@@ -802,7 +805,7 @@ class BusinessInformation extends Component {
     this.setState(prevState => ({
       wedToFormat: [...prevState.wedToFormat, ""]
     }));
-    //console.log(this.state.mon_timing_from);
+    //
   }
   wedRemoveClick(i) {
     let wedFromValues = [...this.state.wedFromValues];
@@ -908,7 +911,7 @@ class BusinessInformation extends Component {
     this.setState(prevState => ({
       thuToFormat: [...prevState.thuToFormat, ""]
     }));
-    //console.log(this.state.mon_timing_from);
+    //
   }
   thuRemoveClick(i) {
     let thuFromValues = [...this.state.thuFromValues];
@@ -1013,7 +1016,7 @@ class BusinessInformation extends Component {
     this.setState(prevState => ({
       friToFormat: [...prevState.friToFormat, ""]
     }));
-    //console.log(this.state.mon_timing_from);
+    //
   }
   friRemoveClick(i) {
     let friFromValues = [...this.state.friFromValues];
@@ -1119,7 +1122,7 @@ class BusinessInformation extends Component {
     this.setState(prevState => ({
       satToFormat: [...prevState.satToFormat, ""]
     }));
-    //console.log(this.state.mon_timing_from);
+    //
   }
   satRemoveClick(i) {
     let satFromValues = [...this.state.satFromValues];
@@ -1224,7 +1227,7 @@ class BusinessInformation extends Component {
     this.setState(prevState => ({
       sunToFormat: [...prevState.sunToFormat, ""]
     }));
-    //console.log(this.state.mon_timing_from);
+    //
   }
   sunRemoveClick(i) {
     let sunFromValues = [...this.state.sunFromValues];
@@ -1961,9 +1964,9 @@ class BusinessInformation extends Component {
                           <div style={{ width: "100%", float: "left" }}>
                             <div style={{ width: "90%", float: "left" }}>
                               <input
-                                type="text"
-                                style={{ width: "22%", float: "left" }}
-                                className="form-control input-sm"
+                                type="time"
+                                style={{ width: "45%", float: "left" }}
+                                className="form-control input-sm checktime"
                                 placeholder="Hour"
                                 name="mon_timing_from"
                                 disabled={
@@ -1972,7 +1975,8 @@ class BusinessInformation extends Component {
                                 value={this.state.mon_timing_from}
                                 onChange={this.onChange}
                               />
-                              <select
+                              
+                           {/* <select
                                 name="mon_from_format"
                                 style={{ width: "23%", float: "left" }}
                                 onChange={this.onChange}
@@ -1985,7 +1989,7 @@ class BusinessInformation extends Component {
                                 <option disabled defaultValue=""></option>
                                 <option value="AM">AM</option>
                                 <option value="PM">PM</option>
-                              </select>
+                              </select>*/}
                               <span
                                 className="input-group-addon"
                                 style={{

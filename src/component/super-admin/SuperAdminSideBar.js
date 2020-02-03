@@ -15,7 +15,7 @@ class SuperAdminSideBar extends Component {
         }
     }
     render(){
-        if(this.state.redirect==false){
+        if(this.state.redirect===false){
             return(<Redirect exact to='/' />);
         }
         return(

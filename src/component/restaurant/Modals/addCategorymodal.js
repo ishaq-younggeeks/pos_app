@@ -6,7 +6,7 @@ class AddModalCategory extends React.Component {
         super(props)
     }
     render() {
-        console.log("hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii")
+        
         return (
             <div>
                 <h1>Hello world</h1>

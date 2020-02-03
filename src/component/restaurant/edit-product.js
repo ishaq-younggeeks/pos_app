@@ -27,14 +27,14 @@ class EditProduct extends Component {
         this.setState({ user_id: userId });
     }
     componentDidMount() {
-        EditData("edit-product", this.state.id).then(res => console.log(res)).catch(err => console.log(err));
+        EditData("add-product1", this.state.id).then((res)=>console.log("fetched data",res)).catch(err => console.log(err));
     }
     productSave(event) {
         event.preventDefault();
-        console.log(this.state);
+        
         if (this.state.name) {
             PostData('add-product', this.state).then((res) => {
-                console.log(res);
+                
                 if (res.response.result === 1) {
                     this.setState({
                         redirect: !this.state.redirect
