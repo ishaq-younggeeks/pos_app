@@ -3,11 +3,11 @@ import Modal from "react-responsive-modal";
 
 class PersonalProfileModal extends React.Component {
     constructor(props) {
-        console.log("hellllllll")
+        
         super(props)
     }
     render() {
-        console.log(this.props.item.first_name)
+        
         return (
             <div>
                 <h1>Hello</h1>

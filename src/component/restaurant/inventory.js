@@ -18,11 +18,11 @@ class Inventory extends Component {
     this.setState({ user_id: userId });
     GetData("all-inven").then(result => {
       let responseData = result;
-      console.log("response data",responseData);
+      
       let data = responseData.data;
-      console.log('data ',data);
+      
       this.setState({ allData: data });
-      console.log(this.state.updateBy);
+      
       //EditData('',this.state.allData.id)
     });
   }

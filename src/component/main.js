@@ -24,7 +24,7 @@ class MainPage extends Component {
 	}
 
 	componentDidMount(){
-		if (localStorage.chkbx && localStorage.chkbx != '') {
+		if (localStorage.chkbx && localStorage.chkbx !== '') {
 			var username = localStorage.uname;
 			var password = localStorage.pwd;
 			$('#username').attr("value", username);
@@ -45,12 +45,11 @@ class MainPage extends Component {
 			localStorage.pwd = $('#pwd').val();
 			this.state.name = localStorage.uname;
 			this.state.password = localStorage.pwd;
-			console.log(this.state.name)
+			
 		}
 		if(this.state.name && this.state.password){
 			PostData('login', this.state).then((result) => {
 				let responseJson = result;
-				//console.log(responseJson);
 				if(responseJson.response.result===1){
 					// this.props.routingPath(true)
 					localStorage.setItem('username',responseJson.response.data[0].name);
@@ -69,7 +68,7 @@ class MainPage extends Component {
 					
 				}else{
 					this.setState({error:'Name or Password mismatched'});
-					console.log("Login Error");
+					
 				}
 				
 			});
@@ -98,7 +97,7 @@ class MainPage extends Component {
 		
 	//     if($("#cbx"). prop("checked")){
 	//         localStorage.uname = $('#username').val();
-	//         console.log(localStorage.uname)
+	//         
 	//         localStorage.pwd = $('#pwd').val();
 	//         localStorage.chkbx = $('#cbx').val();
 	//         this.setState({remeber:true});
@@ -110,20 +109,20 @@ class MainPage extends Component {
 	// }
 
 	remeberMe() {
-		console.log("hello world",this.props)
+		
 		if(this.state.disable === false && ($("#cbx").prop("checked"))) {
 			localStorage.chkbx = $('#cbx').val();
 		} else {
-			console.log("---------------------------------")
+			
 			localStorage.clear();
 			// window.location.reload();
 		}
 	}
 	
 	render(){
-		console.log(this.state.user)
+		
 		// if(this.state.redirect){
-		//     console.log("i am in redirecting")
+		//     
 		//     return(<Redirect exact to={this.state.role} />)
 		// }
 

@@ -38,13 +38,13 @@ class Consumer extends React.Component {
     }
 
     personalProfileModal = (item) => {
-        console.log("hello world")
+        
         this.setState({ profileModalOpen: !this.state.profileModalOpen });
         this.setState({data:item})
     };
 
     staticsModal = (item) => {
-        console.log("adfsfs",item)
+        
         this.setState({ staticsModalOpen: !this.state.staticsModalOpen });
         this.setState({data:item})
     }
@@ -58,7 +58,7 @@ class Consumer extends React.Component {
     };
 
     ReviewModal = (item) => {
-        console.log("hyphen")
+        
         this.setState({ ReviewlistOpen: !this.state.ReviewlistOpen });
         this.setState({restaurantData:item.restaurant_review})
         this.setState({profileData:item.profile_review})
@@ -79,17 +79,17 @@ class Consumer extends React.Component {
     filterArray = () => {
         let searchString = this.state.name;
         let responseData = this.state.consumerList;
-        console.log(responseData)
+        
         if(searchString.length > 0){
-            console.log("true")
-        //     // console.log(responseData[i].name);
+            
+        //     // 
             responseData = responseData.filter(searchString);
-            console.log("helllloooooo",responseData)
+            
         //     this.setState({
         //         responseData
         //     })
         } else {
-            console.log("false")
+            
         }
     }
 
@@ -115,7 +115,7 @@ class Consumer extends React.Component {
     // }
     
     render() {
-        console.log(this.state.name)
+        
         return (
             <div>
                 <div class="content-wrapper">

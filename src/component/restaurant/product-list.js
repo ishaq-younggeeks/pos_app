@@ -12,8 +12,8 @@ class ProductList extends Component {
 
   componentDidMount() {
     GetData("all-product").then(res => {
-      // console.log(responseData.data[0].product_feature);
-      console.log(res.data)
+      // 
+      
       if (res.data) {
         this.setState({
           allData: res.data,
@@ -23,7 +23,7 @@ class ProductList extends Component {
           //   suitableFor21: res.data[0].product_feature
           // }
         });
-        console.log(this.state.allData)
+        
       } else {
         return null;
       }

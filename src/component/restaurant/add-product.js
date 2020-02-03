@@ -48,7 +48,7 @@ class AddProduct extends Component {
         let arr = feature.toString();  
         let category =this.state.category;   
         let arr2 = JSON.stringify(category);  
-        console.log(arr2);
+        
      
         let data = {
             name:this.state.name,
@@ -73,19 +73,18 @@ class AddProduct extends Component {
             //Perform action based on response
         }) 
         .catch(error => {
-        console.log(error);
+        
         //Perform action based on error
         });
         // if (this.state.name) {
         //     PostData('add-product', this.state).then((res) => {
         //         //let responseJson = result;
-        //         //console.log(responseJson);
         //         //this.setState({success:responseJson.response.msg});
         //         // if(res.response.result===1){
         //         //     this.setState({redirect:true});
         //         //}
-        //         console.log("Response:");
-        //         console.log(res);
+        //         
+        //         
         //         if (res.response === 1) {
         //             this.setState({
         //                 redirect: !this.state.redirect
@@ -130,7 +129,7 @@ class AddProduct extends Component {
         //alert(itemIndex);
         add_modifier.splice(itemIndex, 1);
         this.setState({ add_modifier: add_modifier });
-        //console.log(this.state.add_modifier);
+        //
     }
     addModifier(modifierItem, modifierPrice) {
         // console.clear();
@@ -140,7 +139,7 @@ class AddProduct extends Component {
             done: false
         });
         this.setState({ add_modifier: add_modifier });
-        console.log(this.state.add_modifier)
+        
     }
     /*Add Modifier */
     /*Add Product Time */

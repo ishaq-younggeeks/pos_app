@@ -14,10 +14,10 @@ class FloorLayout extends Component {
     }
 
    updateKitchenItem = (myData) => {
-       console.log("working...");
-       console.log(myData);
+       
+       
        this.setState({selectedKitchenItem:myData});
-       console.log("state saved",this.state.selectedKitchenItem);
+       
    /* let x = document.getElementById("edit-kitchen");
     if (x.style.display === "none") {
       x.style.display = "block";
@@ -27,9 +27,9 @@ class FloorLayout extends Component {
     */
    }
 
-   saveKitchenItem=(event) =>{
+   saveKitchenItem = (event) =>{
   //  event.preventDefault();
-    console.log(this.state.selectedKitchenItem)
+    
   //  event.preventDefault();
     var newKitchen_item = this.refs.kitchenitemName.value;
     if (newKitchen_item) {
@@ -47,7 +47,7 @@ class FloorLayout extends Component {
     }
 
     // createSquares = (data) => {
-    //     console.log("fhsdfhksdhflkshfhksdhfksdhf",data)
+    //     
     //     let rows = [];
     //     for(let i = 1; i<=data.num_table ; i++) {
     //         rows.push(
@@ -116,7 +116,7 @@ class FloorLayout extends Component {
                                     <table className="table">
                                         <tbody>
                                             {/* {Data[3].map((item) => {
-                                                console.log(item);
+                                                
                                                 return (
                                                     <tr>
                                                     <td style={{borderTop: '0px'}}>

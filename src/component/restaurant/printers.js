@@ -61,7 +61,7 @@ class Printer extends Component {
                 }
             }else{
                 this.setState({LogoImageError:'File is too big'})
-                console.log("File is too big");
+                
             }
         }
       }
@@ -69,34 +69,34 @@ class Printer extends Component {
     printerSave(event){
         event.preventDefault();
         if(this.state.name){
-            console.log("helllo world")
+            
             PostData('add_printer',this.state).then((result)=>{
                 let responseJson = result;
-                console.log(responseJson);
+                
                 this.setState({success:responseJson.response.msg});
                 this.setState({sResult:responseJson.response.result});
             });
         }
-        //console.log(this.state);
+        //
     }
     deletePrinter(printerId){
         DeleteData('delete_printer',printerId).then((result) => {
             let deleteResponse = result;
             this.setState({deleteMsgStatus:deleteResponse.response.msg});
-            if(deleteResponse.response.result==1){
+            if(deleteResponse.response.result===1){
                 window.location.reload();
             }
-            console.log(deleteResponse);
+            
         });
-        //console.log(printerId);
+        //
     }
     editPrinter(printerId){
         
         EditData('edit_printer',printerId).then((result)=> {
-            console.log(result)
+            
             let editResponse = result;
-            console.log(editResponse);
-            console.log(editResponse.response.data[0]);
+            
+            
             this.setState({editData:editResponse.response.data[0]});
             this.setState({id:this.state.editData.id});
             $("#name").val(this.state.editData.name);
@@ -104,7 +104,7 @@ class Printer extends Component {
             $("#address").val(this.state.editData.address);
             $("#contact").val(this.state.editData.contact);
             $("#sst_num").val(this.state.editData.sst_num);
-            if(this.state.editData.cash_drawer_conn==1){
+            if(this.state.editData.cash_drawer_conn===1){
                 $(" ").prop('checked','checked');
             }else{
                 $("#cash_drawer_conn").prop('');
@@ -125,16 +125,16 @@ class Printer extends Component {
     onCheckedCash(e){
         let value = e.target.type==='checkbox' ? e.target.checked : e.target.value;
         if(value===true){
-            console.log("if")
+            
             this.setState({cash_drawer_conn:!this.state.cash_drawer_conn});
         }else{
-            console.log("else")
+            
             this.setState({cash_drawer_conn:!this.state.cash_drawer_conn});
         }
     }
     render() {
-        console.log(this.state.editData)
-        console.log(this.state.name)
+        
+        
         if(this.state.sResult==='1'){
             window.location.reload();
         }
@@ -165,9 +165,9 @@ class Printer extends Component {
                                             <div className="col-md-5">
                                                 <select className="form-control input-sm" name="layout" onChange={this.onChange}>
                                                     <option value='' disabled selected>Select</option>
-                                                    <option selected={this.state.editData.layout=='Kitchen' ? 'selected' : ''} value="Kitchen">Kitchen</option>
-                                                    <option selected={this.state.editData.layout=='Bar' ? 'selected' : ''} value="Bar">Bar</option>
-                                                    <option selected={this.state.editData.layout=='Kitchen & Bar' ? 'selected' : ''} value="Kitchen & Bar">Kitchen & Bar</option>
+                                                    <option selected={this.state.editData.layout==='Kitchen' ? 'selected' : ''} value="Kitchen">Kitchen</option>
+                                                    <option selected={this.state.editData.layout==='Bar' ? 'selected' : ''} value="Bar">Bar</option>
+                                                    <option selected={this.state.editData.layout==='Kitchen & Bar' ? 'selected' : ''} value="Kitchen & Bar">Kitchen & Bar</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -177,9 +177,9 @@ class Printer extends Component {
                                             <div className="col-md-5">
                                                 <select className="form-control input-sm" name="model" onChange={this.onChange}>
                                                     <option value='' disabled selected>Select</option>
-                                                    <option selected={this.state.editData.model=='Model 1' ? 'selected' : ''} value="Model 1">Model 1</option>
-                                                    <option selected={this.state.editData.model=='Model 2' ? 'selected' : ''} value="Model 2">Model 2</option>
-                                                    <option selected={this.state.editData.model=='Model 3' ? 'selected' : ''} value="Model 3">Model 3</option>
+                                                    <option selected={this.state.editData.model==='Model 1' ? 'selected' : ''} value="Model 1">Model 1</option>
+                                                    <option selected={this.state.editData.model==='Model 2' ? 'selected' : ''} value="Model 2">Model 2</option>
+                                                    <option selected={this.state.editData.model==='Model 3' ? 'selected' : ''} value="Model 3">Model 3</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -193,7 +193,7 @@ class Printer extends Component {
                                         <div className="clearfix"></div>
                                         <div className="form-group">
                                             <label className="col-md-3 control-label">Logo</label>
-                                            {<img src={this.state.editData.logo ? this.state.editData.logo : ''} style={{width:50}} />}
+                                            {<img src={this.state.editData.logo ? this.state.editData.logo : ''} alt="Logo" style={{width:50}} />}
                                             <div className="col-md-5">
                                                 <input type="file" name="logo" id="logo" onChange={this.onLogo} accept="image/x-png,image/gif,image/jpeg" />
                                             </div>
@@ -262,8 +262,8 @@ class Printer extends Component {
                                         <td>{printerData.name}</td>
                                         <td>{printerData.layout}</td>
                                         <td>{printerData.model}</td>
-                                        <td>{printerData.cash_drawer_conn==1 ? <i className="fa fa-check text-success"></i> : <i className="fa fa-close" style={{color:'red'}}></i> }</td>
-                                        <td><img src={printerData.logo} style={{width:'2em'}} /></td>
+                                        <td>{printerData.cash_drawer_conn===1 ? <i className="fa fa-check text-success"></i> : <i className="fa fa-close" style={{color:'red'}}></i> }</td>
+                                        <td><img src={printerData.logo} style={{width:'2em'}} alt="" /></td>
                                         <td><a href="#" className="label label-success" style={{fontSize: '12px'}}>Online</a></td>
                                         <td>
                                             <button className="btn btn-primary btn-xs" onClick={this.editPrinter.bind(this,printerData.id)}>Edit</button> &nbsp;

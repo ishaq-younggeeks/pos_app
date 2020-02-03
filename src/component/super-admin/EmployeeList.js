@@ -19,8 +19,8 @@ class EmployeesList extends Component {
         axios.get(`${Config.url}all-superemp`)
         .then(response => {
             this.setState({empList:response.data.data})
-        }) .catch (error => {
-            console.log(error)
+        }).catch (error => {
+            
         })
     }
 
@@ -33,12 +33,12 @@ class EmployeesList extends Component {
     deleteList = (emp_id) => {
         axios.post(`${Config.url}delete-superemp/${emp_id}`)
         .then(res => {
-            console.log(res)
+            
             if(res.status === 200) {
                 window.location.reload();
             }
         }).catch(err => {
-            console.log(err)
+            
         })
     }
 
@@ -51,8 +51,8 @@ class EmployeesList extends Component {
         }).then (res => {
             this.setState({editData:res})
             // this.setState({editRes:res})
-        }) .catch (err => {
-            console.log(err)
+        }).catch (err => {
+            
         })
         this.interval = setTimeout(()=> {
             this.toggle(name);

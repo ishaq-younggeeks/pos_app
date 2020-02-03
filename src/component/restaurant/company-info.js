@@ -64,7 +64,7 @@ class CompanyInfo extends Component {
                 }
             }else{
                 this.setState({documentImageError:'File is too big'})
-                console.log("File is too big");
+                
             }
         }
       }
@@ -82,7 +82,7 @@ class CompanyInfo extends Component {
                 }
             }else{
                 //this.setState({documentImageError:'File is too big'})
-                console.log("File is too big");
+                
             }
         }
       }
@@ -99,7 +99,7 @@ class CompanyInfo extends Component {
                 }
             }else{
                 //this.setState({documentImageError:'File is too big'})
-                console.log("File is too big");
+                
             }
         }
       }

@@ -1,9 +1,8 @@
-import axios from 'axios'
 import {Config} from '../../../config/Config'
 
 export function PostData(type, userData) {
-  console.log(type)
-  console.log(userData)
+  
+  
   // ${Config.url}add-restaurent
   return new Promise((resolve, reject) => {
     let BaseUrl = `${Config.url}`
@@ -25,7 +24,7 @@ export function PostData(type, userData) {
       .then(response => response.json())
       .then(responseJson => {
         resolve(responseJson);
-        console.log(responseJson);
+        
       })
       .catch(error => {
         reject(error);
@@ -99,13 +98,12 @@ export function EditData(type, id ) {
         "Access-Control-Allow-Credentials": "true",
         "Access-Control-Allow-Methods": "*",
         "Access-Control-Allow-Headers":
-          "Origin, Access-Control-Allow-Methods, Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Access-Control-Allow-Headers,Authorization,Content-Type"
+        "Origin, Access-Control-Allow-Methods, Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Access-Control-Allow-Headers,Authorization,Content-Type"
       }
     })
       .then(response => response.json())
       .then(responseJson => {
-        resolve(responseJson);
-        console.log(responseJson)
+        resolve(responseJson);  
       })
       .catch(error => {
         reject(error);
@@ -132,8 +130,8 @@ export function EditData(type, id ) {
 //     url:BaseUrl,
 //     data: myData,
 //   }) .then (response => {
-//     console.log(response)
+//     
 //   }) .catch (error => {
-//     console.log(error)
+//     
 //   })
 // }

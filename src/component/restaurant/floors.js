@@ -84,12 +84,12 @@ class Floor extends Component {
     e.preventDefault();
     let arr = [];
     for (let key in this.state) {
-      console.log(key)
+      
       if (this.state[key] === true) {
         arr.push(key);
       }
     }
-    console.log(arr)
+    
     let user_id = parseInt(localStorage.getItem('userId'))
     if(id<=this.state.editId) {
       var data = {
@@ -113,7 +113,7 @@ class Floor extends Component {
         })
       }
     axios.post(`${Config.url}add_floor`, data).then((res) => {
-      console.log(res)
+      
       window.location.reload();
       this.setState({
         addFloorData:res.data.success.result
@@ -145,13 +145,13 @@ class Floor extends Component {
     axios({
       method:'post',
       url:BaseUrl,
-    }) .then(response => {
+    }).then(response => {
       let responseData = response.data.data[0]
       if(myId === response.data.data[0].id) {
         this.setState({floorLayData : responseData})
       }
-    }) .catch(error => {
-      console.log(error)
+    }).catch(error => {
+      
     })
     return this.toggle()
   }
@@ -186,7 +186,7 @@ class Floor extends Component {
           window.location.reload();
         }
     }).catch(err => {
-      console.log(err)
+      
     })
   }
 

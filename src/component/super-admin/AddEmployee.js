@@ -34,7 +34,7 @@ class AddEmployee extends React.Component {
                 emp_type : this.state.selected,
                 status : this.state.status
             }
-            console.log(addData)
+            
             const type = "add-superemp"
             let BaseUrl = `${Config.url}${type}`;
             axios({
@@ -42,10 +42,10 @@ class AddEmployee extends React.Component {
             url:BaseUrl,
             data:addData
             }) .then (response => {
-                console.log(response)
+                
             this.setState({empData:response.data})
             }) .catch (error => {
-            console.log(error)
+            
             })
         }
     }

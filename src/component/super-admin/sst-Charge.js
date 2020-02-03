@@ -18,7 +18,7 @@ class SstCharge extends React.Component {
                 restaurantData:response.data.response.data
             })
         }).catch(error => {
-            console.log(error)
+            
         })
     }
 
@@ -26,8 +26,8 @@ class SstCharge extends React.Component {
         this.setState({value : e.target.value})
         if(e.target.value === 'Yes') {
             list.sort((a,b) => {
-                console.log(a)
-                console.log(b)
+                
+                
                 return a.sst_number - b.sst_number  
             })
         }

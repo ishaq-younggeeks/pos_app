@@ -15,7 +15,7 @@ class Header extends Component {
         if(localStorage.getItem("userData")){
             let myItem = localStorage.getItem("username");
             this.setState({uName:myItem});
-            //console.log("call user feed");
+            //
         }else{
             this.setState({redirect:true});
         }

@@ -58,7 +58,7 @@ class CuisineManagement extends React.Component {
                 window.location.reload();
             }
         }).catch((err) => {
-            console.log(err)
+            
         })
     }
 
@@ -67,7 +67,7 @@ class CuisineManagement extends React.Component {
         .then(response => {
             this.setState({allList:response.data.response.data})
         }) .catch (error => {
-            console.log(error)
+            
         })
     }
 
@@ -86,7 +86,7 @@ class CuisineManagement extends React.Component {
                 }
             }else{
                 this.setState({LogoImageError:'File is too big'})
-                console.log("File is too big");
+                
             }
         }
     }
@@ -94,12 +94,12 @@ class CuisineManagement extends React.Component {
     deleteList = (id) => {
         axios.post(`${Config.url}delete-cuisine/${id}`)
         .then(res => {
-            console.log(res)
+            
             if(res.status === 200) {
                 window.location.reload();
             }
         }).catch(err => {
-            console.log(err)
+            
         })
     }
 

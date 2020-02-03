@@ -12,7 +12,6 @@ class Promotion extends Component {
             success:'',
             image:'',
             allData:[],
-            deleteMsgStatus:'',
             ImageError:'',
             showLogoImage:'',
             eating_opt:[],
@@ -56,7 +55,7 @@ class Promotion extends Component {
 
     componentDidMount(){
         GetData('all-promo').then((result) => {
-            console.log(result)
+            
             let responseData = result;
             this.setState({allData:responseData.data});
         })
@@ -77,7 +76,7 @@ class Promotion extends Component {
     onLogo = event => {
         if (event.target.files && event.target.files[0]) {
             let file = event.target.files[0];
-            console.log(file)
+            
             if(file.size < 307200){
                 $("#remove_image").show();
                 this.setState({showLogoImage:URL.createObjectURL(event.target.files[0])});
@@ -90,7 +89,7 @@ class Promotion extends Component {
                 }
             } else {
                 this.setState({LogoImageError:'File is too big'})
-                console.log("File is too big");
+                
             }
         }
     }
@@ -115,18 +114,18 @@ class Promotion extends Component {
                 price:this.state.editPrice,
                 timing_from:this.state.editTimingFrom,
             }
-            console.log("2")
+            
             PostData('add-promotion',data).then((result) => {
-                console.log(result)
+                
                 let responseJson = result;
                 this.setState({success:responseJson.response.msg});
                 this.setState({sResult:responseJson.response.result});
             });
         } else {
-            console.log("3")
+            
             PostData('add-promotion',this.state).then((result) => {
-                console.log(result)
-                console.log("result additon" ,result)
+                
+                
                 let responseJson = result;
                 this.setState({success:responseJson.response.msg});
                 this.setState({sResult:responseJson.response.result});
@@ -202,18 +201,18 @@ class Promotion extends Component {
         if (window.confirm("Delete the item?")) {
             DeleteData('delete-prom',promoId).then((result) => {
                 let deleteResponse = result;
-                console.log(deleteResponse);
+                
                 this.setState({deleteMsgStatus:deleteResponse.response.msg});
                 if(deleteResponse.response.result==1){
                     window.location.reload();
                 }
-                console.log(deleteResponse);
+                
             });
         }
     }
 
     edit = (item) => {
-        console.log("---------------------------------------",item)
+        
         this.setState({myToggle:this.state.myToggle + 1})
         this.setState({editId:item.id})
         this.setState({editName:item.name})
@@ -243,7 +242,7 @@ class Promotion extends Component {
     }
 
     render() {
-        console.log(this.state.name)
+        
         if(this.state.sResult==='1'){
             window.location.reload();
         }

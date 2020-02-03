@@ -5,7 +5,7 @@ class RestaurantList extends React.Component {
         super(props)
     }
     render() {
-        console.log("fhskdhkdshkfhskhfdk")
+        
         return (
             <div>
                 <h1>Hello world</h1>

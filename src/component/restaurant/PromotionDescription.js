@@ -18,7 +18,7 @@ class PromotionDescription extends React.Component {
     this.setState({modalActive: false});
   }
   render() {
-    console.log(this.props)
+    
     const {modalActive} = this.state;
     return (
       <div>
