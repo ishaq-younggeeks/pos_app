@@ -27,7 +27,7 @@ class EditProduct extends Component {
         this.setState({ user_id: userId });
     }
     componentDidMount() {
-        EditData("add-product1", this.state.id).then((res)=>console.log("fetched data",res)).catch(err => console.log(err));
+        EditData("product_details", this.state.id).then((res)=>console.log("fetched data",res)).catch(err => console.log(err));
     }
     productSave(event) {
         event.preventDefault();
