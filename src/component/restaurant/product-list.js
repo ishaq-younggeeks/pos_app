@@ -88,7 +88,7 @@ class ProductList extends Component {
                       </tr>
                       {this.state.allData.map(promoData => (
                         <tr key={promoData.id}>
-                          <td>{promoData.name}</td>
+                          <td className="text-wrap" style={{width:"10px", wordWrap: "break-word"}}>{promoData.name}</td>
                           <td>{promoData.description}</td>
                           <td>
                             {/* {this.state.productFeature.vegetarian},

@@ -2,96 +2,239 @@ import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
 import $ from "jquery";
-import { EditData, PostData } from "./services/postData.js";
+import {  PostData, EditData_WOURL } from "./services/postData.js";
+import Config from './../../config/Config';
 
-class EditProduct extends Component {
-    state = {
-        productImage: [],
-        prod_from_time: '',
-        prod_to_time: '',
-        from_format: '',
-        to_format: '',
-        productImageError: '',
-        // add_category: add_category,
-        // add_modifier: add_modifier,
-        FromValues: [],
-        ToValues: [],
-        FromFormat: [],
-        ToFormat: [],
-        redirect: false,
-        id: this.props.match.params.id
+var category = [];
+var add_modifier = [];
+class AddProduct extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name:'',
+            eating_opt:'',
+            product_feature:[],
+            description:'',
+            price:'',
+            banner: [],
+            fromtime: '',
+            totime: '',
+            from_format: '',
+            to_format: '',
+            bannerError: '',
+            category: [],
+            add_modifier: add_modifier,
+            FromValues: [],
+            ToValues: [],
+            FromFormat: [],
+            ToFormat: [],
+            redirect: false,
+            status:'',
+            counter:'',
+            product_name:'',
+            tags:'',
+            modifier:'',
+            id: this.props.match.params.id,
+            allData:{}
+        }
+        this.onChange = this.onChange.bind(this);
+        this.removeItem = this.removeItem.bind(this);
+        this.modifierSave = this.modifierSave.bind(this);
+        this.removeModifier = this.removeModifier.bind(this);
+        this.productTimeClone = this.productTimeClone.bind(this);
     }
-
     componentWillMount() {
         let userId = localStorage.getItem("userId");
         this.setState({ user_id: userId });
+        //let u = this.state.user_id
     }
     componentDidMount() {
-        EditData("product_details", this.state.id).then((res)=>console.log("fetched data",res)).catch(err => console.log(err));
+        //console.clear();
+        EditData_WOURL("product_details", {product_id:this.state.id}).then((res)=>{
+          console.log(this.setState({allData:res.data[0]}))
+          console.log("getting",this.state.allData,"vale",this.state.allData.name);
+          //console.log(Array.isArray(this.state.allData));
+         // this.state.allData.map((x)=>console.log(x));
+      }
+      ).catch(err => console.log(err));
     }
     productSave(event) {
-        event.preventDefault();
+        event.preventDefault(); 
+        let user_id = localStorage.getItem("userId");
+      //  let feature =this.state.product_feature;       
+       // let arr = feature.toString();  
+       // let category =this.state.category;   
+       // let arr2 = JSON.stringify(category);  
+       let data = {
+        name:this.state.allData.name,
+        user_id,
+        eating_opt:this.state.allData.eating_opt,
+        product_feature:`${this.state.allData.product_feature}`,
+        description:this.state.allData.description,
+        category:`${this.state.allData.category}`,
+        price:this.state.allData.price,
+        counter:this.state.allData.counter,
+        status:this.state.allData.status,
+        tags:this.state.allData.tags,
+        //fromtime:this.state.fromtime+' '+this.state.from_format,
+        fromtime:this.state.allData.fromtime,
+        //totime:this.state.totime+' '+this.state.to_format,
+        totime:this.state.allData.totime,
+        //addOns:['Extra Cheese1'],
+        //addOnsPrice:['50'],
+        banner:this.state.allData.image,
+        modifier:'some data',
+        id:this.state.id
+    }
+     
+        console.log("updated alldata",this.state.allData);
+        console.log("data sending",this.state.allData);
+        console.log("updated",data);
+       // let myJSON = JSON.stringify(data);
+       // console.log("dataa",myJSON);
+        axios.post(`${Config.url}add-product1`, data)
+        .then((response) => {console.log(response)
+            //window.location.reload(false);
+            //Perform action based on response
+        }) 
+        .catch(error => {
         
-        if (this.state.name) {
-            PostData('add-product', this.state).then((res) => {
-                
-                if (res.response.result === 1) {
-                    this.setState({
-                        redirect: !this.state.redirect
-                    })
-                }
-
-            });
+        //Perform action based on error
+        });
+        // if (this.state.name) {
+        //     PostData('add-product', this.state).then((res) => {
+        //         //let responseJson = result;
+        //         //this.setState({success:responseJson.response.msg});
+        //         // if(res.response.result===1){
+        //         //     this.setState({redirect:true});
+        //         //}
+        //         
+        //         
+        //         if (res.response === 1) {
+        //             this.setState({
+        //                 redirect: !this.state.redirect
+        //             })
+        //         } 
+        //     });
+        // }
+    } 
+    /*Add Category */
+    categorySave(event) {
+        event.preventDefault();
+        var newCategory = this.refs.categoryName.value;
+        if (newCategory) {
+            this.addItem({ newCategory });
+            this.refs.categoryForm.reset();
         }
     }
-
-    onChange(e) {
-        const checkedfeature = [];
-        // const checkedModifier = [];
-        const checkedEating = [];
-        let values;
-        if (e.target.type !== 'checkbox') {
-            values = e.target.value;
-        } else if (e.target.name === 'product_feature') {
-            const checkeds = document.getElementsByTagName('input');
-            for (let i = 0; i < checkeds.length; i++) {
-                if (checkeds[i].checked) {
-                    checkedfeature.push(checkeds[i].value);
-                }
-            }
-            values = checkedfeature.splice(1, 3);
-
-
-        } else if (e.target.name === 'eating_opt') {
-            const checkeds = document.getElementsByTagName('input');
-            for (let i = 0; i < checkeds.length; i++) {
-                if (checkeds[i].checked) {
-                    checkedEating.push(checkeds[i].value);
-                }
-            }
-            values = checkedEating;
-        }
-        this.setState({ [e.target.name]: values })
+    removeItem(itemIndex) {
+        category.splice(itemIndex, 1);
+        this.setState({ category: category });
     }
+    addItem(todoItem) {
+        category.unshift({
+            index: category.length + 1,
+            value: todoItem.newCategory,
+            done: false
+        });
+        this.setState({ category: category });
+    }
+    /*Add Category */
+    /*Add Modifier */
+    modifierSave(event) {
+        event.preventDefault();
+        var newModifierName = this.refs.modifierName.value;
+        var newModifierPrice = this.refs.modifierPrice.value;
+        if (newModifierName && newModifierPrice) {
+            this.addModifier(newModifierName, newModifierPrice);
+            this.refs.modifierForm.reset();
+        }
+    }
+    removeModifier(itemIndex) {
+        //alert(itemIndex);
+        add_modifier.splice(itemIndex, 1);
+        this.setState({ add_modifier: add_modifier });
+        //
+    }
+    addModifier(modifierItem, modifierPrice) {
+        // console.clear();
+        add_modifier.unshift({
+            index: add_modifier.length + 1,
+            value: [modifierItem, modifierPrice],
+            done: false
+        });
+        this.setState({ add_modifier: add_modifier });
+        
+    }
+    /*Add Modifier */
+    /*Add Product Time */
     createFrom() {
         return this.state.FromValues.map((el, i) =>
             <>
                 <input type="text" value={el || ''} style={{ width: '37%', float: 'left' }} className="form-control input-sm" placeholder="Hour" onChange={this.handleChange.bind(this, i)} />
-                <select onChange={this.handleChange1.bind(this, i)} style={{ width: '38%', float: 'left' }} className="form-control input-sm" ><option selected disabled value=""></option><option value="AM">AM</option><option value="PM">PM</option></select>
+                <select onChange={this.handleChange1.bind(this, i)} style={{ width: '38%', float: 'left' }} className="form-control input-sm" >
+                    <option selected disabled value=""></option><option value="AM">AM</option><option value="PM">PM</option>
+                </select>
             </>
         )
     }
     createTo() {
         return this.state.ToValues.map((el, i) =>
             <>
-                <input type="text" value={el || ''} style={{ width: '38%', float: 'left', marginLeft: '10%', marginLeft: '10%' }} className="form-control input-sm" placeholder="Hour" onChange={this.handleChange2.bind(this, i)} />
-                <select onChange={this.handleChange3.bind(this, i)} style={{ width: '37%', float: 'left' }} className="form-control input-sm" ><option selected disabled value=""></option><option value="AM">AM</option><option value="PM">PM</option></select>
-                <span style={{ marginRight: '-25px', float: 'right', marginTop: '5px' }} onClick={this.RemoveClick.bind(this, i)}><i className="fa fa-trash"></i></span>
+               <input type="text" value={el || ''} style={{ width:'38%', float:'left', marginLeft:'10%'}} className="form-control input-sm" placeholder="Hour" onChange={this.handleChange2.bind(this, i)} />
+               <select onChange={this.handleChange3.bind(this, i)} style={{ width: '37%', float: 'left' }} className="form-control input-sm" >
+                   <option selected disabled value=""></option><option value="AM">AM</option><option value="PM">PM</option>
+                </select>
+               <span style={{ marginRight: '-25px', float: 'right', marginTop: '5px' }} onClick={this.RemoveClick.bind(this, i)}><i className="fa fa-trash"></i></span>
             </>
         )
     }
+    RemoveClick(i) {
+        let FromValues = [...this.state.FromValues];
+        let ToValues = [...this.state.ToValues];
+        let FromFormat = [...this.state.FromFormat];
+        let ToFormat = [...this.state.ToFormat];
+
+        FromValues.splice(i, 1);
+        ToValues.splice(i, 1);
+        FromFormat.splice(i, 1);
+        ToFormat.splice(i, 1);
+
+        this.setState({ FromValues });
+        this.setState({ ToValues });
+        this.setState({ FromFormat });
+        this.setState({ ToFormat });
+    }
+
+    handleChange(i, event) {
+        let FromValues = [...this.state.FromValues];
+        FromValues[i] = event.target.value;
+        this.setState({ FromValues });
+    }
+    handleChange1(i, event) {
+        let FromFormat = [...this.state.FromFormat];
+        FromFormat[i] = event.target.value;
+        this.setState({ FromFormat });
+    }
+    handleChange2(i, event) {
+        let ToValues = [...this.state.ToValues];
+        ToValues[i] = event.target.value;
+        this.setState({ ToValues });
+    }
+    handleChange3(i, event) {
+        let ToFormat = [...this.state.ToFormat];
+        ToFormat[i] = event.target.value;
+        this.setState({ ToFormat });
+    }
+
+    productTimeClone() {
+        this.setState(prevState => ({ FromValues: [...prevState.FromValues, ''] }))
+        this.setState(prevState => ({ ToValues: [...prevState.ToValues, ''] }))
+        this.setState(prevState => ({ FromFormat: [...prevState.FromFormat, ''] }))
+        this.setState(prevState => ({ ToFormat: [...prevState.ToFormat, ''] }))
+    }
     /*Add Product Time */
-    productImage = event => {
+    banner = event => {
         if (event.target.files && event.target.files[0]) {
             let files = event.target.files;
             for (let i = 0; i < files.length; i++) {
@@ -99,14 +242,14 @@ class EditProduct extends Component {
                 reader.readAsDataURL(files[i]);
                 reader.onloadend = () => {
                     this.setState({
-                        productImage: reader.result
-                    });
+                        banner: reader.result
+                    }); 
                 }
             }
         }
     }
     remove_product() {
-        $("#productImage").val("");
+        $("#banner").val("");
         this.setState({
             file: '',
             certi_image: '',
@@ -114,17 +257,77 @@ class EditProduct extends Component {
         });
         $("#remove_product_image").hide();
     }
+    onChange(e) {
+        const checkedfeature = [];
+        const checkedModifier = [];
+        const checkedEating = [];
+        let values;
+        if (e.target.type !== 'checkbox') {
+            values = e.target.value;
+        } else if (e.target.name === 'product_feature') {
+            const checkeds = document.getElementsByName('product_feature');
+            for (let i = 0; i < checkeds.length; i++) {
+                if (checkeds[i].checked) {
+                    checkedfeature.push(checkeds[i].value);
+                }
+            }
+            values = checkedfeature.splice(0, 3);
 
+        }/*else if(e.target.name === 'normal-modifier') {
+            const checkeds = document.getElementsByTagName('input');
+            for (let i = 0; i < checkeds.length; i++) {
+                if (checkeds[i].checked) {
+                    checkedModifier.push(checkeds[i].value);
+                }
+            }
+            values = checkedModifier;
+        }*/else if (e.target.name === 'eating_opt') {
+            const checkeds = document.getElementsByTagName('input');
+            for (let i = 0; i < checkeds.length; i++) {
+                if (checkeds[i].checked) {
+                    checkedEating.push(checkeds[i].value);
+                }
+            }
+            
+            values = checkedEating;
+        }
+        else if (e.target.type === 'time') {
+            console.log("hitting")
+            var times = {}, re = /^\d+(?=:)/;
+
+            for (let i = 13, n = 1; i < 24; i++, n++) {
+                times[i] = n < 10 ? "0" + n : n
+                }
+
+                
+                var time = e.traget.value
+                , value = time.value
+                , match = value.match(re)[0];
+                let new_time=
+                (match && match >= 13 ? value.replace(re, times[match]) : value)
+                + (time.valueAsDate.getTime() < 43200000 ? " AM" : " PM")
+                values=new_time;
+                console.log("hitting",values)
+        }
+        this.setState({ [e.target.name]: values })
+        this.setState(prevState => {
+          console.log("dfdf",prevState.allData);
+        let allData = Object.assign({}, prevState.allData);  // creating copy of state variable allData
+        allData.name = values;                     // update the name property, assign a new value                 
+        return { allData };                                 // return new object jasper object
+        })
+        console.log("values data",this.state.allData.name);
+    }
     render() {
         if (this.state.redirect) {
-            return (<Redirect exact to='/' />)
+            return (<Redirect exact to='product-list' />)
         }
         return (
             <div className="content-wrapper">
                 <section className="content-header">
                     <h1>
                         Add Product
-                    <a href="product-list" className="btn btn-warning pull-right"><i className="fa fa-angle-left"></i> Back</a>
+                        <a href="/restaurant/product-list" className="btn btn-warning pull-right"><i className="fa fa-angle-left"></i> Back</a>
                     </h1>
                 </section>
                 <section className="content">
@@ -133,11 +336,11 @@ class EditProduct extends Component {
                             <div className="thumbnail">
                                 <div className="clearfix"></div><br />
                                 <div className="col-md-12">
-                                    <form className="form-horizontal" onSubmit={this.productSave}>
+                                    <form action="#" className="form-horizontal" onSubmit={this.productSave.bind(this)}>
                                         <div className="form-group">
                                             <label className="col-md-2 control-label">Product  Name</label>
                                             <div className="col-md-5">
-                                                <input type="text" onChange={this.onChange} className="form-control input-sm" name="name" placeholder="Product Name" />
+                                                <input type="text" onChange={this.onChange} className="form-control input-sm" name="name" placeholder="Product Name" value={this.state.allData.name} />
                                             </div>
                                         </div>
                                         <div className="clearfix"></div>
@@ -146,16 +349,16 @@ class EditProduct extends Component {
                                             <div className="col-md-5">
                                                 <label className="radio-inline">
                                                     <input type="radio" name="eating_opt" value="Dine-In" onChange={this.onChange} /> Dine-In
-                                            </label>
+                                                </label>
                                                 <label className="radio-inline">
                                                     <input type="radio" name="eating_opt" value="Take Away" onChange={this.onChange} /> Take Away
-                                            </label>
+                                                </label>
                                                 <label className="radio-inline">
                                                     <input type="radio" name="eating_opt" value="Delivery" onChange={this.onChange} /> Delivery
-                                            </label>
+                                                </label>
                                                 <label className="radio-inline">
                                                     <input type="radio" name="eating_opt" value="Drive Through" onChange={this.onChange} /> Drive Through
-                                            </label>
+                                                </label>
                                             </div>
                                         </div>
                                         <div className="clearfix"></div>
@@ -165,17 +368,17 @@ class EditProduct extends Component {
                                                 <div className="checkbox">
                                                     <label>
                                                         <input type="checkbox" name="product_feature" value="Vegetarian" onChange={this.onChange} /> Vegetarian
-                                                </label>
+                                                    </label>
                                                 </div>
                                                 <div className="checkbox">
                                                     <label>
                                                         <input type="checkbox" name="product_feature" value="Vegetarian Friendly" onChange={this.onChange} /> Vegetarian Friendly
-                                                </label>
+                                                    </label>
                                                 </div>
                                                 <div className="checkbox">
                                                     <label>
                                                         <input type="checkbox" name="product_feature" value="This product only suitable for 21+" onChange={this.onChange} /> This product only suitable for 21+
-                                                </label>
+                                                    </label>
                                                 </div>
                                             </div>
                                         </div>
@@ -183,7 +386,7 @@ class EditProduct extends Component {
                                         <div className="form-group">
                                             <label className="col-md-2 control-label">Description</label>
                                             <div className="col-md-5">
-                                                <textarea rows="3" className="form-control input-sm" onChange={this.onChange} name="description" placeholder="Description"></textarea>
+                                                <textarea rows="3" className="form-control input-sm" onChange={this.onChange} name="description" placeholder="Description" value={this.state.allData.name}></textarea>
                                             </div>
                                         </div>
                                         <div className="clearfix"></div>
@@ -198,7 +401,7 @@ class EditProduct extends Component {
                                                         <option value="4">NOODLES</option>
                                                     </select>
                                                 </div>
-                                                {/* <TodoList items={this.state.add_category} removeItem={this.removeItem} /> */}
+                                                <TodoList items={this.state.category} removeItem={this.removeItem} />
                                             </div>
                                             <div className="col-md-2">
                                                 <a href="!#" data-toggle="modal" data-target="#add-cat" className="btn btn-primary btn-sm btn-block">+ Add Category</a>
@@ -214,15 +417,13 @@ class EditProduct extends Component {
                                                                     <div className="form-group">
                                                                         <label className="col-sm-4 control-label">Category:</label>
                                                                         <div className="col-sm-5">
-                                                                            {/* <input type="text" className="form-control input-sm" ref="categoryName" id="categoryName" onChange={this.categoryName} placeholder="Category" name="category" /> */}
-                                                                            <input type="text" className="form-control input-sm" ref="categoryName" id="categoryName" placeholder="Category" name="category" />
+                                                                            <input type="text" className="form-control input-sm" ref="categoryName" id="categoryName" onChange={this.categoryName} placeholder="Category" name="category" />
                                                                         </div>
                                                                     </div>
                                                                     <div className="form-group">
                                                                         <label className="col-sm-4 control-label"></label>
                                                                         <div className="col-sm-5">
-                                                                            {/* <button type="button" onClick={this.categorySave.bind(this)} className="btn btn-primary btn-sm">Submit</button> */}
-                                                                            <button type="button" className="btn btn-primary btn-sm">Submit</button>
+                                                                            <button type="button" onClick={this.categorySave.bind(this)} className="btn btn-primary btn-sm">Submit</button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -236,7 +437,7 @@ class EditProduct extends Component {
                                                                                 <th>Action</th>
                                                                             </tr>
                                                                         </thead>
-                                                                        {/* <TodoList items={this.state.add_category} removeItem={this.removeItem} /> */}
+                                                                        <TodoList items={this.state.category} removeItem={this.removeItem} />
                                                                     </table>
                                                                 </div>
                                                             </div>
@@ -267,8 +468,15 @@ class EditProduct extends Component {
                                                                     <th>Price(Excluding SST)</th>
                                                                 </tr>
                                                             </thead>
-                                                            {/* <ModifierList items={this.state.add_modifier} removeModifier={this.removeModifier} /> */}
-
+                                                            <ModifierList items={this.state.add_modifier} removeModifier={this.removeModifier} />
+                                                            {/*<tbody>
+                                                        <tr>
+                                                            <td><input type="checkbox" name="normal-modifier" value="Extra Cheese" onChange={this.onChange} /></td>
+                                                            <td>Extra Cheese</td>
+                                                            <td>+RM1 <i className="fa fa-close closesection"></i></td>
+															
+                                                        </tr>
+                                                    </tbody>*/}
                                                         </table>
                                                         <div>
                                                             <button type="button" className="btn btn-primary btn-sm" data-toggle="modal" data-target="#addmodifiernormal">+ Add Modifiers</button>
@@ -317,7 +525,7 @@ class EditProduct extends Component {
                                                     <div className="col-md-8">
                                                         <input type="text" className="namegroup" placeholder="Name Group" />
                                                         <label >Pick
-                                        <select className="namegroup2">
+											<select className="namegroup2">
                                                                 <option value="0">0</option>
                                                                 <option value="1">1</option>
                                                             </select></label>
@@ -385,10 +593,10 @@ class EditProduct extends Component {
                                             <div className="col-md-5">
                                                 <label className="radio-inline">
                                                     <input type="radio" name="counter" value="Food" onChange={this.onChange} /> Food
-                                            </label>
+                                                </label>
                                                 <label className="radio-inline">
                                                     <input type="radio" name="counter" value="Drink" onChange={this.onChange} /> Drink
-                                            </label>
+                                                </label>
                                             </div>
                                         </div>
                                         <div className="form-group">
@@ -396,9 +604,9 @@ class EditProduct extends Component {
                                             <div className="col-md-5">
                                                 <select className="form-control input-sm" name="status" onChange={this.onChange}>
                                                     <option selected disbaled>Select</option>
-                                                    <option value="Active">Active</option>
-                                                    <option value="Suspended">Suspended</option>
-                                                    <option value="Not Available">Not Available</option>
+                                                    <option value="0">Active</option>
+                                                    <option value="1">Suspended</option>
+                                                    <option value="2">Not Available</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -410,11 +618,11 @@ class EditProduct extends Component {
                                                     <div className="col-md-9 padnoneright">
                                                         <div className="input-group input-group-sm" style={{ width: '100%', float: 'left' }}>
                                                             <span className="input-group-addon">From</span>
-                                                            <input type="text" style={{ width: '22%', float: 'left' }} name="prod_from_time" className="form-control" placeholder="Hour" onChange={this.onChange} />
-                                                            <select name="from_format" style={{ width: '23%', float: 'left' }} onChange={this.onChange} className="form-control input-sm"><option selected disabled value=""></option><option value="AM">AM</option><option value="PM">PM</option></select>
+                                                            <input type="time" style={{ width: '45%', float: 'left' }} name="fromtime" className="form-control without_ampm" placeholder="Hour" onChange={this.onChange} />
+                                                {/*<select name="from_format" style={{ width: '13%', float: 'left' }} onChange={this.onChange} className="form-control input-sm"><option selected disabled value=""></option><option value="AM">AM</option><option value="PM">PM</option></select>*/}
                                                             <span className="input-group-addon" style={{ border: '0px', width: '10%', float: 'left', fontSize: '12px' }}>To</span>
-                                                            <input type="text" style={{ width: '23%', float: 'left' }} name="prod_to_time" className="form-control" placeholder="Hour" onChange={this.onChange} />
-                                                            <select name="to_format" style={{ width: '22%', float: 'left' }} onChange={this.onChange} className="form-control input-sm"><option selected disabled value=""></option><option value="AM">AM</option><option value="PM">PM</option></select>
+                                                            <input type="time" style={{ width: '45%', float: 'left' }} name="totime" className="form-control" placeholder="Hour" onChange={this.onChange} />
+                                                            {/*<select name="to_format" style={{ width: '22%', float: 'left' }} onChange={this.onChange} className="form-control input-sm"><option selected disabled value=""></option><option value="AM">AM</option><option value="PM">PM</option></select>*/}
                                                         </div>
                                                         <div>
                                                             <table style={{ width: '45%', float: 'left', marginLeft: '49px' }}>
@@ -434,7 +642,7 @@ class EditProduct extends Component {
                                         <div className="form-group">
                                             <label className="col-md-2 control-label">Picture <span className="text-danger">*</span></label>
                                             <div className="col-md-5">
-                                                <input type="file" name="image[]" id="productImage" onChange={this.productImage.bind(this)} accept="image/x-png,image/gif,image/jpeg" multiple />
+                                                <input type="file" name="image[]" id="banner" onChange={this.banner.bind(this)} accept="image/x-png,image/gif,image/jpeg" multiple />
                                             </div>
                                             {/*<span id="remove_product_image" onClick={this.remove_product.bind(this)} style={removeImage}><i className="fa fa-remove"></i></span>*/}
                                         </div>
@@ -459,12 +667,77 @@ class EditProduct extends Component {
                     </div>
                 </section>
             </div>
-        )
-
+        );
     }
-
 }
 
+class TodoList extends Component {
+    render() {
+        var items = this.props.items.map((item, index) => {
+            return (
+                <TodoListItem key={index} item={item} index={index} removeItem={this.props.removeItem} />
+            );
+        });
+        return (
+            <tbody>{items}</tbody>
+        );
+    }
+}
 
+class TodoListItem extends Component {
+    constructor(props) {
+        super(props);
+        this.onClickClose = this.onClickClose.bind(this);
+    }
+    onClickClose() {
+        var index = parseInt(this.props.index);
+        this.props.removeItem(index);
+    }
+    render() {
+        return (
+            <tr>
+                <td>{this.props.item.value}</td>
+                <td><button type="button" className="btn btn-danger btn-xs" onClick={this.onClickClose}>&times;</button></td>
+            </tr>
+        );
+    }
+}
 
-export default EditProduct;
+/* Add Modifier  */
+class ModifierList extends Component {
+    render() {
+        var items = this.props.items.map((item, index) => {
+            return (
+                <ModifierListItem key={index} item={item} index={index} removeModifier={this.props.removeModifier} />
+            );
+        });
+        return (
+            <tbody>{items}</tbody>
+        );
+    }
+}
+
+class ModifierListItem extends Component {
+    constructor(props) {
+        super(props);
+        this.onModifierClose = this.onModifierClose.bind(this);
+    }
+    onModifierClose() {
+        var index = parseInt(index);
+        this.props.removeModifier(index);
+    }
+    render() {
+        return (
+            <tr key={this.props.item.index}>
+                <td>{/*<input type="checkbox" name="normal-modifier" value={this.props.item.index} onChange={this.onChange} />*/}</td>
+                {this.props.item.value.map((modval) =>
+                    <td>{modval}</td>
+                )}
+                <td><i className="fa fa-close closesection" onClick={this.onModifierClose}></i></td>
+            </tr>
+        );
+    }
+}
+/* Add Modifier  */
+
+export default AddProduct;

@@ -84,6 +84,34 @@ export function DeleteData(type, id) {
   });
 }
 
+
+export function EditData_WOURL(type, id ) {
+  let BaseUrl = `${Config.url}`
+  return new Promise((resolve, reject) => {
+    fetch(BaseUrl + type, {
+      method: "POST",
+      body: JSON.stringify(id),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "Content-type": "multipart/form-data",
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials": "true",
+        "Access-Control-Allow-Methods": "*",
+        "Access-Control-Allow-Headers":
+        "Origin, Access-Control-Allow-Methods, Access-Control-Allow-Origin, Access-Control-Allow-Credentials, Access-Control-Allow-Headers,Authorization,Content-Type"
+      }
+    })
+      .then(response => response.json())
+      .then(responseJson => {
+        resolve(responseJson);  
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+}
+
 export function EditData(type, id ) {
   let BaseUrl = `${Config.url}`
   return new Promise((resolve, reject) => {
