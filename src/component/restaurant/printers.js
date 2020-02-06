@@ -69,12 +69,16 @@ class Printer extends Component {
     printerSave(event){
         event.preventDefault();
         if(this.state.name){
-            
-            PostData('add_printer',this.state).then((result)=>{
+            console.log(this.state);
+            PostData('add_printer1',this.state).then((result)=>{
+
+                console.log(result);
                 let responseJson = result;
+                console.log(responseJson);
                 
-                this.setState({success:responseJson.response.msg});
+                this.setState({success:`${responseJson.response.msg.name} added succesfully`});
                 this.setState({sResult:responseJson.response.result});
+                
             });
         }
         //
@@ -83,9 +87,10 @@ class Printer extends Component {
         DeleteData('delete_printer',printerId).then((result) => {
             let deleteResponse = result;
             this.setState({deleteMsgStatus:deleteResponse.response.msg});
-            if(deleteResponse.response.result===1){
-                window.location.reload();
-            }
+            //if(deleteResponse.response.result===1){
+               window.location.reload();
+               console.log("working");
+          //  }
             
         });
         //
@@ -144,7 +149,7 @@ class Printer extends Component {
                     <h1>
                         Printers
                     </h1>
-                    <span>{this.state.success}</span>
+                    <span style={{color:"green"}}>{this.state.success}</span>
                 </section>
                 <section className="content">
                     <div className="row">

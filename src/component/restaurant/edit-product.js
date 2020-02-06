@@ -86,7 +86,7 @@ class AddProduct extends Component {
         modifier:'some data',
         id:this.state.id
     }
-     
+        console.log("splitted value",this.state.allData.product_feature.split(",")[0]);
         console.log("updated alldata",this.state.allData);
         console.log("data sending",this.state.allData);
         console.log("updated",data);
@@ -262,7 +262,7 @@ class AddProduct extends Component {
         const checkedModifier = [];
         const checkedEating = [];
         let values;
-        if (e.target.type !== 'checkbox') {
+        if (e.target.type !== 'checkbox' && e.target.name !== 'eating_opt') {
             values = e.target.value;
         } else if (e.target.name === 'product_feature') {
             const checkeds = document.getElementsByName('product_feature');
@@ -348,16 +348,16 @@ class AddProduct extends Component {
                                             <label className="col-md-2 control-label">Eating Options</label>
                                             <div className="col-md-5">
                                                 <label className="radio-inline">
-                                                    <input type="radio" name="eating_opt" value="Dine-In" onChange={this.onChange} /> Dine-In
+                                                    <input type="radio" name="eating_opt" value="Dine-In" checked={this.state.allData.eating_opt ==="Dine-In"?true:false} onChange={this.onChange} /> Dine-In
                                                 </label>
                                                 <label className="radio-inline">
-                                                    <input type="radio" name="eating_opt" value="Take Away" onChange={this.onChange} /> Take Away
+                                                    <input type="radio" name="eating_opt" value="Take Away" checked={this.state.allData.eating_opt ==="Take Away"?true:false} onChange={this.onChange} /> Take Away
                                                 </label>
                                                 <label className="radio-inline">
-                                                    <input type="radio" name="eating_opt" value="Delivery" onChange={this.onChange} /> Delivery
+                                                    <input type="radio" name="eating_opt" value="Delivery" checked={this.state.allData.eating_opt ==="Delivery"?true:false} onChange={this.onChange} /> Delivery
                                                 </label>
                                                 <label className="radio-inline">
-                                                    <input type="radio" name="eating_opt" value="Drive Through" onChange={this.onChange} /> Drive Through
+                                                    <input type="radio" name="eating_opt" value="Drive Through" checked={this.state.allData.eating_opt ==="Drive Through"?true:false} onChange={this.onChange} /> Drive Through
                                                 </label>
                                             </div>
                                         </div>
@@ -367,7 +367,7 @@ class AddProduct extends Component {
                                             <div className="col-md-5">
                                                 <div className="checkbox">
                                                     <label>
-                                                        <input type="checkbox" name="product_feature" value="Vegetarian" onChange={this.onChange} /> Vegetarian
+                                                        <input type="checkbox" name="product_feature" value="Vegetarian"  onChange={this.onChange} /> Vegetarian
                                                     </label>
                                                 </div>
                                                 <div className="checkbox">
@@ -449,7 +449,7 @@ class AddProduct extends Component {
                                         <div className="form-group">
                                             <label className="col-md-2 control-label">Price (Excluding SST)</label>
                                             <div className="col-md-5">
-                                                <input type="text" name="price" onChange={this.onChange} className="form-control input-sm" placeholder="Price" />
+                                                <input type="text" name="price" onChange={this.onChange} className="form-control input-sm" placeholder="Price" value={this.state.allData.price}/>
                                                 <small>
                                                     <i>Note: SST and service charge will automatically be added to the Consumer and POS</i>
                                                 </small>
@@ -592,10 +592,10 @@ class AddProduct extends Component {
                                             <label className="col-md-2 control-label">Counter</label>
                                             <div className="col-md-5">
                                                 <label className="radio-inline">
-                                                    <input type="radio" name="counter" value="Food" onChange={this.onChange} /> Food
+                                                    <input type="radio" name="counter" value="Food" checked={this.state.allData.counter ==="Food"?true:false} onChange={this.onChange} /> Food
                                                 </label>
                                                 <label className="radio-inline">
-                                                    <input type="radio" name="counter" value="Drink" onChange={this.onChange} /> Drink
+                                                    <input type="radio" name="counter" value="Drink" checked={this.state.allData.counter ==="Drink"?true:false} onChange={this.onChange} /> Drink
                                                 </label>
                                             </div>
                                         </div>
