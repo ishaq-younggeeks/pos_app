@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
 import Header from './header';
 import Sidebar from './sidebar';
 import Dashboard from './dashboard';
@@ -62,35 +62,40 @@ class MainIndex extends Component {
                         {this.state.user === 'restaurant' ? <div className="wrapper">
                             <Header />
                             <Sidebar />
-                            <Route exact path='/restaurant' component={Dashboard} />
-                            <Route exact path='/restaurant/messages' component={Message} />
-                            <Route exact path='/restaurant/reports' component={Report} />
-                            <Route exact path="/restaurant/restaurant-reports" component={RestaurantReport} />
-                            <Route exact path="/restaurant/promotions" component={Promotion} />
-                            <Route exact path="/restaurant/payment" component={Payment} />
-                            <Route exact path="/restaurant/statistics-reports" component={StatisticReport} />
-                            <Route exact path="/restaurant/inventory" component={Inventory} />
-                            <Route exact path="/restaurant/accounts" component={Account} />
-                            <Route exact path="/restaurant/table-reservation" component={TableReservation} />
-                            <Route exact path="/restaurant/devices" component={Devices} />
-                            <Route exact path="/restaurant/employees-list" component={EmployeesList} />
-                            <Route exact path="/restaurant/add-employee" component={AddEmployee} />
-                            <Route exact path="/restaurant/product-list" component={ProductList} />
-                            <Route exact path="/restaurant/add-product" component={AddProduct} />
-                            <Route exact path="/restaurant/edit-product/:id" component={EditProduct} />
-                            <Route exact path="/restaurant/archive" component={Archive} />
-                            <Route exact path="/restaurant/floors" component={Floor} />
-                            <Route exact path="/restaurant/floor-layout/" component={FloorLayout} />
-                            <Route exact path="/restaurant/floor-layout-left/" component={FloorLayoutLeft} />
-                            <Route exact path="/restaurant/floor-layout-right/" component={FloorLayoutRight} />
-                            <Route exact path="/restaurant/discount" component={Discount} />
-                            <Route exact path="/restaurant/printers" component={Printer} />
-                            <Route exact path="/restaurant/reviews" component={Review} />
-                            <Route exact path="/restaurant/restaurant-reviews" component={RestaurantReview} />
-                            <Route exact path="/restaurant/user-reviews" component={UserReview} />
-                            <Route exact path="/restaurant/business-information" component={BusinessInformation} />
-                            <Route exact path="/restaurant/company-info" component={CompanyInfo} />
-                            <Route exact path="/restaurant/admin-info" component={AdminInfo} />
+                            <Switch>
+                                <Route exact path='/restaurant' component={Dashboard} />
+                                <Route exact path='/restaurant/messages' component={Message} />
+                                <Route exact path='/restaurant/reports' component={Report} />
+                                <Route exact path="/restaurant/restaurant-reports" component={RestaurantReport} />
+                                <Route exact path="/restaurant/promotions" component={Promotion} />
+                                <Route exact path="/restaurant/payment" component={Payment} />
+                                <Route exact path="/restaurant/statistics-reports" component={StatisticReport} />
+                                <Route exact path="/restaurant/inventory" component={Inventory} />
+                                <Route exact path="/restaurant/accounts" component={Account} />
+                                <Route exact path="/restaurant/table-reservation" component={TableReservation} />
+                                <Route exact path="/restaurant/devices" component={Devices} />
+                                <Route exact path="/restaurant/employees-list" component={EmployeesList} />
+                                <Route exact path="/restaurant/add-employee" component={AddEmployee} />
+                                <Route exact path="/restaurant/product-list" component={ProductList} />
+                                <Route exact path="/restaurant/add-product" component={AddProduct} />
+                                <Route exact path="/restaurant/edit-product/:id" component={EditProduct} />
+                                <Route exact path="/restaurant/archive" component={Archive} />
+                                <Route exact path="/restaurant/floors" component={Floor} />
+                                <Route exact path="/restaurant/floor-layout/" component={FloorLayout} />
+                                <Route exact path="/restaurant/floor-layout-left/" component={FloorLayoutLeft} />
+                                <Route exact path="/restaurant/floor-layout-right/" component={FloorLayoutRight} />
+                                <Route exact path="/restaurant/discount" component={Discount} />
+                                <Route exact path="/restaurant/printers" component={Printer} />
+                                <Route exact path="/restaurant/reviews" component={Review} />
+                                <Route exact path="/restaurant/restaurant-reviews" component={RestaurantReview} />
+                                <Route exact path="/restaurant/user-reviews" component={UserReview} />
+                                <Route exact path="/restaurant/business-information" component={BusinessInformation} />
+                                <Route exact path="/restaurant/company-info" component={CompanyInfo} />
+                                <Route exact path="/restaurant/admin-info" component={AdminInfo} />
+                                <Route exact path="/restaurant/*"> 
+                                    <NoMatch />
+                                </Route>
+                            </Switch>
                         </div>: <Redirect exact to={"/restaurant"} />}
                         <ReportModal />
                         <MessageModal />
@@ -107,3 +112,8 @@ class MainIndex extends Component {
 }
 
 export default MainIndex;
+
+// If the Link is invalid then push back to the last Linked opened
+function NoMatch() {
+    window.history.back(-1);
+}
