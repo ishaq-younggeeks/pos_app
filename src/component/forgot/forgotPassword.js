@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import { PostData } from '../restaurant/services/postData.js';
+import {Link} from 'react-router-dom';
 class ForgotPassword extends Component {
     constructor(props){
         super(props);
@@ -90,6 +91,7 @@ class ForgotPassword extends Component {
     render(){
         return(
             <>
+            <Link to="/register" className="" style={{float: 'left',color: '#2196f3',marginTop: '-2em',marginLeft: '1em',cursor: 'pointer'}}>Register</Link>
             <p id="forgotForm" onClick={this.forgotForm} style={{float: 'right',color: '#2196f3',marginTop: '-2em',marginRight: '1em',cursor: 'pointer'}}>Forgot Password</p>
             <div id="ForgotPanel" style={{display:'none'}}>
                 <div className="login">

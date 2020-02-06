@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-import { Redirect } from 'react-router-dom';
+import { Redirect,Link } from 'react-router-dom';
 import { PostData } from './restaurant/services/postData.js';
 import ForgotPassword from './forgot/forgotPassword.js';
 
@@ -189,6 +189,7 @@ class MainPage extends Component {
 								<div className="clearfix"></div>
 							</div>
 							</div>
+							
 							<ForgotPassword />
 						</div>
 					</div>

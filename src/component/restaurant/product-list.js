@@ -40,9 +40,9 @@ class ProductList extends Component {
         <section className="content-header">
           <h1>
             Product List
-            <a href="add-product" className="btn btn-warning pull-right">
+            <Link to="add-product" className="btn btn-warning pull-right">
               <i className="fa fa-plus"></i> Add Product
-            </a>
+            </Link>
           </h1>
         </section>
         <section className="content">

@@ -78,7 +78,7 @@ class Printer extends Component {
                 
                 this.setState({success:`${responseJson.response.msg.name} added succesfully`});
                 this.setState({sResult:responseJson.response.result});
-                window.location.reload();
+                //window.history.push('/restaurant/printers');
             });
         }
         //
@@ -88,7 +88,7 @@ class Printer extends Component {
             let deleteResponse = result;
             this.setState({deleteMsgStatus:deleteResponse.response.msg});
             //if(deleteResponse.response.result===1){
-               window.location.reload();
+              // window.history.push('/restaurant/printers');
                console.log("working");
           //  }
             

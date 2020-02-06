@@ -4,6 +4,7 @@ import $ from "jquery";
 import { PostData, GetData, EditData } from './services/postData.js';
 import axios from 'axios'
 import Config from './../../config/Config';
+import { Link } from "react-router-dom";
 
 var category = [];
 var add_modifier = [];
@@ -46,9 +47,13 @@ class AddProduct extends Component {
         let userId = localStorage.getItem("userId");
         this.setState({ user_id: userId });
         //let u = this.state.user_id
+        
     }
     componentDidMount() {
-        console.clear();
+        //console.clear();
+        console.log("window location path",window.location.pathname);
+        localStorage.setItem("hist",window.location.pathname);
+        console.log("window.location.pathname",localStorage.getItem("hist"));
     }
     productSave(event) {
         event.preventDefault(); 
@@ -312,7 +317,7 @@ class AddProduct extends Component {
                 <section className="content-header">
                     <h1>
                         Add Product
-                        <a href="product-list" className="btn btn-warning pull-right"><i className="fa fa-angle-left"></i> Back</a>
+                        <Link to="product-list" className="btn btn-warning pull-right"><i className="fa fa-angle-left"></i> Back</Link>
                     </h1>
                 </section>
                 <section className="content">
