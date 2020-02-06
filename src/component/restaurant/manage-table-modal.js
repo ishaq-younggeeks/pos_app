@@ -121,11 +121,9 @@
                                     </tbody>
                                 </table>
                             </div>
-<<<<<<< HEAD
                             <div className="modal-footer" style={{textAlign: 'center'}}>
                                 <button type="submit" className="btn btn-primary btn-sm">Save</button>
-                            </div>
-                        </form>
+                            </div>                        
                         <div className="table-responsive thumbnail" style={{marginbottom: '0px'}}>
                             <table className="table table-condensed table-striped" style={{marginbottom: '0px'}}>
                                 <thead>
@@ -182,11 +180,10 @@
                                     </tr>
                                 </tbody>
                             </table>
-=======
->>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
             );
         }

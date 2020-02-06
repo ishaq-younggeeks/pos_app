@@ -61,11 +61,6 @@ class FloorLayout extends Component {
     render() {
         let myData = []
         let Data = (this.props.floorLayData)
-<<<<<<< HEAD
-        for(let i = 1 ;i <= Data.num_table;i++ ) {
-            myData.push(i)
-        }
-=======
             for(let i = 1 ;i <= Data.num_table;i++ ) {
                 myData.push(i)
             }
@@ -73,7 +68,6 @@ class FloorLayout extends Component {
                 myData[this.state.selectedKitchenItem]=this.state.new_name;
                 this.state.new_name="";
             }
->>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
         const resizeDiv = {
             width:'100%',
             padding:'15px',
@@ -145,11 +139,7 @@ class FloorLayout extends Component {
                                                 return (
                                                     <tr className="three_tr" key={item}>
                                                         <td style={{borderTop: '0px'}}>
-<<<<<<< HEAD
-                                                        <button>{item}</button>
-=======
                                                         <button onClick={() => this.updateKitchenItem(myData.indexOf(item))} data-toggle="modal" data-target="#edit-kitchen">{item}</button>
->>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
                                                         </td>
                                                     </tr>
                                                 )

@@ -14,6 +14,7 @@ class Promotion extends Component {
             success:'',
             image:'',
             allData:[],
+            deleteMsgStatus:'',
             ImageError:'',
             showLogoImage:'',
             eating_opt:'',
@@ -64,8 +65,7 @@ class Promotion extends Component {
     }
 
     componentDidMount(){
-        GetData('all-promo').then((result) => {
-            
+        GetData('all-promo').then((result) => {            
             let responseData = result;
             this.setState({allData:responseData.data});
         })    
@@ -74,7 +74,7 @@ class Promotion extends Component {
     onLogo = event => {
         if (event.target.files && event.target.files[0]) {
             let file = event.target.files[0];
-            
+                   
             if(file.size < 307200){
                 $("#remove_image").show();
                 this.setState({showLogoImage:URL.createObjectURL(event.target.files[0])});
@@ -84,8 +84,7 @@ class Promotion extends Component {
                     this.setState({ image: reader.result });
                 }
             } else {
-                this.setState({LogoImageError:'File is too big'})
-                
+                this.setState({ImageError:'File is too big'})               
             }
         }
     }
@@ -116,25 +115,39 @@ class Promotion extends Component {
                 eating_opt:this.state.eatingOpt||this.state.editEatingOpt ,
                 image:this.state.image||this.state.showLogoImage
             }
-            
-            PostData('add-promotion',data).then((result) => {
-                
-                let responseJson = result;
-                this.setState({success:responseJson.response.msg});
-                this.setState({sResult:responseJson.response.result});
-            });
-        } else {
-            
-            PostData('add-promotion',this.state).then((result) => {
-                
-                
-                let responseJson = result;
-                this.setState({success:responseJson.response.msg});
-                this.setState({sResult:responseJson.response.result});
-            });
-        }
-    }
-
+            if(this.state.eating_opt) {
+                data.eating_opt=JSON.stringify(Object.assign({}, this.state.eating_opt)); 
+            } else {
+                data.eating_opt=JSON.stringify(Object.assign({}, this.state.editEatingOpt)); 
+              } 
+        } else {            
+            data = {
+                user_id:this.state.user_id,
+                name:this.state.name,
+                id:this.state.editId,
+                description:this.state.description,
+                price:this.state.price,
+                timing_from:this.state.timing_from,
+                timing_to:this.state.timing_to,
+                date_from:this.state.date_from,
+                date_to:this.state.date_to,
+                eating_opt:this.state.eating_opt,
+                image:this.state.image
+            }              
+          }                 
+        let BaseUrl = `${Config.url}`
+        axios.post(BaseUrl + 'add-promotion', data)
+            .then((response) => {  
+                this.setState({success:1})            
+        }) 
+        .catch(error => {
+            console.log(error);
+        }); 
+        
+    }  
+    uncheck(){
+        
+    }  
     onChange(e){
         const checkedArr = [];
         let values;
@@ -204,18 +217,17 @@ class Promotion extends Component {
         if (window.confirm("Delete the item?")) {
             DeleteData('delete-prom',promoId).then((result) => {
                 let deleteResponse = result;
-                
                 this.setState({deleteMsgStatus:deleteResponse.response.msg});
-                if(deleteResponse.response.result==1){
-                    window.location.reload();
-                }
-                
+                if(deleteResponse.response.result==1){ window.location.reload(); }                
             });
         }
     }
 
     edit = (item) => {
-        
+        const checkeds = document.getElementsByName('eating_opt'); 
+        for (let i = 0; i < checkeds.length; i++) {
+            checkeds[i].defaultChecked = false;                 
+        }           
         this.setState({myToggle:this.state.myToggle + 1})
         this.setState({editId:item.id})
         this.setState({editName:item.name})
@@ -257,6 +269,7 @@ class Promotion extends Component {
 
     render() {
         
+        console.log(this.state.image)
         if(this.state.sResult==='1'){
             window.location.reload();
         }
@@ -459,6 +472,7 @@ class Promotion extends Component {
                                     </tbody>
                                 </table>
                             </div>
+
                         </div>
 
                     </div>
