@@ -78,7 +78,7 @@ class Printer extends Component {
                 
                 this.setState({success:`${responseJson.response.msg.name} added succesfully`});
                 this.setState({sResult:responseJson.response.result});
-                
+                window.location.reload();
             });
         }
         //

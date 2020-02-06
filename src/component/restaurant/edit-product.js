@@ -55,6 +55,7 @@ class AddProduct extends Component {
           console.log("getting",this.state.allData,"vale",this.state.allData.name);
           //console.log(Array.isArray(this.state.allData));
          // this.state.allData.map((x)=>console.log(x));
+         console.log(this.state.allData.product_feature.split(",")[0]==="Vegetarian"," product fature");
       }
       ).catch(err => console.log(err));
     }
@@ -86,7 +87,7 @@ class AddProduct extends Component {
         modifier:'some data',
         id:this.state.id
     }
-        console.log("splitted value",this.state.allData.product_feature.split(",")[0]);
+       // console.log("splitted value",this.state.allData.product_feature.split(",")[0]);
         console.log("updated alldata",this.state.allData);
         console.log("data sending",this.state.allData);
         console.log("updated",data);
@@ -262,7 +263,7 @@ class AddProduct extends Component {
         const checkedModifier = [];
         const checkedEating = [];
         let values;
-        if (e.target.type !== 'checkbox' && e.target.name !== 'eating_opt') {
+        if (e.target.type !== 'checkbox') {
             values = e.target.value;
         } else if (e.target.name === 'product_feature') {
             const checkeds = document.getElementsByName('product_feature');
@@ -309,11 +310,15 @@ class AddProduct extends Component {
                 values=new_time;
                 console.log("hitting",values)
         }
+
+        let target = e.target.name;
+        console.log(target);
         this.setState({ [e.target.name]: values })
         this.setState(prevState => {
-          console.log("dfdf",prevState.allData);
-        let allData = Object.assign({}, prevState.allData);  // creating copy of state variable allData
-        allData.name = values;                     // update the name property, assign a new value                 
+          console.log("dfdf",typeof(prevState.allData));
+        let allData = Object.assign({}, prevState.allData);
+          // creating copy of state variable allData
+        allData[target] = values;                     // update the name property, assign a new value                 
         return { allData };                                 // return new object jasper object
         })
         console.log("values data",this.state.allData.name);
@@ -367,7 +372,7 @@ class AddProduct extends Component {
                                             <div className="col-md-5">
                                                 <div className="checkbox">
                                                     <label>
-                                                        <input type="checkbox" name="product_feature" value="Vegetarian"  onChange={this.onChange} /> Vegetarian
+                                                        <input type="checkbox" name="product_feature" value="Vegetarian" checked={this.state.allData.product_feature.split(",")[0]==="Vegetarian"?true:false}  onChange={this.onChange} /> Vegetarian
                                                     </label>
                                                 </div>
                                                 <div className="checkbox">

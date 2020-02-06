@@ -162,9 +162,9 @@ class Floor extends Component {
     this.setState({numberOfTables:data.num_table})
     this.setState({numberOfPos:data.pos_num})
     this.setState({editId:data.id})
-    this.setState({floorNameChecked:data.floor_type.indexOf("POS")})
-    this.setState({noOfTableChecked:data.floor_type.indexOf("Bar")})
-    this.setState({kitchenChecked:data.floor_type.indexOf('Kitchen')})
+    // this.setState({floorNameChecked:data.floor_type.indexOf("POS")})
+    // this.setState({noOfTableChecked:data.floor_type.indexOf("Bar")})
+    // this.setState({kitchenChecked:data.floor_type.indexOf('Kitchen')})
   };
 
   onCloseModal = () => {
@@ -440,16 +440,20 @@ class Floor extends Component {
                                       </thead>
                                       <tbody>
                                           {this.state.floorData.map((item) => {
+                                            console.log("item data",item.floor_type,item);
                                             return (
                                               <tr key = {item.id}>
                                                 <td>{item.floor_name}</td>
                                                 <td>{item.num_table}</td>
                                                 <td>{item.pos_num}</td>
                                                 <td>
-                                                    {item.floor_type.indexOf("POS") === 0 ? <i className="fa fa-check text-success"></i>:<i className="fa fa-times text-danger"></i>}POS<br/>
+                                                {JSON.stringify(item.floor_type).includes("POS") ? <i className="fa fa-check text-success"></i>:<i className="fa fa-times text-danger"></i>}POS<br/>
+                                                    {JSON.stringify(item.floor_type).includes("Bar")  ? <i className="fa fa-check text-success"></i>:<i className="fa fa-times text-danger"></i>}Bar<br/>
+                                                    {JSON.stringify(item.floor_type).includes("Kitchen")  ? <i className="fa fa-check text-success"></i>:<i className="fa fa-times text-danger"></i>}Kitchen<br/>
+                                                    {/* {item.floor_type.indexOf("POS") === 0 ? <i className="fa fa-check text-success"></i>:<i className="fa fa-times text-danger"></i>}POS<br/>
                                                     {item.floor_type.indexOf("Bar") === 0 || item.floor_type.indexOf("Bar") === 4 ? <i className="fa fa-check text-success"></i>:<i className="fa fa-times text-danger"></i>}Bar<br/>
                                                     {item.floor_type.indexOf("Kitchen") === 0 || item.floor_type.indexOf("Kitchen") === 4 || item.floor_type.indexOf("Kitchen") === 8 ? <i className="fa fa-check text-success"></i>:<i className="fa fa-times text-danger"></i>}Kitchen<br/>
-                                                    {/* {item.floor_type.indexOf("Drink") === 0 || item.floor_type.indexOf("Drink") === 4 || item.floor_type.indexOf("Drink") === 8 || item.floor_type.indexOf("Drink") === 16 ? <i className="fa fa-check text-success"></i>:<i className="fa fa-times text-danger"></i>}Drink<br/> */}
+                                                    {item.floor_type.indexOf("Drink") === 0 || item.floor_type.indexOf("Drink") === 4 || item.floor_type.indexOf("Drink") === 8 || item.floor_type.indexOf("Drink") === 16 ? <i className="fa fa-check text-success"></i>:<i className="fa fa-times text-danger"></i>}Drink<br/> */}
                                                 </td>
                                                 <td>
                                                     <button className="btn btn-danger btn-xs" onClick={() => this.deleteFloor(item.id)}><i className="fa fa-times"></i></button>
