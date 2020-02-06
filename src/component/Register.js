@@ -8,7 +8,7 @@ class Register extends Component{
 	constructor() {
 		super()
 		this.state={
-			type:'restaurant',
+			type:'',
 			name:'',
 			email:'',
 			password:'',
@@ -27,11 +27,11 @@ class Register extends Component{
 	}
 
 	onChange(e) {
-        this.setState({[e.target.name]:e.target.value});        
+		this.setState({[e.target.name]:e.target.value});
 	}
 
 	onSubmit(e)	{
-		e.preventDefault()
+		e.preventDefault(this.state.type)
 		const data ={
             type:this.state.type,
 			name:this.state.name,	
@@ -70,7 +70,6 @@ class Register extends Component{
 	    .catch(err=>{
 		    console.log(err);
 	    })
-		
 	}
 
 	onCloseModal() {
@@ -90,6 +89,7 @@ class Register extends Component{
 					<div className="col-md-6 mt-5 mx-auto">
 						<form noValidate onSubmit={this.onSubmit}>
 							<h1 className="h3 mb-3 font-weight-normal"> Please Register</h1>
+							<hr/>
 							<div className="form-group">
 								<label htmlFor="first_name"> Name</label>
 							    <input type="text" className="form-control" name="name" placeholder="Enter your Name" 	onChange={this.onChange}/>
@@ -108,6 +108,11 @@ class Register extends Component{
 								<label htmlFor="password">Password</label>
 								<input type="password" className="form-control" name="password" placeholder="Enter password" value={this.state.password}
 							    onChange={this.onChange}/>
+                            </div>
+                            <div className="form-group">
+								<label htmlFor="password">Password</label><hr style={{margin:'0'}}/><br/>
+								<input type="radio" name="type" value="user" onChange={this.onChange}/> User<br/>
+								<input type="radio" name="type" value="restaurant" onChange={this.onChange}/> Restaurant
                             </div>
                             <button type="submit" className="btn btn-lg btn-primary btn-block">Register In </button>
             	        </form>

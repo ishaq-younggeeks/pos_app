@@ -1,10 +1,6 @@
 import React from 'react'
 import axios from 'axios'
-<<<<<<< HEAD
-import Config from '../../config/Config'
-=======
 import Config from './../../config/Config'
->>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
 
 class SstCharge extends React.Component {
     constructor(props) {
@@ -15,15 +11,12 @@ class SstCharge extends React.Component {
             check:'1'
         }
         this.checkAll=this.checkAll.bind(this)
+        this.onChange=this.onChange.bind(this)
     }
 
     componentDidMount() {
-<<<<<<< HEAD
         let Baseurl =`${Config.url}`
         axios.get(Baseurl+`restaurents`)
-=======
-        axios.get(`${Config.url}restaurents`)
->>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
         .then(response => {
             this.setState({
                 restaurantData:response.data.response.data
@@ -38,13 +31,7 @@ class SstCharge extends React.Component {
         this.setState({value : e.target.value})
         if(e.target.value === 'Yes') {
             list.sort((a,b) => {
-<<<<<<< HEAD
                 return b.sst_status - a.sst_status  
-=======
-                
-                
-                return a.sst_number - b.sst_number  
->>>>>>> b86564253d17808ac5de17bdf2de77276cb104d7
             })
         }
         if(e.target.value === 'No') { 
@@ -56,13 +43,13 @@ class SstCharge extends React.Component {
 
     checkAll(){
         let checkeds = document.getElementsByName('ChargeSst'); 
-        if(this.state.check=='1'){
+        if(this.state.check=='1') {
             for (let i = 0; i < checkeds.length; i++) {
                 checkeds[i].checked = true;
             }
             this.setState({check:'2'})  
         }
-        else{            
+        else {            
             for (let i = 0; i < checkeds.length; i++) {
                 checkeds[i].checked = false;                 
             }
