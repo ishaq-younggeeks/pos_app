@@ -4,7 +4,7 @@ import $ from "jquery";
 import { PostData, GetData, EditData } from './services/postData.js';
 import axios from 'axios'
 import Config from './../../config/Config';
-import { Link } from "react-router-dom";
+import { Link,Route } from "react-router-dom";
 
 var category = [];
 var add_modifier = [];
@@ -92,6 +92,7 @@ class AddProduct extends Component {
         .then((response) => {console.log(response)
             //window.location.reload(false);
             //Perform action based on response
+            this.setState({redirect:true});
         }) 
         .catch(error => {
         
@@ -113,6 +114,8 @@ class AddProduct extends Component {
         //         } 
         //     });
         // }
+
+
     } 
     /*Add Category */
     categorySave(event) {
@@ -308,10 +311,19 @@ class AddProduct extends Component {
         this.setState({ [e.target.name]: values })
         console.log("values data",this.state);
     }
+    renderPage () {
+        return (
+          <Component {...this.props} />
+        )
+      }
     render() {
-        if (this.state.redirect) {
-            return (<Redirect exact to='product-list' />)
-        }
+
+        // if(this.state.redirect===true){
+        //     return (<Route render={() => <Redirect push to="product-list" />} />)
+        // }
+        // if (this.state.redirect) {
+        //     return (<Redirect exact to='product-list' />)
+        // }
         return (
             <div className="content-wrapper">
                 <section className="content-header">
