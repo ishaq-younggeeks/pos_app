@@ -16,15 +16,16 @@ class Inventory extends Component {
   componentDidMount() {
     let userId = localStorage.getItem("userId");
     this.setState({ user_id: userId });
-    GetData("all-inven").then(result => {
-      let responseData = result;
+    // GetData("all-inven").then(result => {
+    //   let responseData = result;
       
-      let data = responseData.data;
+    //   let data = responseData.data;
+    //   console.log("data",data);
       
-      this.setState({ allData: data });
+     // this.setState({ allData: data });
       
       //EditData('',this.state.allData.id)
-    });
+    // });
   }
   onChange(e) {
     const checkedArr = [];

@@ -35,7 +35,8 @@ class AddProduct extends Component {
             product_name:'',
             tags:'',
             modifier:'',
-            id:0
+            id:0,
+            success:''
         }
         this.onChange = this.onChange.bind(this);
         this.removeItem = this.removeItem.bind(this);
@@ -92,6 +93,7 @@ class AddProduct extends Component {
         .then((response) => {console.log(response)
             //window.location.reload(false);
             //Perform action based on response
+            this.setState({success:`${this.state.name} added succesfully`});
             this.setState({redirect:true});
         }) 
         .catch(error => {
@@ -659,9 +661,11 @@ class AddProduct extends Component {
                                             <label className="col-md-2 control-label"></label>
                                             <div className="col-md-2">
                                                 <button type="submit" className="btn btn-primary btn-block">Add</button>
+                                                
                                             </div>
                                         </div>
                                     </form>
+                                    <span style={{color:"green"}}>{this.state.success}</span>
                                 </div>
                                 <div className="clearfix"></div><br />
                             </div>

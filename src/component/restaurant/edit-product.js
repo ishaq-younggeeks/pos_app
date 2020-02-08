@@ -51,11 +51,8 @@ class AddProduct extends Component {
     componentDidMount() {
         //console.clear();
         EditData_WOURL("product_details", {product_id:this.state.id}).then((res)=>{
-          console.log(this.setState({allData:res.data[0]}))
-          console.log("getting",this.state.allData,"vale",this.state.allData.name);
-          //console.log(Array.isArray(this.state.allData));
-         // this.state.allData.map((x)=>console.log(x));
-         console.log(this.state.allData.product_feature.split(",")[0]==="Vegetarian"," product fature");
+          this.setState({allData:res.data[0]})
+        console.log(this.state.allData,"all data")
       }
       ).catch(err => console.log(err));
     }
@@ -312,25 +309,27 @@ class AddProduct extends Component {
         }
 
         let target = e.target.name;
-        console.log(target);
+       
         this.setState({ [e.target.name]: values })
         this.setState(prevState => {
-          console.log("dfdf",typeof(prevState.allData));
+         
         let allData = Object.assign({}, prevState.allData);
           // creating copy of state variable allData
         allData[target] = values;                     // update the name property, assign a new value                 
         return { allData };                                 // return new object jasper object
         })
-        console.log("values data",this.state.allData.name);
+       
     }
     render() {
         if (this.state.redirect) {
             return (<Redirect exact to='product-list' />)
         }
         return (
+            
             <div className="content-wrapper">
                 <section className="content-header">
                     <h1>
+                        
                         Add Product
                         <a href="/restaurant/product-list" className="btn btn-warning pull-right"><i className="fa fa-angle-left"></i> Back</a>
                     </h1>
@@ -372,7 +371,7 @@ class AddProduct extends Component {
                                             <div className="col-md-5">
                                                 <div className="checkbox">
                                                     <label>
-                                                        <input type="checkbox" name="product_feature" value="Vegetarian" checked={this.state.allData.product_feature.split(",")[0]==="Vegetarian"?true:false}  onChange={this.onChange} /> Vegetarian
+                                                        <input type="checkbox" name="product_feature" value="Vegetarian"  onChange={this.onChange} /> Vegetarian
                                                     </label>
                                                 </div>
                                                 <div className="checkbox">
@@ -391,7 +390,7 @@ class AddProduct extends Component {
                                         <div className="form-group">
                                             <label className="col-md-2 control-label">Description</label>
                                             <div className="col-md-5">
-                                                <textarea rows="3" className="form-control input-sm" onChange={this.onChange} name="description" placeholder="Description" value={this.state.allData.name}></textarea>
+                                                <textarea rows="3" className="form-control input-sm" onChange={this.onChange} name="description" placeholder="Description" value={this.state.allData.description}></textarea>
                                             </div>
                                         </div>
                                         <div className="clearfix"></div>
@@ -623,10 +622,10 @@ class AddProduct extends Component {
                                                     <div className="col-md-9 padnoneright">
                                                         <div className="input-group input-group-sm" style={{ width: '100%', float: 'left' }}>
                                                             <span className="input-group-addon">From</span>
-                                                            <input type="time" style={{ width: '45%', float: 'left' }} name="fromtime" className="form-control without_ampm" placeholder="Hour" onChange={this.onChange} />
+                                                            <input type="time" style={{ width: '45%', float: 'left' }} name="fromtime" className="form-control without_ampm" placeholder="Hour" onChange={this.onChange} value={this.state.allData.fromtime}/>
                                                 {/*<select name="from_format" style={{ width: '13%', float: 'left' }} onChange={this.onChange} className="form-control input-sm"><option selected disabled value=""></option><option value="AM">AM</option><option value="PM">PM</option></select>*/}
                                                             <span className="input-group-addon" style={{ border: '0px', width: '10%', float: 'left', fontSize: '12px' }}>To</span>
-                                                            <input type="time" style={{ width: '45%', float: 'left' }} name="totime" className="form-control" placeholder="Hour" onChange={this.onChange} />
+                                                            <input type="time" style={{ width: '45%', float: 'left' }} name="totime" className="form-control" placeholder="Hour" onChange={this.onChange} value={this.state.allData.totime}/>
                                                             {/*<select name="to_format" style={{ width: '22%', float: 'left' }} onChange={this.onChange} className="form-control input-sm"><option selected disabled value=""></option><option value="AM">AM</option><option value="PM">PM</option></select>*/}
                                                         </div>
                                                         <div>
@@ -654,7 +653,7 @@ class AddProduct extends Component {
                                         <div className="form-group">
                                             <label className="col-md-2 control-label">Tags</label>
                                             <div className="col-md-5">
-                                                <textarea rows="3" name="tags" onChange={this.onChange} className="form-control input-sm" placeholder="Tags"></textarea>
+                                                <textarea rows="3" name="tags" onChange={this.onChange} className="form-control input-sm" placeholder="Tags" value={this.state.allData.tags}></textarea>
                                             </div>
                                         </div>
                                         <div className="clearfix"></div>

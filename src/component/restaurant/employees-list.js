@@ -1,6 +1,30 @@
 import React, { Component } from 'react';
+import { GetData, DeleteData } from "./services/postData";
 
 class EmployeesList extends Component {
+    constructor(props){
+        super(props)
+        this.state={
+            allData:[]
+        }
+    }
+
+    componentDidMount(){
+        GetData("all-emp").then(res => {
+            // 
+           
+            if (res.data) {
+              this.setState({
+                allData: res.data,
+              });
+              
+            } else {
+              return null;
+            }
+            console.log("all product list ",this.state.allData);
+          }).catch((err) => console.log(err));
+        }
+
     render() { 
         return (
             <div className="content-wrapper">
@@ -32,58 +56,21 @@ class EmployeesList extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Rajesh Gupta</td>
-                                                <td>aakash.gupta@sritechnocrat.com</td>
-                                                <td>+60122299761</td>
-                                                <td>1234</td>
-                                                <td>Waiter</td>
+                                         {this.state.allData.map(promoData => ( 
+                                            <tr key={promoData.id}>
+                                                <td>{promoData.name}</td>
+                                                <td>{promoData.email}</td>
+                                         <td>{promoData.contact}</td>
+                                                <td>{promoData.pin}</td>
+                                                <td>{promoData.emp_type}</td>
                                                 <td>Clocked In</td>
-                                                <td className="text-success">Active</td>
+                                                <td className="text-success">{promoData.status}</td>
                                                 <td>
                                                     <a href="javascript:void(0);" data-toggle="modal" data-target="#change-pwd" className="btn btn-primary btn-xs">Change Pin</a> &nbsp;
                                                     <a href="add-employee" className="btn btn-primary btn-xs">Edit</a>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Rajesh Gupta</td>
-                                                <td>aakash.gupta@sritechnocrat.com</td>
-                                                <td>+60122299761</td>
-                                                <td>2345</td>
-                                                <td>Waiter</td>
-                                                <td>Clocked In</td>
-                                                <td className="text-success">Active</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#change-pwd" className="btn btn-primary btn-xs">Change Pin</a> &nbsp;
-                                                    <a href="add-employee" className="btn btn-primary btn-xs">Edit</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Ajay Singh</td>
-                                                <td>aakash.gupta@sritechnocrat.com</td>
-                                                <td>+60122299761</td>
-                                                <td>1234</td>
-                                                <td>Kitchen</td>
-                                                <td>Clocked In</td>
-                                                <td className="text-success">Active</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#change-pwd" className="btn btn-primary btn-xs">Change Pin</a> &nbsp;
-                                                    <a href="add-employee" className="btn btn-primary btn-xs">Edit</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Rajesh Gupta</td>
-                                                <td>aakash.gupta@sritechnocrat.com</td>
-                                                <td>+60122299761</td>
-                                                <td>1234</td>
-                                                <td>Waiter</td>
-                                                <td>Clocked In</td>
-                                                <td className="text-success">Active</td>
-                                                <td>
-                                                    <a href="javascript:void(0);" data-toggle="modal" data-target="#change-pwd" className="btn btn-primary btn-xs">Change Pin</a> &nbsp;
-                                                    <a href="add-employee" className="btn btn-primary btn-xs">Edit</a>
-                                                </td>
-                                            </tr>
+                                            </tr>))}
+                                           
                                         </tbody>
                                     </table>
                                 </div>
