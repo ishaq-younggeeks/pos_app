@@ -38,6 +38,7 @@ class Printer extends Component {
         this.setState({user_id:userId});
     }
     componentDidMount(){
+        this.initialState = this.state;
         GetData('all_printers').then((result)=> {
             let responseData = result;
             let data = responseData[1].data;
@@ -82,7 +83,10 @@ class Printer extends Component {
                     console.log("get data",this.state.allData);
                 });
                 this.setState({success:`${responseJson.response.msg.name} added succesfully`});
-                this.setState({sResult:responseJson.response.result});
+                this.setState({sResult:responseJson.response.result});  
+                this.refs.form.reset();
+                setTimeout(()=>this.setState(()=>this.initialState),1000);
+                console.log("running",this.state.model);
                 //window.history.push('/restaurant/printers');
             });
         }
@@ -164,13 +168,14 @@ class Printer extends Component {
                         Printers
                     </h1>
                     <span style={{color:"green"}}>{this.state.success}</span>
+                   
                 </section>
                 <section className="content">
                     <div className="row">
                         <div className="col-md-12">
                             <div className="thumbnail">
                                 <div className="clearfix"></div><br/>
-                                <form method="" className="form-horizontal" onSubmit={this.printerSave}>
+                                <form method="" className="form-horizontal" onSubmit={this.printerSave} ref="form">
                                     <div className="col-md-12">
                                         <div className="form-group">
                                             <label className="col-md-3 control-label">Name</label>

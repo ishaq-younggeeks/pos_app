@@ -49,12 +49,14 @@ class ForgotPassword extends Component {
         if(this.state.email){
             PostData('send-otp', this.state).then((result) => {
                 let responseJson = result;
-                
-                
+                console.log("get otp",typeof(responseJson.response.result));
+                console.log()
                 this.setState({emailMsg:responseJson.response.msg});
-                this.setState({emailResult:responseJson.response.result});
+                this.setState({emailResult:`${responseJson.response.result}`});
                 if(this.state.emailResult==='1'){
+                   // $("#id").attr('disabled',false);
                     this.setState( {otpdisabled: !this.state.otpdisabled} );
+                    console.log(this.state.otpdisabled);
                 }
             });
         }
@@ -65,7 +67,7 @@ class ForgotPassword extends Component {
                 let responseJson = result;
                 
                 this.setState({otpMsg:responseJson.response.msg});
-                this.setState({otpResult:responseJson.response.result});
+                this.setState({otpResult:`${responseJson.response.result}`});
                 if(this.state.otpResult==='1'){
                     this.setState( {disabled: !this.state.disabled} );
                 }
@@ -110,7 +112,7 @@ class ForgotPassword extends Component {
                                     <div className="clearfix"></div><br/>
                                     <div className="input-group">
                                         <span className="input-group-addon"><i className="fa fa-key"></i></span>
-                                        <input type="text" className="form-control" id="otp"  name="otp" onBlur={this.onBlurOtp} onChange={this.onOtp} disabled = {(this.state.otpdisabled)? "disabled" : ""} placeholder="OTP" style={{borderLeft: '0px',paddingLeft: '5px'}} required/>
+                                        <input type="text" className="form-control" id="otp"  name="otp" onBlur={this.onBlurOtp} onChange={this.onOtp} disabled = {this.state.otpdisabled} placeholder="OTP" style={{borderLeft: '0px',paddingLeft: '5px'}} required/>
                                     </div>
                                     <span>{this.state.otpMsg}</span>
                                     <div className="clearfix"></div><br/>

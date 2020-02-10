@@ -1,6 +1,26 @@
 import React, { Component } from 'react';
+import Config from '../../config/Config';
+import axios from 'axios'
+
 
 class ChangePassword extends Component {
+   constructor(props){
+       super(props)
+       this.state={
+           pin:'',
+           confirmpin:'',
+           emp_id:''
+
+       }
+   }
+
+onChange = (e) =>{
+    this.setState({[e.target.name]:e.tagret.value})
+}  
+onSubmit = () => {
+    axios.post(`${Config}change-pin1`,this.state)
+    console.log("hitting");
+  }
     render() { 
         return (
             <div className="modal fade" id="change-pwd" tabIndex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style={{zIndex: '10000'}}>
@@ -10,7 +30,7 @@ class ChangePassword extends Component {
                         <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4 className="modal-title"><strong>Change Password</strong></h4>
                     </div>
-                    <form action="#" method="">
+                    <form action="#" method="" onSubmit={this.onSubmit}>
                         <div className="modal-body">
                             <div className="form-group">
                                 <label>New Pin</label>
@@ -21,7 +41,7 @@ class ChangePassword extends Component {
                             <div className="form-group">
                                 <label>Confirm Pin</label>
                                 <div>
-                                    <input type="text" className="form-control input-sm" placeholder="Enter Confirm Pin"/>
+                                    <input type="text" className="form-control input-sm" name="confirmpin" placeholder="Enter Confirm Pin" onChange={this.onChange}/>
                                 </div>
                             </div>
                         </div>

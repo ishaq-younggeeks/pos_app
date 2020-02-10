@@ -57,7 +57,7 @@ class EmployeesList extends Component {
                                         </thead>
                                         <tbody>
                                          {this.state.allData.map(promoData => ( 
-                                            <tr key={promoData.id}>
+                                            <tr key={promoData.id}> 
                                                 <td>{promoData.name}</td>
                                                 <td>{promoData.email}</td>
                                          <td>{promoData.contact}</td>
@@ -75,79 +75,7 @@ class EmployeesList extends Component {
                                     </table>
                                 </div>
                             </div>
-
-                            <div className="thumbnail visible-xs visible-sm">
-                                <table className="table table-striped btm-zero">
-                                    <tbody>
-                                    <tr>
-                                        <td style={{lineHeight: '20px'}}>
-                                            <strong>Name:</strong> Rajesh Gupta<br/>
-                                            <strong>Email:</strong> aakash.gupta@sritechnocrat.com<br/>
-                                            <strong>Phone Number:</strong> +60122299761<br/>
-                                            <strong>Pin:</strong> 1234<br/>
-                                            <strong>Employee Type:</strong> Waiter<br/>
-                                            <strong>Clock In / Clock Out:</strong> Clocked In<br/>
-                                            <strong>Status:</strong> Active<br/>
-                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#change-pwd" className="btn btn-primary btn-xs">Change Pin</a> &nbsp;
-                                            <a href="add-employee" className="btn btn-primary btn-xs">Edit</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style={{lineHeight: '20px'}}>
-                                            <strong>Name:</strong> Rajesh Gupta<br/>
-                                            <strong>Email:</strong> aakash.gupta@sritechnocrat.com<br/>
-                                            <strong>Phone Number:</strong> +60122299761<br/>
-                                            <strong>Pin:</strong> 1234<br/>
-                                            <strong>Employee Type:</strong> Waiter<br/>
-                                            <strong>Clock In / Clock Out:</strong> Clocked In<br/>
-                                            <strong>Status:</strong> Active<br/>
-                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#change-pwd" className="btn btn-primary btn-xs">Change Pin</a> &nbsp;
-                                            <a href="add-employee" className="btn btn-primary btn-xs">Edit</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style={{lineHeight: '20px'}}>
-                                            <strong>Name:</strong> Rajesh Gupta<br/>
-                                            <strong>Email:</strong> aakash.gupta@sritechnocrat.com<br/>
-                                            <strong>Phone Number:</strong> +60122299761<br/>
-                                            <strong>Pin:</strong> 1234<br/>
-                                            <strong>Employee Type:</strong> Waiter<br/>
-                                            <strong>Clock In / Clock Out:</strong> Clocked In<br/>
-                                            <strong>Status:</strong> Active<br/>
-                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#change-pwd" className="btn btn-primary btn-xs">Change Pin</a> &nbsp;
-                                            <a href="add-employee" className="btn btn-primary btn-xs">Edit</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style={{lineHeight: '20px'}}>
-                                            <strong>Name:</strong> Rajesh Gupta<br/>
-                                            <strong>Email:</strong> aakash.gupta@sritechnocrat.com<br/>
-                                            <strong>Phone Number:</strong> +60122299761<br/>
-                                            <strong>Pin:</strong> 1234<br/>
-                                            <strong>Employee Type:</strong> Waiter<br/>
-                                            <strong>Clock In / Clock Out:</strong> Clocked In<br/>
-                                            <strong>Status:</strong> Active<br/>
-                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#change-pwd" className="btn btn-primary btn-xs">Change Pin</a> &nbsp;
-                                            <a href="add-employee" className="btn btn-primary btn-xs">Edit</a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style={{lineHeight: '20px'}}>
-                                            <strong>Name:</strong> Rajesh Gupta<br/>
-                                            <strong>Email:</strong> aakash.gupta@sritechnocrat.com<br/>
-                                            <strong>Phone Number:</strong> +60122299761<br/>
-                                            <strong>Pin:</strong> 1234<br/>
-                                            <strong>Employee Type:</strong> Waiter<br/>
-                                            <strong>Clock In / Clock Out:</strong> Clocked In<br/>
-                                            <strong>Status:</strong> Active<br/>
-                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#change-pwd" className="btn btn-primary btn-xs">Change Pin</a> &nbsp;
-                                            <a href="add-employee" className="btn btn-primary btn-xs">Edit</a>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
+                            
                         </div>
                     </div>
                 </section>
