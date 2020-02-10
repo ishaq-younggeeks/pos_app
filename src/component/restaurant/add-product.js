@@ -263,7 +263,7 @@ class AddProduct extends Component {
         const checkedModifier = [];
         const checkedEating = [];
         let values;
-        if (e.target.type !== 'checkbox') {
+        if (e.target.type !== 'checkbox' && e.target.type !=='time') {
             values = e.target.value;
         } else if (e.target.name === 'product_feature') {
             const checkeds = document.getElementsByName('product_feature');
@@ -292,24 +292,8 @@ class AddProduct extends Component {
             
             values = checkedEating;
         }
-        else if (e.target.type === 'time') {
-            console.log("hitting")
-            var times = {}, re = /^\d+(?=:)/;
-
-            for (let i = 13, n = 1; i < 24; i++, n++) {
-                times[i] = n < 10 ? "0" + n : n
-                }
-
-                
-                var time = e.traget.value
-                , value = time.value
-                , match = value.match(re)[0];
-                let new_time=
-                (match && match >= 13 ? value.replace(re, times[match]) : value)
-                + (time.valueAsDate.getTime() < 43200000 ? " AM" : " PM")
-                values=new_time;
-                console.log("hitting",values)
-        }
+        else if (e.target.type === 'time') 
+               values=e.target.value;
         this.setState({ [e.target.name]: values })
         console.log("values data",this.state);
     }

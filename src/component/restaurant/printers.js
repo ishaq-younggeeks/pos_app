@@ -69,13 +69,18 @@ class Printer extends Component {
     printerSave(event){
         event.preventDefault();
         if(this.state.name){
-            console.log(this.state);
+            console.log("sending data",this.state);
             PostData('add_printer1',this.state).then((result)=>{
 
                 console.log(result);
                 let responseJson = result;
                 console.log(responseJson);
-                
+                GetData('all_printers').then((result)=> {
+                    let responseData = result;
+                    let data = responseData[1].data;
+                    this.setState({allData:data});
+                    console.log("get data",this.state.allData);
+                });
                 this.setState({success:`${responseJson.response.msg.name} added succesfully`});
                 this.setState({sResult:responseJson.response.result});
                 //window.history.push('/restaurant/printers');
@@ -91,6 +96,13 @@ class Printer extends Component {
               // window.history.push('/restaurant/printers');
                console.log("working");
           //  }
+
+          GetData('all_printers').then((result)=> {
+            let responseData = result;
+            let data = responseData[1].data;
+            this.setState({allData:data});
+            console.log("get data",this.state.allData);
+        });
             
         });
         //
@@ -98,19 +110,21 @@ class Printer extends Component {
     editPrinter(printerId){
         
         EditData('edit_printer',printerId).then((result)=> {
+            console.log(result);
             
             let editResponse = result;
             
             
             this.setState({editData:editResponse.response.data[0]});
             this.setState({id:this.state.editData.id});
+            //console.log("state",this.state.id);
             $("#name").val(this.state.editData.name);
             $("#business_name").val(this.state.editData.business_name);
             $("#address").val(this.state.editData.address);
             $("#contact").val(this.state.editData.contact);
             $("#sst_num").val(this.state.editData.sst_num);
-            if(this.state.editData.cash_drawer_conn===1){
-                $(" ").prop('checked','checked');
+            if(this.state.editData.cash_drawer_conn==="1"){
+                $("#cash_drawer_conn").attr('checked','checked');
             }else{
                 $("#cash_drawer_conn").prop('');
             }

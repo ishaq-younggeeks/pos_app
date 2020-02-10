@@ -390,7 +390,7 @@ class BusinessInformation extends Component {
       .post(
         `${Config.url}add-restaurent`,
         this.state
-      )
+      ).then((res)=>console.log(res))
       .catch(err => {
         
       });

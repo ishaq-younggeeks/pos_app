@@ -178,6 +178,7 @@ class MainPage extends Component {
 										<div className="form-group">
 											<button type="button" onClick={this.login} className="btn btn-warning btn-block">Sign In</button>
 										</div>
+										
 										{/*<div className="alert alert-info" style={{color: '#31708f',marginBottom: '0px',fontSize: '13px'}}>
 											<strong>Note:</strong> There is different Login panel for Merchant Admin and Merchant Employee for different security reasons.
 										</div>*/}
@@ -189,7 +190,7 @@ class MainPage extends Component {
 								<div className="clearfix"></div>
 							</div>
 							</div>
-							
+							<Link to="/register" className="" style={{float: 'left',color: '#2196f3',marginTop: '-2em', marginLeft: '1em',cursor: 'pointer'}}>Register</Link>
 							<ForgotPassword />
 						</div>
 					</div>

@@ -87,7 +87,7 @@ class Register extends Component{
 					<div className="col-md-3 mt-5 mx-auto">
 					</div>
 					<div className="col-md-6 mt-5 mx-auto">
-						<form noValidate onSubmit={this.onSubmit}>
+						<form  onSubmit={this.onSubmit}>
 							<h1 className="h3 mb-3 font-weight-normal"> Please Register</h1>
 							<hr/>
 							<div className="form-group">

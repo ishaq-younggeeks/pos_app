@@ -14,6 +14,7 @@ class AddProduct extends Component {
             name:'',
             eating_opt:'',
             product_feature:[],
+            product_featurecheck:[],
             description:'',
             price:'',
             banner: [],
@@ -49,13 +50,12 @@ class AddProduct extends Component {
         //let u = this.state.user_id
     }
     componentDidMount() {
-        //console.clear();
         EditData_WOURL("product_details", {product_id:this.state.id}).then((res)=>{
-          this.setState({allData:res.data[0]})
-        console.log(this.state.allData,"all data")
-      }
-      ).catch(err => console.log(err));
+            this.setState({allData:res.data[0]});
+            this.setState({product_featurecheck:this.state.allData.product_feature.split(",")});
+        }).catch(err => console.log(err));
     }
+
     productSave(event) {
         event.preventDefault(); 
         let user_id = localStorage.getItem("userId");
@@ -260,7 +260,7 @@ class AddProduct extends Component {
         const checkedModifier = [];
         const checkedEating = [];
         let values;
-        if (e.target.type !== 'checkbox') {
+        if (e.target.type !== 'checkbox' && e.target.type !== 'time') {
             values = e.target.value;
         } else if (e.target.name === 'product_feature') {
             const checkeds = document.getElementsByName('product_feature');
@@ -290,27 +290,13 @@ class AddProduct extends Component {
             values = checkedEating;
         }
         else if (e.target.type === 'time') {
-            console.log("hitting")
-            var times = {}, re = /^\d+(?=:)/;
-
-            for (let i = 13, n = 1; i < 24; i++, n++) {
-                times[i] = n < 10 ? "0" + n : n
-                }
-
-                
-                var time = e.traget.value
-                , value = time.value
-                , match = value.match(re)[0];
-                let new_time=
-                (match && match >= 13 ? value.replace(re, times[match]) : value)
-                + (time.valueAsDate.getTime() < 43200000 ? " AM" : " PM")
-                values=new_time;
-                console.log("hitting",values)
+            values=e.target.value;
         }
 
         let target = e.target.name;
        
         this.setState({ [e.target.name]: values })
+        
         this.setState(prevState => {
          
         let allData = Object.assign({}, prevState.allData);
@@ -318,18 +304,19 @@ class AddProduct extends Component {
         allData[target] = values;                     // update the name property, assign a new value                 
         return { allData };                                 // return new object jasper object
         })
+        console.log(this.state.product_feature);
        
     }
     render() {
         if (this.state.redirect) {
             return (<Redirect exact to='product-list' />)
         }
+        
         return (
             
             <div className="content-wrapper">
                 <section className="content-header">
-                    <h1>
-                        
+                    <h1>                        
                         Add Product
                         <a href="/restaurant/product-list" className="btn btn-warning pull-right"><i className="fa fa-angle-left"></i> Back</a>
                     </h1>
@@ -370,18 +357,32 @@ class AddProduct extends Component {
                                             <label className="col-md-2 control-label">Product Feature</label>
                                             <div className="col-md-5">
                                                 <div className="checkbox">
-                                                    <label>
-                                                        <input type="checkbox" name="product_feature" value="Vegetarian"  onChange={this.onChange} /> Vegetarian
+                                                    <label> 
+                                                        {this.state.product_featurecheck[0]==='Vegetarian' ?
+                                                        <input type="checkbox" name="product_feature" value="Vegetarian" defaultChecked onClick={this.onChange} /> 
+                                                        :                                                                                                        
+                                                        <input type="checkbox" name="product_feature" value="Vegetarian" onClick={this.onChange} /> 
+                                                        }Vegetarian
                                                     </label>
                                                 </div>
                                                 <div className="checkbox">
                                                     <label>
-                                                        <input type="checkbox" name="product_feature" value="Vegetarian Friendly" onChange={this.onChange} /> Vegetarian Friendly
+                                                        {this.state.product_featurecheck[1]==='Vegetarian Friendly' ?
+                                                        <input type="checkbox" name="product_feature" value="Vegetarian Friendly" defaultChecked onClick={this.onChange} /> 
+                                                        :                                                                                                        
+                                                        <input type="checkbox" name="product_feature" value="Vegetarian Friendly" onClick={this.onChange} /> 
+                                                        }
+                                                        Vegetarian Friendly
                                                     </label>
                                                 </div>
                                                 <div className="checkbox">
                                                     <label>
-                                                        <input type="checkbox" name="product_feature" value="This product only suitable for 21+" onChange={this.onChange} /> This product only suitable for 21+
+                                                        {this.state.product_featurecheck[2]==='This product only suitable for 21+' ?
+                                                        <input type="checkbox" name="product_feature" value="This product only suitable for 21+" defaultChecked onClick={this.onChange} /> 
+                                                        :                                                                                                        
+                                                        <input type="checkbox" name="product_feature" value="This product only suitable for 21+" onClick={this.onChange} /> 
+                                                        }
+                                                        This product only suitable for 21+
                                                     </label>
                                                 </div>
                                             </div>
