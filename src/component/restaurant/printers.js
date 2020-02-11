@@ -82,10 +82,20 @@ class Printer extends Component {
                     this.setState({allData:data});
                     console.log("get data",this.state.allData);
                 });
+                console.log(result);
+                if(responseJson.response.msg.name)
                 this.setState({success:`${responseJson.response.msg.name} added succesfully`});
+                else
+                this.setState({success:`${responseJson.response.msg}`});
                 this.setState({sResult:responseJson.response.result});  
                 this.refs.form.reset();
-                setTimeout(()=>this.setState(()=>this.initialState),1000);
+                this.removeImage();
+                this.setState({editData:[]});
+                let x = document.getElementById("snackbar");
+                x.className = "show";
+                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+              
+               // setTimeout(()=>this.initialState,1000);
                 console.log("running",this.state.model);
                 //window.history.push('/restaurant/printers');
             });
@@ -138,7 +148,9 @@ class Printer extends Component {
     removeImage(){
         $("#logo").val("");
         this.setState({
-            logo:''
+            logo:'',
+            showLogoImage:''
+
         });
         $("#remove_image").hide();
     }
@@ -167,8 +179,7 @@ class Printer extends Component {
                     <h1>
                         Printers
                     </h1>
-                    <span style={{color:"green"}}>{this.state.success}</span>
-                   
+                    <div id="snackbar">{this.state.success}</div>
                 </section>
                 <section className="content">
                     <div className="row">
@@ -217,7 +228,7 @@ class Printer extends Component {
                                         <div className="clearfix"></div>
                                         <div className="form-group">
                                             <label className="col-md-3 control-label">Logo</label>
-                                            {<img src={this.state.editData.logo ? this.state.editData.logo : ''} alt="Logo" style={{width:50}} />}
+                                            {<img src={this.state.showLogoImage ? this.state.showLogoImage : this.state.editData.logo} alt="" style={{width:50}} />}
                                             <div className="col-md-5">
                                                 <input type="file" name="logo" id="logo" onChange={this.onLogo} accept="image/x-png,image/gif,image/jpeg" />
                                             </div>

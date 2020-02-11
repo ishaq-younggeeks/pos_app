@@ -26,6 +26,9 @@ class Register extends Component{
 		this.otpSubmit=this.otpSubmit.bind(this)
 	}
 
+
+
+	
 	onChange(e) {
 		this.setState({[e.target.name]:e.target.value});
 	}
@@ -49,7 +52,6 @@ class Register extends Component{
 				const responsedata= res.data.response.data
 				this.setState({otp:responsedata.otp});
 				this.setState({token:responsedata.remember_token});
-
 				localStorage.setItem('OTPToken',responsedata.remember_token);         
 				this.setState({tokencheck:JSON.parse(localStorage.getItem('OTPToken'))});  
 			})
@@ -78,6 +80,8 @@ class Register extends Component{
 	onCloseModal() {
 		this.setState({OpenModal:false});
 	}
+
+
 
 	render() {
 		if(this.state.registered===true){

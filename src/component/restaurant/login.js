@@ -37,7 +37,6 @@ class Login extends Component {
                 body:JSON.stringify({obj})
             }*/
         ).then(function(response){
-            
             if(response.status === 200){
                 
             }

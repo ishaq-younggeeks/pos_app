@@ -93,7 +93,10 @@ class AddProduct extends Component {
         .then((response) => {console.log(response)
             //window.location.reload(false);
             //Perform action based on response
-            this.setState({success:`${this.state.name} added succesfully`});
+          //  this.setState({success:`${this.state.name} added succesfully`});
+          let x = document.getElementById("snackbar");
+          x.className = "show";
+          setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
             this.setState({redirect:true});
         }) 
         .catch(error => {
@@ -317,6 +320,7 @@ class AddProduct extends Component {
                         Add Product
                         <Link to="product-list" className="btn btn-warning pull-right"><i className="fa fa-angle-left"></i> Back</Link>
                     </h1>
+                    <div id="snackbar">Product added succesfully</div>
                 </section>
                 <section className="content">
                     <div className="row">
@@ -694,6 +698,7 @@ class TodoListItem extends Component {
 }
 
 /* Add Modifier  */
+
 class ModifierList extends Component {
     render() {
         var items = this.props.items.map((item, index) => {

@@ -1,33 +1,62 @@
 import React, { Component } from "react";
 import { PostData, GetData } from "./services/postData";
+import Config from '../../config/Config'
 
 class Inventory extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      user_id:'',
+      ingredient_name:'',
+      current_stock:'',
+      stock_status:'1',
       success: "",
       sResult: "",
       allData: [],
       updateBy: ""
-    };
-    this.inventorySubmit = this.inventorySubmit.bind(this);
-    this.onChange = this.onChange.bind(this);
+    }
   }
   componentDidMount() {
-    let userId = localStorage.getItem("userId");
-    this.setState({ user_id: userId });
-    // GetData("all-inven").then(result => {
-    //   let responseData = result;
-      
-    //   let data = responseData.data;
-    //   console.log("data",data);
-      
-     // this.setState({ allData: data });
-      
-      //EditData('',this.state.allData.id)
-    // });
+    let user_id = localStorage.getItem("userId");
+    this.setState({ user_id});
+    this.initialState = this.state;
+    console.log("get user name",localStorage.getItem("username"));
+    GetData('all-inven').then((result)=> {
+      let data = result.response.msg1
+         this.setState({allData:data});
+         console.log(this.state.allData)
+    });
+
+    
+   
   }
-  onChange(e) {
+
+  inventorySave = (event) => {
+    event.preventDefault();
+    if(this.state.name){
+        console.log("sending data",this.state);
+        PostData('add_inventory1',this.state).then((result)=>{
+
+            console.log(result);
+            let responseJson = result;
+            console.log(responseJson);
+            GetData('all-inven').then((result)=> {
+                let responseData = result;
+                let data = responseData[1].data;
+                this.setState({allData:data});
+                console.log("get data",this.state.allData);
+            });
+            this.setState({success:`${responseJson.response.msg.name} added succesfully`});
+            this.setState({sResult:responseJson.response.result});  
+            this.refs.form.reset();
+            setTimeout(()=>this.setState(()=>this.initialState),1000);
+            console.log("running",this.state.model);
+            //window.history.push('/restaurant/printers');
+        });
+    }
+    //
+}
+  onChange  = (e) => {
     const checkedArr = [];
     let values;
     if (e.target.type !== "checkbox") {
@@ -43,16 +72,7 @@ class Inventory extends Component {
     }
     this.setState({ [e.target.name]: values });
   }
-  inventorySubmit(event) {
-    event.preventDefault();
-    if (this.state.ingredient_name) {
-      PostData("add-inventory", this.state).then(result => {
-        let responseJson = result;
-        this.setState({ success: responseJson.response.msg });
-        this.setState({ sResult: responseJson.response.result });
-      });
-    }
-  }
+  
   render() {
     if (this.state.sResult === "1") {
       window.location.reload();
@@ -141,6 +161,7 @@ class Inventory extends Component {
                         <button
                           type="submit"
                           className="btn btn-primary btn-block"
+                          onClick={this.inventorySave}
                         >
                           Save
                         </button>
@@ -174,7 +195,7 @@ class Inventory extends Component {
                           <td>{invenData.ingredient_name}</td>
                           <td>{invenData.current_stock}</td>
                           <td>10:30 AM | {invenData.created_at}</td>
-                          <td>Rajendra</td>
+                          <td>{localStorage.getItem("username")}</td>
                           <td>
                             <a href="!#" className="btn btn-primary btn-xs">
                               Edit
@@ -202,7 +223,7 @@ class Inventory extends Component {
                         <br />
                         <strong>Last Modified:</strong> 10:30 AM | 7 Mar, 2018
                         <br />
-                        <strong>Updated By:</strong> Rajendra
+                        <strong>Updated By:</strong>{localStorage.getItem("username")}
                         <br />
                         <a href="!#" className="btn btn-primary btn-xs">
                           Edit
@@ -240,7 +261,7 @@ class Inventory extends Component {
                         <br />
                         <strong>Last Modified:</strong> 11:30 AM | 9 Mar, 2018
                         <br />
-                        <strong>Updated By:</strong> Rajendra
+                        <strong>Updated By:</strong>{localStorage.getItem("username")}
                         <br />
                         <a href="!#" className="btn btn-primary btn-xs">
                           Edit
