@@ -63,8 +63,7 @@ class CompanyInfo extends Component {
                     });
                 }
             }else{
-                this.setState({documentImageError:'File is too big'})
-                
+                this.setState({documentImageError:'File is too big'});                
             }
         }
       }
@@ -81,8 +80,7 @@ class CompanyInfo extends Component {
                     });
                 }
             }else{
-                //this.setState({documentImageError:'File is too big'})
-                
+                //this.setState({documentImageError:'File is too big'})                
             }
         }
       }
@@ -98,8 +96,7 @@ class CompanyInfo extends Component {
                     });
                 }
             }else{
-                //this.setState({documentImageError:'File is too big'})
-                
+                //this.setState({documentImageError:'File is too big'})                
             }
         }
       }
@@ -172,7 +169,7 @@ class CompanyInfo extends Component {
                                 <div className="clearfix"></div><br/>
                                 <div className="col-md-12">
                                     <div className="form-group">
-                                        <label className="col-md-4 control-label">Are you a Registeyes Company?</label>
+                                        <label className="col-md-4 control-label">Are you a Registered Company?</label>
                                         <div className="col-md-5" style={{paddingTop: '10px'}}>
                                             <div className="styled-input-single" style={{display: 'inline-block'}}>
                                                 <input type="radio" name="company_status" onChange={this.onChange} id="yes" value="yes"/>
@@ -204,7 +201,7 @@ class CompanyInfo extends Component {
                                             <div className="form-group">
                                                 <label className="col-md-4 control-label">Company Registration Number</label>
                                                 <div className="col-md-5">
-                                                    <input type="text" className="form-control" name="reg_number" onChange={this.onChange} placeholder="Company Registration Number"/>
+                                                    <input type="number" className="form-control" name="reg_number" pattern="[0-9]{12}" onChange={this.onChange} placeholder="Company Registration Number"/>
                                                 </div>
                                             </div>
                                             <div className="form-group">
@@ -256,19 +253,19 @@ class CompanyInfo extends Component {
                                                 <div className="form-group">
                                                     <label className="col-md-4 control-label">Phone Number</label>
                                                     <div className="col-md-5">
-                                                        <input type="text" className="form-control" name="pri_mobile" onChange={this.onChange} placeholder="Phone Number"/>
+                                                        <input type="tel" className="form-control" name="pri_mobile" onChange={this.onChange} placeholder="Phone Number"/>
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="col-md-4 control-label">Email</label>
                                                     <div className="col-md-5">
-                                                        <input type="text" className="form-control" name="pri_email" onChange={this.onChange}  placeholder="Email"/>
+                                                        <input type="email" className="form-control" name="pri_email" onChange={this.onChange}  placeholder="Email"/>
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="col-md-4 control-label">Identity Card Number</label>
                                                     <div className="col-md-5">
-                                                        <input type="text" className="form-control" name="pri_card_number" onChange={this.onChange} placeholder="Identity Card Number"/>
+                                                        <input type="number" className="form-control" name="pri_card_number" onChange={this.onChange} placeholder="Identity Card Number"/>
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
@@ -307,19 +304,19 @@ class CompanyInfo extends Component {
                                                 <div className="form-group">
                                                     <label className="col-md-4 control-label">Phone Number</label>
                                                     <div className="col-md-5">
-                                                        <input type="text" name="sec_mobile" onChange={this.onChange} className="form-control" placeholder="Phone Number"/>
+                                                        <input type="tel" name="sec_mobile" onChange={this.onChange} className="form-control" placeholder="Phone Number"/>
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="col-md-4 control-label">Email</label>
                                                     <div className="col-md-5">
-                                                        <input type="text" name="sec_email" onChange={this.onChange} className="form-control" placeholder="Email"/>
+                                                        <input type="email" name="sec_email" onChange={this.onChange} className="form-control" placeholder="Email"/>
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="col-md-4 control-label">Identity Card Number</label>
                                                     <div className="col-md-5">
-                                                        <input type="text" name="sec_card_number" onChange={this.onChange} className="form-control" placeholder="Identity Card Number"/>
+                                                        <input type="number" name="sec_card_number" onChange={this.onChange} className="form-control" placeholder="Identity Card Number"/>
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
@@ -358,7 +355,7 @@ class CompanyInfo extends Component {
                                                 <div className="form-group">
                                                     <label className="col-md-4 control-label">Business Bank Account No.</label>
                                                     <div className="col-md-5">
-                                                        <input type="text" className="form-control" name="busi_acc_number" onChange={this.onChange} placeholder="Business Bank Account No."/>
+                                                        <input type="number" className="form-control" name="busi_acc_number" onChange={this.onChange} placeholder="Business Bank Account No."/>
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
@@ -376,7 +373,7 @@ class CompanyInfo extends Component {
                                                 <div className="form-group">
                                                     <label className="col-md-4 control-label">Debit Card Number</label>
                                                     <div className="col-md-5">
-                                                        <input type="text" className="form-control" name="debit_card_number" onChange={this.onChange} placeholder="Debit Card Name"/>
+                                                        <input type="number" className="form-control" name="debit_card_number" onChange={this.onChange} placeholder="Debit Card Name"/>
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
@@ -413,7 +410,7 @@ class CompanyInfo extends Component {
                                             <div className="form-group">
                                                 <label className="col-md-4 control-label">Business Registration Number</label>
                                                 <div className="col-md-5">
-                                                    <input type="text" name="reg_number" onChange={this.onChange} className="form-control" placeholder="Business Registration Number"/>
+                                                    <input type="number" name="reg_number" onChange={this.onChange} className="form-control" placeholder="Business Registration Number"/>
                                                 </div>
                                             </div>
                                             <div className="form-group">
@@ -465,19 +462,19 @@ class CompanyInfo extends Component {
                                                 <div className="form-group">
                                                     <label className="col-md-4 control-label">Phone Number</label>
                                                     <div className="col-md-5">
-                                                        <input type="text" name="pri_mobile" onChange={this.onChange} className="form-control" placeholder="Phone Number"/>
+                                                        <input type="tel" name="pri_mobile" onChange={this.onChange} className="form-control" placeholder="Phone Number"/>
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="col-md-4 control-label">Email</label>
                                                     <div className="col-md-5">
-                                                        <input type="text" name="pri_email" onChange={this.onChange} className="form-control" placeholder="Email"/>
+                                                        <input type="email" name="pri_email" onChange={this.onChange} className="form-control" placeholder="Email"/>
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="col-md-4 control-label">Identity Card Number</label>
                                                     <div className="col-md-5">
-                                                        <input type="text" name="pri_card_number" onChange={this.onChange}  className="form-control" placeholder="Identity Card Number"/>
+                                                        <input type="number" name="pri_card_number" onChange={this.onChange}  className="form-control" placeholder="Identity Card Number"/>
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
@@ -516,19 +513,19 @@ class CompanyInfo extends Component {
                                                 <div className="form-group">
                                                     <label className="col-md-4 control-label">Phone Number</label>
                                                     <div className="col-md-5">
-                                                        <input type="text" name="sec_mobile" onChange={this.onChange} className="form-control" placeholder="Phone Number"/>
+                                                        <input type="number" name="sec_mobile" onChange={this.onChange} className="form-control" placeholder="Phone Number"/>
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="col-md-4 control-label">Email</label>
                                                     <div className="col-md-5">
-                                                        <input type="text" name="sec_email" onChange={this.onChange} className="form-control" placeholder="Email"/>
+                                                        <input type="email" name="sec_email" onChange={this.onChange} className="form-control" placeholder="Email"/>
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="col-md-4 control-label">Identity Card Number</label>
                                                     <div className="col-md-5">
-                                                        <input type="text" name="sec_card_number" onChange={this.onChange} className="form-control" placeholder="Identity Card Number"/>
+                                                        <input type="number" name="sec_card_number" onChange={this.onChange} className="form-control" placeholder="Identity Card Number"/>
                                                     </div>
                                                 </div>
                                                 <div className="form-group">
