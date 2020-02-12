@@ -24,11 +24,8 @@ class Inventory extends Component {
     GetData('all-inven').then((result)=> {
       let data = result.response.msg1
          this.setState({allData:data});
-         console.log(this.state.allData)
-    });
-
-    
-   
+         console.log(this.state.allData);
+    });   
   }
 
   inventorySave = (event) => {
@@ -90,24 +87,15 @@ class Inventory extends Component {
                 <div className="clearfix"></div>
                 <br />
                 <div className="col-md-12">
-                  <form
-                    action="!#"
-                    className="form-horizontal"
-                    onSubmit={this.inventorySubmit}
-                  >
+                  <form className="form-horizontal" onSubmit={this.inventorySave} data-toggle="validator" novalidate="true">
                     <div className="form-group">
                       <label className="col-md-3 control-label">
                         Name of Stock / Ingredient
                       </label>
                       <div className="col-md-4">
-                        <input
-                          type="text"
-                          name="ingredient_name"
-                          onChange={this.onChange}
-                          className="form-control input-sm"
-                          placeholder="Name of Stock / Ingredient"
-                        />
+                        <input type="text" name="ingredient_name" data-error="Please enter your Floor Name/Number."onChange={this.onChange} className="form-control input-sm" placeholder="Name of Stock / Ingredient" required/>
                       </div>
+                      <div class="help-block with-errors"></div>     
                     </div>
                     <div className="clearfix"></div>
                     <div className="form-group">
@@ -115,54 +103,30 @@ class Inventory extends Component {
                         Current Stock
                       </label>
                       <div className="col-md-4">
-                        <input
-                          type="text"
-                          name="current_stock"
-                          onChange={this.onChange}
-                          className="form-control input-sm"
-                          placeholder="Quantity"
-                        />
+                        <input type="number" name="current_stock" onChange={this.onChange} className="form-control input-sm" placeholder="Quantity" required />
                       </div>
+                      <div class="help-block with-errors"></div>     
                     </div>
                     <div className="clearfix"></div>
                     <div className="form-group">
                       <label className="col-md-3 control-label hidden-xs"></label>
                       <div className="col-md-4">
-                        <label
-                          className="radio-inline"
-                          style={{ fontSize: "12px" }}
-                        >
-                          <input
-                            type="radio"
-                            name="stock_status"
-                            value="1"
-                            onChange={this.onChange}
-                          />{" "}
+                        <label className="radio-inline" style={{ fontSize: "12px" }}>
+                          <input type="radio" name="stock_status" value="1" onChange={this.onChange} />{" "}
                           Stock In (+stock)
                         </label>
-                        <label
-                          className="radio-inline"
-                          style={{ fontSize: "12px" }}
-                        >
-                          <input
-                            type="radio"
-                            name="stock_status"
-                            value="0"
-                            onChange={this.onChange}
-                          />{" "}
+                        <label className="radio-inline" style={{ fontSize: "12px" }} >
+                          <input type="radio" name="stock_status" value="0" onChange={this.onChange} required />{" "}
                           Stock Out (-stock)
                         </label>
                       </div>
+                      <div class="help-block with-errors"></div>     
                     </div>
                     <div className="clearfix"></div>
                     <div className="form-group">
                       <label className="col-md-3 control-label"></label>
                       <div className="col-md-1">
-                        <button
-                          type="submit"
-                          className="btn btn-primary btn-block"
-                          onClick={this.inventorySave}
-                        >
+                        <button type="submit" className="btn btn-primary btn-block" >{/* onClick={this.inventorySave}*/}
                           Save
                         </button>
                       </div>
