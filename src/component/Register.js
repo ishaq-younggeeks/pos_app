@@ -100,35 +100,40 @@ class Register extends Component{
 							</div>
 							<div id="loginPanel">
 								<div className="login">
-									<form onSubmit={this.onSubmit} name="Register">
+									<form onSubmit={this.onSubmit}  data-toggle="validator" novalidate="true">
 										<div className="text-center">
 											<h5 className="text-primary"><strong>Register</strong></h5>
 											<p><small>Please enter your details to Register</small></p>
 											<h6>{this.state.error}</h6>
-										</div>										
-										<div className="input-group">				
-											<span className="input-group-addon"><i className="fa fa-user"></i></span>							
-											<input type="text" className="form-control" name="name" placeholder="Enter Your Name" onChange={this.onChange} required/>
-										</div><div className="clearfix"></div><br/>
-										<div className="input-group">
-											<span className="input-group-addon"><i className="fa fa-envelope"></i></span>	
+										</div>					
+										<div className="form-group">
+                            		    	<label>Name: </label>	
+											<input type="text" className="form-control " name="name" placeholder="Enter Your Name" onChange={this.onChange} data-error="Please Enter a valid Name" required/>
+											<div class="help-block with-errors"></div> 
+										</div>
+										<div className="form-group">
+											<label>Email: </label>		
 											<input type="email" className="form-control" name="email" placeholder="Enter Your Email" value={this.state.email}
-											onChange={this.onChange} required/>
-										</div><div className="clearfix"></div><br/>
-										<div className="input-group">
-											<span className="input-group-addon"><i className="fa fa-phone"></i></span>	
+											onChange={this.onChange} data-error="Please Enter a valid Email" required/>
+											<div class="help-block with-errors"></div> 
+										</div>
+										<div className="form-group">
+										 	<label>Contact: </label>	
 											<input type="tel" pattern="[0-9]{3}-[0-9]{4}-[0-9]{3}" className="form-control" name="number" placeholder="Enter Number (987-1293-321)" value={this.state.number}
-											onChange={this.onChange} required/>
-										</div><div className="clearfix"></div><br/>
-										<div className="input-group">
-											<span className="input-group-addon"><i className="fa fa-lock"></i></span>	
+											onChange={this.onChange} data-error="Please Enter a valid phone number" required/>
+											<div class="help-block with-errors"></div> 
+										</div>
+										<div className="form-group">
+											<label>Password: </label>	
 											<input type="password" className="form-control" name="password" placeholder="Enter The password" value={this.state.password}
-											onChange={this.onChange} required/>
-										</div><div className="clearfix"></div><br/>
-										<div className="input-group">
-											<h6><b>Register as:</b></h6>
+											onChange={this.onChange} data-error="Please Enter a valid Password" required/>
+											<div class="help-block with-errors"></div> 
+										</div>
+										<div className="form-group">
+											<label>Register As: </label>&nbsp;&nbsp;	
 											<input type="radio" name="type" value="user" onChange={this.onChange} required/> User &nbsp;
 											<input type="radio" name="type" value="restaurant" onChange={this.onChange} required/> Restaurant
+											<div class="help-block with-errors"></div> 
 										</div>
 										<div className="clearfix"></div><br/>
 										<button type="submit" className="btn btn-lg btn-primary btn-block">Register In </button>
