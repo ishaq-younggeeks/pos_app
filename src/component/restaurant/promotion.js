@@ -145,9 +145,6 @@ class Promotion extends Component {
         }); 
         
     }  
-    uncheck(){
-        
-    }  
     onChange(e){
         const checkedArr = [];
         let values;
@@ -260,7 +257,7 @@ class Promotion extends Component {
     }      
     istoggleOn(data) {
         this.setState(prevState => ({ toggle: !prevState.toggle, }));
-        this.setState({toggleData:data})
+        this.setState({toggleData:data});
     }
 
     closeModal() {

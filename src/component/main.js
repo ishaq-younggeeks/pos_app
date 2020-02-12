@@ -4,8 +4,7 @@ import { Redirect } from 'react-router-dom';
 import { PostData } from './restaurant/services/postData.js';
 import ForgotPassword from './forgot/forgotPassword.js';
 
-class MainPage extends Component {
-	
+class MainPage extends Component {	
 	constructor(props){
 		super(props);
 		this.state = {
@@ -44,8 +43,7 @@ class MainPage extends Component {
 			localStorage.uname = $('#username').val();
 			localStorage.pwd = $('#pwd').val();
 			this.state.name = localStorage.uname;
-			this.state.password = localStorage.pwd;
-			
+			this.state.password = localStorage.pwd;			
 		}
 		if(this.state.name && this.state.password){
 			PostData('login', this.state).then((result) => {
@@ -67,8 +65,7 @@ class MainPage extends Component {
 					this.setState({redirect:true});
 					
 				}else{
-					this.setState({error:'Name or Password mismatched'});
-					
+					this.setState({error:'Name or Password mismatched'});					
 				}
 				
 			});
@@ -108,15 +105,13 @@ class MainPage extends Component {
 	//     }
 	// }
 
-	remeberMe() {
-		
+	remeberMe() {		
 		if(this.state.disable === false && ($("#cbx").prop("checked"))) {
 			localStorage.chkbx = $('#cbx').val();
-		} else {
-			
+		} else {			
 			localStorage.clear();
 			// window.location.reload();
-		}
+		}	
 	}
 	
 	render(){

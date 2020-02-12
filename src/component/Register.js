@@ -4,7 +4,6 @@ import Modal from "react-responsive-modal";
 import { Redirect } from 'react-router-dom';
 
 class Register extends Component{
-
 	constructor() {
 		super()
 		this.state={
@@ -25,14 +24,11 @@ class Register extends Component{
 		this.onCloseModal=this.onCloseModal.bind(this)
 		this.otpSubmit=this.otpSubmit.bind(this)
 	}
-
 	onChange(e) {
 		this.setState({[e.target.name]:e.target.value});
 	}
-
 	onSubmit(e)	{
-		e.preventDefault(this.state.type)
-
+		e.preventDefault(this.state.type);
 		if(!this.state.number.length===10){
 				alert('Number Invalid')
 		}else{
@@ -49,17 +45,14 @@ class Register extends Component{
 				const responsedata= res.data.response.data
 				this.setState({otp:responsedata.otp});
 				this.setState({token:responsedata.remember_token});
-
 				localStorage.setItem('OTPToken',responsedata.remember_token);         
 				this.setState({tokencheck:JSON.parse(localStorage.getItem('OTPToken'))});  
 			})
 			.catch(err=>{
 				console.log(err);
 			})
-		}
-		
+		}		
 	}
-
 	otpSubmit(e) {
 		e.preventDefault()
 		const data ={
@@ -74,7 +67,6 @@ class Register extends Component{
 		    console.log(err);
 	    })
 	}
-
 	onCloseModal() {
 		this.setState({OpenModal:false});
 	}

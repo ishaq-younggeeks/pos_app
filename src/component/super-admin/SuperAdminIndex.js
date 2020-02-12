@@ -70,7 +70,7 @@ class SuperAdminIndex extends React.Component {
             <Route exact path='/super-admin/consumer-feedback' component={FeedBack}/>
             <Route exact path='/super-admin/flagged-restaurant' component={FlaggedRestaurant}/>
             <Route exact path='/super-admin/donation' component={Donation}/>
-            <Route exact path="*"> 
+            <Route exact path="/super-admin/*"> 
               <NoMatch />
             </Route>
           </Switch>
@@ -83,5 +83,5 @@ export default SuperAdminIndex;
 
 // If the Link is invalid then push back to the last Linked opened
 function NoMatch() {
-    window.history.back(-1);
+    //window.history.back(-1);
 }

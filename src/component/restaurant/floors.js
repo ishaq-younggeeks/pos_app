@@ -162,9 +162,9 @@ class Floor extends Component {
     this.setState({numberOfTables:data.num_table})
     this.setState({numberOfPos:data.pos_num})
     this.setState({editId:data.id})
-    this.setState({floorNameChecked:data.floor_type.indexOf("POS")})
-    this.setState({noOfTableChecked:data.floor_type.indexOf("Bar")})
-    this.setState({kitchenChecked:data.floor_type.indexOf('Kitchen')})
+    // this.setState({floorNameChecked:data.floor_type.indexOf("POS")})
+    // this.setState({noOfTableChecked:data.floor_type.indexOf("Bar")})
+    // this.setState({kitchenChecked:data.floor_type.indexOf('Kitchen')})
   };
 
   onCloseModal = () => {
@@ -346,8 +346,7 @@ class Floor extends Component {
                               <button className="btn btn-primary btn-xs" onClick = {() => this.previewData(floor.id)}>Preview</button>
                             </td>
                           </tr>
-                        )
-                        )}
+                        ))}
                       </tbody>
                     </table>
                   </div>
@@ -356,115 +355,115 @@ class Floor extends Component {
             </div>
           </section>
         </div > :
-          <FloorLayout 
+        <FloorLayout 
             toggle = {this.toggle}
             floorData = {this.state.floorData}
             floorLayoutData = {this.state.floorLayoutData}
             floorLayData = {this.state.floorLayData}
-          />} 
-            <Modal open={isModalOpen} onClose={() => this.onCloseModal()}>
-            {/* <div class="modal fade" role="dialog" aria-labelledby="myModalLabel"   style={{z_Index: "10000"}}> */}
-                  <div className="modal-dialog modal-lg">
-                      <div className="modal-content">
-                          <div className="modal-header">
-                              <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                              <h4 className="modal-title"><strong>Manage Floor</strong></h4>
-                          </div>
-                          <div className="modal-body">
-                              <form action="#" method="">
-                                  <div className="row">
-                                      <div className="col-md-6">
-                                          <div className="form-group">
-                                              <label>Floor Name / Number</label>
-                                              <div>
-                                                <input type="text" className="form-control input-sm" placeholder="Floor Name / Number" name="floor" defaultValue={this.state.floor} onChange={this.onChangeHandler}/>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div className="col-md-6">
-                                          <div className="form-group">
-                                              <label>Number of Tables</label>
-                                              <div>
-                                                <input type="text" className="form-control input-sm" placeholder="Number of Table" name="numberOfTables" defaultValue={this.state.numberOfTables} onChange={this.onChangeHandler}/>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div className="col-md-6">
-                                          <div className="form-group">
-                                              <label>Number of POS per Floor</label>
-                                              <div>
-                                                <input type="text" className="form-control input-sm" placeholder="Number of POS per Floor" name="numberOfPos" defaultValue={this.state.numberOfPos} onChange={this.onChangeHandler}/>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div className="col-md-6">
-                                          <div className="form-group">
-                                              <label></label>
-                                              <div>
-                                                  <label className="checkbox-inline">
-                                                    {this.state.floorNameChecked === 0 ? <input type="checkbox" defaultChecked onChange={this.toggleChangePOS}/>:<input type="checkbox" checked={this.state.isPOS} onChange={this.toggleChangePOS}/> }POS
-                                                  </label>
-                                                  <label className="checkbox-inline">
-                                                    {this.state.noOfTableChecked === 0 || this.state.noOfTableChecked === 4 ? <input type="checkbox" defaultChecked onChange={this.toggleChangeBar}/> :<input type="checkbox" checked={this.state.isBar} onChange={this.toggleChangeBar}/>}Bar
-                                                  </label>
-                                                  <label
-                                                    className="checkbox-inline"
-                                                    style={{ marginRight: "10px" }}
-                                                    >
-                                                    {this.state.kitchenChecked === 0 || this.state.kitchenChecked === 4 || this.state.kitchenChecked === 8 ?<input type="checkbox" defaultChecked onChange={this.isKitchen}/>:<input type="checkbox" checked={this.state.isKitchen} onChange={this.toggleChangeKitchen}/>}Kitchen
-                                                  </label>
-                                                  {/* <label className="checkbox-inline">
-                                                      <input type="checkbox"/> Drink
-                                                  </label> */}
-                                                  {/* <label className="checkbox-inline" style={{margin_left: "0px"}}>
-                                                      <input type="checkbox"/> Take Away
-                                                  </label> */}
-                                              </div>
+        />} 
+        <Modal open={isModalOpen} onClose={() => this.onCloseModal()}>
+        {/* <div class="modal fade" role="dialog" aria-labelledby="myModalLabel"   style={{z_Index: "10000"}}> */}
+              <div className="modal-dialog modal-lg">
+                  <div className="modal-content">
+                      <div className="modal-header">
+                          <button type="button" className="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                          <h4 className="modal-title"><strong>Manage Floor</strong></h4>
+                      </div>
+                      <div className="modal-body">
+                          <form action="#" method="">
+                              <div className="row">
+                                  <div className="col-md-6">
+                                      <div className="form-group">
+                                          <label>Floor Name / Number</label>
+                                          <div>
+                                            <input type="text" className="form-control input-sm" placeholder="Floor Name / Number" name="floor" defaultValue={this.state.floor} onChange={this.onChangeHandler}/>
                                           </div>
                                       </div>
                                   </div>
-                                  <div className="modal-footer" style={{text_align: "center"}}>
-                                      <button type="submit" className="btn btn-primary btn-sm" onClick={(e) => {this.onSubmitHandler(e,this.state.editId)}}>Save</button>
+                                  <div className="col-md-6">
+                                      <div className="form-group">
+                                          <label>Number of Tables</label>
+                                          <div>
+                                            <input type="text" className="form-control input-sm" placeholder="Number of Table" name="numberOfTables" defaultValue={this.state.numberOfTables} onChange={this.onChangeHandler}/>
+                                          </div>
+                                      </div>
                                   </div>
-                              </form>
-                              <div className="table-responsive thumbnail" style={{margin_bottom: "0px"}}>
-                                  <table className="table table-condensed table-striped" style={{margin_bottom: "0px"}}>
-                                      <thead>
-                                          <tr>
-                                              <th>Floor Name / Number</th>
-                                              <th>Number of Tables</th>
-                                              <th>Number of POS per Floor</th>
-                                              <th></th>
-                                              <th>Action</th>
-                                          </tr>
-                                      </thead>
-                                      <tbody>
-                                          {this.state.floorData.map((item) => {
-                                            return (
-                                              <tr key = {item.id}>
-                                                <td>{item.floor_name}</td>
-                                                <td>{item.num_table}</td>
-                                                <td>{item.pos_num}</td>
-                                                <td>
-                                                    {item.floor_type.indexOf("POS") === 0 ? <i className="fa fa-check text-success"></i>:<i className="fa fa-times text-danger"></i>}POS<br/>
-                                                    {item.floor_type.indexOf("Bar") === 0 || item.floor_type.indexOf("Bar") === 4 ? <i className="fa fa-check text-success"></i>:<i className="fa fa-times text-danger"></i>}Bar<br/>
-                                                    {item.floor_type.indexOf("Kitchen") === 0 || item.floor_type.indexOf("Kitchen") === 4 || item.floor_type.indexOf("Kitchen") === 8 ? <i className="fa fa-check text-success"></i>:<i className="fa fa-times text-danger"></i>}Kitchen<br/>
-                                                    {/* {item.floor_type.indexOf("Drink") === 0 || item.floor_type.indexOf("Drink") === 4 || item.floor_type.indexOf("Drink") === 8 || item.floor_type.indexOf("Drink") === 16 ? <i className="fa fa-check text-success"></i>:<i className="fa fa-times text-danger"></i>}Drink<br/> */}
-                                                </td>
-                                                <td>
-                                                    <button className="btn btn-danger btn-xs" onClick={() => this.deleteFloor(item.id)}><i className="fa fa-times"></i></button>
-                                                </td>
-                                              </tr>
-                                            )
-                                          })}
-                                        </tbody>
-                                  </table>
+                                  <div className="col-md-6">
+                                      <div className="form-group">
+                                          <label>Number of POS per Floor</label>
+                                          <div>
+                                            <input type="text" className="form-control input-sm" placeholder="Number of POS per Floor" name="numberOfPos" defaultValue={this.state.numberOfPos} onChange={this.onChangeHandler}/>
+                                          </div>
+                                      </div>
+                                  </div>
+                                  <div className="col-md-6">
+                                      <div className="form-group">
+                                          <label></label>
+                                          <div>
+                                              <label className="checkbox-inline">
+                                                {this.state.floorNameChecked === 0 ? <input type="checkbox" defaultChecked onChange={this.toggleChangePOS}/>:<input type="checkbox" checked={this.state.isPOS} onChange={this.toggleChangePOS}/> }POS
+                                              </label>
+                                              <label className="checkbox-inline">
+                                                {this.state.noOfTableChecked === 0 || this.state.noOfTableChecked === 4 ? <input type="checkbox" defaultChecked onChange={this.toggleChangeBar}/> :<input type="checkbox" checked={this.state.isBar} onChange={this.toggleChangeBar}/>}Bar
+                                              </label>
+                                              <label
+                                                className="checkbox-inline"
+                                                style={{ marginRight: "10px" }}
+                                                >
+                                                {this.state.kitchenChecked === 0 || this.state.kitchenChecked === 4 || this.state.kitchenChecked === 8 ?<input type="checkbox" defaultChecked onChange={this.isKitchen}/>:<input type="checkbox" checked={this.state.isKitchen} onChange={this.toggleChangeKitchen}/>}Kitchen
+                                              </label>
+                                              {/* <label className="checkbox-inline">
+                                                  <input type="checkbox"/> Drink
+                                              </label> */}
+                                              {/* <label className="checkbox-inline" style={{margin_left: "0px"}}>
+                                                  <input type="checkbox"/> Take Away
+                                              </label> */}
+                                          </div>
+                                      </div>
+                                  </div>
                               </div>
+                              <div className="modal-footer" style={{text_align: "center"}}>
+                                  <button type="submit" className="btn btn-primary btn-sm" onClick={(e) => {this.onSubmitHandler(e,this.state.editId)}}>Save</button>
+                              </div>
+                          </form>
+                          <div className="table-responsive thumbnail" style={{margin_bottom: "0px"}}>
+                              <table className="table table-condensed table-striped" style={{margin_bottom: "0px"}}>
+                                  <thead>
+                                      <tr>
+                                          <th>Floor Name / Number</th>
+                                          <th>Number of Tables</th>
+                                          <th>Number of POS per Floor</th>
+                                          <th></th>
+                                          <th>Action</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      {this.state.floorData.map((item) => {
+                                        return (
+                                          <tr key = {item.id}>
+                                            <td>{item.floor_name}</td>
+                                            <td>{item.num_table}</td>
+                                            <td>{item.pos_num}</td>    
+                                            {console.log(item)}                                           
+                                            <td>
+                                                {JSON.stringify(item.floor_type) .includes("POS") ? <i className="fa fa-check text-success"></i>:<i className="fa fa-times text-danger"></i>}POS<br/>
+                                                {JSON.stringify(item.floor_type) .includes("Bar")  ? <i className="fa fa-check text-success"></i>:<i className="fa fa-times text-danger"></i>}Bar<br/>
+                                                {JSON.stringify(item.floor_type) .includes("Kitchen")  ? <i className="fa fa-check text-success"></i>:<i className="fa fa-times text-danger"></i>}Kitchen<br/>
+                                                {/* {item.floor_type.indexOf("Drink") === 0 || item.floor_type.indexOf("Drink") === 4 || item.floor_type.indexOf("Drink") === 8 || item.floor_type.indexOf("Drink") === 16 ? <i className="fa fa-check text-success"></i>:<i className="fa fa-times text-danger"></i>}Drink<br/>  */} 
+                                            </td>
+                                            <td>
+                                                <button className="btn btn-danger btn-xs" onClick={() => this.deleteFloor(item.id)}><i className="fa fa-times"></i></button>
+                                            </td>
+                                          </tr>
+                                        )
+                                      })}
+                                    </tbody>
+                              </table>
                           </div>
                       </div>
                   </div>
-              {/* </div> */}
-          </Modal>
+              </div>
+        </Modal>
       </div>
     );
   }

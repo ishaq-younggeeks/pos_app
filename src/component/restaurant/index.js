@@ -96,7 +96,7 @@ class MainIndex extends Component {
                                     <NoMatch />
                                 </Route>
                             </Switch>
-                        </div>: <Redirect exact to={"/restaurant"} />}
+                        </div>: <Redirect exact to={"/"} />}
                         <ReportModal />
                         <MessageModal />
                         <RestaurantReportModal />
@@ -114,6 +114,6 @@ class MainIndex extends Component {
 export default MainIndex;
 
 // If the Link is invalid then push back to the last Linked opened
-function NoMatch() {
-    window.history.back(-1);
+function NoMatch() {    
+   window.history.back(-1);
 }
