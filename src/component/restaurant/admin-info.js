@@ -54,13 +54,13 @@ class AdminInfo extends Component {
                                     <div className="form-group">
                                         <label>ARQA Admin Email Address</label>
                                         <div>
-                                            <input type="text" className="form-control" name="admin_email" onChange={this.onChange} placeholder="ARQA Admin Email Address" required/>
+                                            <input type="email" className="form-control" name="admin_email" onChange={this.onChange} placeholder="ARQA Admin Email Address" required/>
                                         </div>
                                     </div>
                                     <div className="form-group">
                                         <label>ARQA Admin Phone Number</label>
                                         <div>
-                                            <input type="text" className="form-control" name="admin_phone" onChange={this.onChange} placeholder="ARQA Admin Phone Number" required/>
+                                            <input type="tel" className="form-control" name="admin_phone" onChange={this.onChange} pattern="[0-9]{10}" placeholder="ARQA Admin Phone Number" required/>
                                         </div>
                                     </div>
                                     <div className="form-group">

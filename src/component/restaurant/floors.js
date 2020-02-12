@@ -236,7 +236,7 @@ class Floor extends Component {
                         </label>
                         <div className="col-md-4">
                           <input
-                            type="text"
+                            type="number"
                             className="form-control input-sm"
                             placeholder="Number of Table"
                             name="numberOfTables"
@@ -251,7 +251,7 @@ class Floor extends Component {
                         </label>
                         <div className="col-md-4">
                           <input
-                            type="text"
+                            type="number"
                             className="form-control input-sm"
                             placeholder="Number of POS per Floor"
                             name="numberOfPos"
@@ -384,7 +384,7 @@ class Floor extends Component {
                                       <div className="form-group">
                                           <label>Number of Tables</label>
                                           <div>
-                                            <input type="text" className="form-control input-sm" placeholder="Number of Table" name="numberOfTables" defaultValue={this.state.numberOfTables} onChange={this.onChangeHandler}/>
+                                            <input type="number" className="form-control input-sm" placeholder="Number of Table" name="numberOfTables" defaultValue={this.state.numberOfTables} onChange={this.onChangeHandler}/>
                                           </div>
                                       </div>
                                   </div>
@@ -392,7 +392,7 @@ class Floor extends Component {
                                       <div className="form-group">
                                           <label>Number of POS per Floor</label>
                                           <div>
-                                            <input type="text" className="form-control input-sm" placeholder="Number of POS per Floor" name="numberOfPos" defaultValue={this.state.numberOfPos} onChange={this.onChangeHandler}/>
+                                            <input type="number" className="form-control input-sm" placeholder="Number of POS per Floor" name="numberOfPos" defaultValue={this.state.numberOfPos} onChange={this.onChangeHandler}/>
                                           </div>
                                       </div>
                                   </div>
