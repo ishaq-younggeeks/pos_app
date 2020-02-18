@@ -16,6 +16,7 @@ import Report from './reports';
 import SiteSetting from './siteSetting';
 import SocialSetting from './socialSetting';
 import BannerManagement from './bannerManagement';
+import DashboardManagement from './dashboardbannerManagement.js';
 import ProductTemplate from './productTemplate';
 import Comission from './comission';
 import Subscription from './subscription';
@@ -69,6 +70,7 @@ class SuperAdminIndex extends React.Component {
           <Route exact path='/super-admin/consumer-feedback' component={FeedBack}/>
           <Route exact path='/super-admin/flagged-restaurant' component={FlaggedRestaurant}/>
           <Route exact path='/super-admin/donation' component={Donation}/>
+          <Route exact path='/super-admin/dashboard-banner-management' component={DashboardManagement}/>
         </div>: <Redirect exact to={"/"} />}
       </div>
     )
