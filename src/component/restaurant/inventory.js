@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { PostData, GetData } from "./services/postData";
+import { PostData, GetData, DeleteData, EditData } from "./services/postData";
 import Config from '../../config/Config'
+
 
 class Inventory extends Component {
   constructor(props) {
@@ -9,50 +10,26 @@ class Inventory extends Component {
       user_id:'',
       ingredient_name:'',
       current_stock:'',
-      stock_status:'1',
-      success: "",
+      stock_status:'',
+      success: "1",
       sResult: "",
       allData: [],
+      editdata:'',
       updateBy: ""
-    }
+    }    
+    this.editInventory = this.editInventory.bind(this);
+    this.emptyForm = this.emptyForm.bind(this);
   }
-  componentDidMount() {
+  componentWillMount() {
     let user_id = localStorage.getItem("userId");
     this.setState({ user_id});
     this.initialState = this.state;
-    console.log("get user name",localStorage.getItem("username"));
-    GetData('all-inven').then((result)=> {
-      let data = result.response.msg1
-         this.setState({allData:data});
-         console.log(this.state.allData);
+    GetData('all-inven').then((result)=> {   
+        let data = result.response.msg1;
+        this.setState({allData:data});
     });   
   }
 
-  inventorySave = (event) => {
-    event.preventDefault();
-    if(this.state.name){
-        console.log("sending data",this.state);
-        PostData('add_inventory1',this.state).then((result)=>{
-
-            console.log(result);
-            let responseJson = result;
-            console.log(responseJson);
-            GetData('all-inven').then((result)=> {
-                let responseData = result;
-                let data = responseData[1].data;
-                this.setState({allData:data});
-                console.log("get data",this.state.allData);
-            });
-            this.setState({success:`${responseJson.response.msg.name} added succesfully`});
-            this.setState({sResult:responseJson.response.result});  
-            this.refs.form.reset();
-            setTimeout(()=>this.setState(()=>this.initialState),1000);
-            console.log("running",this.state.model);
-            //window.history.push('/restaurant/printers');
-        });
-    }
-    //
-}
   onChange  = (e) => {
     const checkedArr = [];
     let values;
@@ -69,16 +46,85 @@ class Inventory extends Component {
     }
     this.setState({ [e.target.name]: values });
   }
+
+  inventorySave = (event) => {
+    event.preventDefault();
+    let data;
+    let changes=this.state.editdata;    
+    if(this.state.editdata.id) {
+      data={
+        id:changes.id,
+        user_id:1|| changes.user_id,
+        ingredient_name: this.state.ingredient_name || changes.ingredient_name,
+        current_stock:this.state.current_stock|| changes.current_stock,
+        stock_in:this.state.stock_status ,
+        stock_out:this.state.stock_status
+      }
+    }
+    else {      
+      if(this.state.ingredient_name){
+        data={
+          id:'',
+          user_id:1,
+          ingredient_name: this.state.ingredient_name,
+          current_stock:this.state.current_stock,
+          stock_in:this.state.stock_status,
+          stock_out:this.state.stock_status
+        }
+      }
+    }
+    PostData('add_inventory1',data).then((result)=>{
+      this.setState({editdata:[]});
+      this.setState({success:'2'});  
+      this.myFormRef.reset();
+    });
+  }
+
+  editInventory(invenid){       
+      GetData('all-inven').then((result)=>
+      {
+        let response=result.response;
+        let length=response.msg1.length;
+        let n=0;
+        for(n;n<length;n++){    
+            if(response.msg1[n].id===invenid){
+              this.setState({editdata:response.msg1[n]});              
+            }else{}          
+        }
+      })
+  }
+
+  emptyForm(){
+    this.setState({editdata:''});
+  }
+
+  deletedata(invenid){    
+    if (window.confirm("Delete the item?")) {
+      let data={
+        id:invenid
+      }
+      PostData('delete',data).then((result) => {
+          this.setState({deleteMsgStatus:'1'});          
+      });
+    }
+  }
+
+  componentDidUpdate(){
+    if( this.state.success==='2' || this.state.deleteMsgStatus==='1'){
+      GetData('all-inven').then((result)=> {
+          let data = result.response.msg1;
+          this.setState({deleteMsgStatus:''});          
+          this.setState({success:"1"});          
+          this.setState({allData:data});
+      });
+    }    
+  }
   
   render() {
-    if (this.state.sResult === "1") {
-      window.location.reload();
-    }
     return (
       <div className="content-wrapper">
         <section className="content-header">
           <h1>Inventory</h1>
-          <span>{this.state.success}</span>
         </section>
         <section className="content">
           <div className="row">
@@ -87,49 +133,65 @@ class Inventory extends Component {
                 <div className="clearfix"></div>
                 <br />
                 <div className="col-md-12">
-                  <form className="form-horizontal" onSubmit={this.inventorySave} data-toggle="validator" novalidate="true">
+                  <form className="form-horizontal" onSubmit={this.inventorySave} data-toggle="validator" novalidate="true" ref={(el) => this.myFormRef = el}>
                     <div className="form-group">
                       <label className="col-md-3 control-label">
                         Name of Stock / Ingredient
                       </label>
                       <div className="col-md-4">
-                        <input type="text" name="ingredient_name" data-error="Please enter your Floor Name/Number."onChange={this.onChange} className="form-control input-sm" placeholder="Name of Stock / Ingredient" required/>
+                        {!this.state.editdata && this.state.success!=="1"?                         
+                        <input type="text" name="ingredient_name" data-error="Please enter your Floor Name/Number."  onChange={this.onChange} className="form-control input-sm" placeholder="Name of Stock / Ingredient" required/>
+                        :
+                        <input type="text" name="ingredient_name" data-error="Please enter your Floor Name/Number." defaultValue={this.state.editdata.ingredient_name} onChange={this.onChange} className="form-control input-sm" placeholder="Name of Stock / Ingredient" required/>
+                        }                        
                       </div>
                       <div class="help-block with-errors"></div>     
                     </div>
                     <div className="clearfix"></div>
                     <div className="form-group">
                       <label className="col-md-3 control-label">
-                        Current Stock
+                      {this.state.editdata ?<> Stock </> :<> Current Stock </>}
                       </label>
                       <div className="col-md-4">
-                        <input type="number" name="current_stock" onChange={this.onChange} className="form-control input-sm" placeholder="Quantity" required />
+                      {!this.state.editdata && this.state.success!=="1" ?
+                        <input type="number" name="current_stock" data-error="Invalid" onChange={this.onChange} className="form-control input-sm" placeholder="Quantity" required/>
+                        :
+                        <input type="number" name="current_stock" data-error="Invalid" defaultValue={this.state.editdata.current_stock} onChange={this.onChange} className="form-control input-sm" placeholder="Quantity" required />
+                      }  
                       </div>
                       <div class="help-block with-errors"></div>     
                     </div>
                     <div className="clearfix"></div>
                     <div className="form-group">
                       <label className="col-md-3 control-label hidden-xs"></label>
-                      <div className="col-md-4">
+                      <div className="col-md-4">                          
                         <label className="radio-inline" style={{ fontSize: "12px" }}>
-                          <input type="radio" name="stock_status" value="1" onChange={this.onChange} />{" "}
+                          <input type="radio" name="stock_status" value="stock_in" onClick={this.onChange} />{" "}
                           Stock In (+stock)
                         </label>
                         <label className="radio-inline" style={{ fontSize: "12px" }} >
-                          <input type="radio" name="stock_status" value="0" onChange={this.onChange} required />{" "}
+                          <input type="radio" name="stock_status" value="stock_out" onChange={this.onChange} required />{" "}
                           Stock Out (-stock)
                         </label>
-                      </div>
+                      </div>      
                       <div class="help-block with-errors"></div>     
                     </div>
                     <div className="clearfix"></div>
                     <div className="form-group">
                       <label className="col-md-3 control-label"></label>
-                      <div className="col-md-1">
-                        <button type="submit" className="btn btn-primary btn-block" >{/* onClick={this.inventorySave}*/}
-                          Save
-                        </button>
-                      </div>
+                        {!this.state.editdata ?
+                          <div className="col-md-1">
+                              <button type="submit" className="btn btn-primary btn-block" >
+                                Save
+                              </button>                                                           
+                          </div>
+                          :    
+                          <div className="col-md-2">                      
+                            <button type="submit" style={{ float:'left',width:'55%'}} className="btn btn-primary btn-block" >
+                            Save
+                            </button> <span  style={{cursor:'pointer',float:'right',padding:'8px 0'}} onClick={this.emptyForm}>Cancel</span>
+                          </div>
+                          }
                     </div>
                   </form>
                 </div>
@@ -154,20 +216,18 @@ class Inventory extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                      {this.state.allData.map(invenData => (
+                      {this.state.allData.map((invenData) => (
                         <tr key={invenData.id}>
                           <td>{invenData.ingredient_name}</td>
                           <td>{invenData.current_stock}</td>
                           <td>10:30 AM | {invenData.created_at}</td>
                           <td>{localStorage.getItem("username")}</td>
                           <td>
-                            <a href="!#" className="btn btn-primary btn-xs">
-                              Edit
-                            </a>{" "}
+                            <span className="btn btn-primary btn-xs" onClick={this.editInventory.bind(this,invenData.id)}>Edit</span>
                             &nbsp;
-                            <a href="!#" className="btn btn-danger btn-xs">
+                            <span className="btn btn-danger btn-xs" onClick={this.deletedata.bind(this,invenData.id)}>
                               Delete
-                            </a>
+                            </span>
                           </td>
                         </tr>
                       ))}

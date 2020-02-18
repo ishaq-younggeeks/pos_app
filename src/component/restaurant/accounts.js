@@ -1,6 +1,44 @@
 import React, { Component } from 'react';
+import Axios from 'axios';
 
 class Account extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          incomeData: [],
+          expenseData: [],
+          incomeTotal:'',
+          expenseTotal:''
+        }
+    }
+    
+    componentWillMount(){       
+        Axios.get('http://posapp.younggeeks.net/posApi/api/all-accounts')
+        .then((result)=>{
+        let sumTotal=0; 
+        let n=0;
+        let accountIData=result.data.data;             
+            this.setState({incomeData:accountIData});
+            for(n;n<this.state.incomeData.length;n++) {            
+                if(this.state.incomeData[n].in_ex_status==='income') {
+                    sumTotal=parseInt(this.state.incomeData[n].price)+sumTotal;
+                    this.setState({incomeTotal:sumTotal})
+                }     
+            }    
+        }) 
+        Axios.get('http://posapp.younggeeks.net/posApi/api/all-expenditure')
+        .then((result)=>{
+        let sumTotal=0; 
+        let n=0;
+        let accountEData=result.data.data;             
+            this.setState({expenseData:accountEData});
+            for(n;n<this.state.expenseData.length;n++) {     
+                sumTotal=parseInt(this.state.expenseData[n].price)+sumTotal;
+                this.setState({expenseTotal:sumTotal})
+            }    
+        }) 
+    }
+
     render() { 
         return (
             <div className="content-wrapper">
@@ -10,7 +48,6 @@ class Account extends Component {
                     </h1>
                 </section>
                 <section className="content">
-
                     <div className="row">
                         <div>
                             <div className="col-md-6">
@@ -42,57 +79,28 @@ class Account extends Component {
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Dal</td>
-                                                <td>lorem ipsum dolor amet lorem ipsum dolor</td>
-                                                <td>10:30 AM | 7 Mar, 2018</td>
-                                                <td>RM 5000</td>
-                                                <td>RM 500</td>
-                                                <td>RM 50</td>
-                                                <td>
-                                                    <a href="#" className="btn btn-primary btn-xs">Edit</a> &nbsp;
-                                                    <a href="#" className="btn btn-danger btn-xs">Delete</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Dal</td>
-                                                <td>lorem ipsum dolor amet lorem ipsum dolor</td>
-                                                <td>10:30 AM | 7 Mar, 2018</td>
-                                                <td>RM 4000</td>
-                                                <td>RM 400</td>
-                                                <td>RM 40</td>
-                                                <td>
-                                                    <a href="#" className="btn btn-primary btn-xs">Edit</a> &nbsp;
-                                                    <a href="#" className="btn btn-danger btn-xs">Delete</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Dal</td>
-                                                <td>lorem ipsum dolor amet lorem ipsum dolor</td>
-                                                <td>10:30 AM | 7 Mar, 2018</td>
-                                                <td>RM 3500</td>
-                                                <td>RM 350</td>
-                                                <td>RM 35</td>
-                                                <td>
-                                                    <a href="#" className="btn btn-primary btn-xs">Edit</a> &nbsp;
-                                                    <a href="#" className="btn btn-danger btn-xs">Delete</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Dal</td>
-                                                <td>lorem ipsum dolor amet lorem ipsum dolor</td>
-                                                <td>10:30 AM | 7 Mar, 2018</td>
-                                                <td>RM 3000</td>
-                                                <td>RM 300</td>
-                                                <td>RM 30</td>
-                                                <td>
-                                                    <a href="#" className="btn btn-primary btn-xs">Edit</a> &nbsp;
-                                                    <a href="#" className="btn btn-danger btn-xs">Delete</a>
-                                                </td>
-                                            </tr>
+                                        <tbody>                                            
+                                            {this.state.incomeData.map(accData=>
+                                            accData.in_ex_status==='income' ?
+                                            (                                                
+                                                <tr key={accData.id}>
+                                                    <td>{accData.item_name}</td>
+                                                    <td>{accData.note}</td>
+                                                    <td>{accData.created_at}</td>
+                                                    <td>RM{accData.price}</td>
+                                                    <td>RM{accData.gst}</td>
+                                                    <td>RM{accData.service_charge}</td>
+                                                    <td>
+                                                        <a href="#" className="btn btn-primary btn-xs">Edit</a> &nbsp;
+                                                        <a href="#" className="btn btn-danger btn-xs">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            )
+                                            :
+                                            (  <></> )                                            
+                                            )}
                                             <tr style={{background: '#167aeb',color: '#fff',fontSize: '15px'}}>
-                                                <td colSpan="7"><strong>Total Overall Income:</strong> RM 1000000</td>
+                                                <td colSpan="7"><strong>Total Overall Income:</strong>{this.state.incomeTotal}</td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -118,48 +126,25 @@ class Account extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Item 1</td>
-                                                <td>lorem ipsum dolor amet lorem ipsum dolor</td>
-                                                <td>10:30 AM | 7 Mar, 2018</td>
-                                                <td>RM 5000</td>
-                                                <td>
-                                                    <a href="#" className="btn btn-primary btn-xs">Edit</a> &nbsp;
-                                                    <a href="#" className="btn btn-danger btn-xs">Delete</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Item 2</td>
-                                                <td>lorem ipsum dolor amet lorem ipsum dolor</td>
-                                                <td>10:30 AM | 7 Mar, 2018</td>
-                                                <td>RM 4000</td>
-                                                <td>
-                                                    <a href="#" className="btn btn-primary btn-xs">Edit</a> &nbsp;
-                                                    <a href="#" className="btn btn-danger btn-xs">Delete</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Item 3</td>
-                                                <td>lorem ipsum dolor amet lorem ipsum dolor</td>
-                                                <td>10:30 AM | 7 Mar, 2018</td>
-                                                <td>RM 3500</td>
-                                                <td>
-                                                    <a href="#" className="btn btn-primary btn-xs">Edit</a> &nbsp;
-                                                    <a href="#" className="btn btn-danger btn-xs">Delete</a>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Item 4</td>
-                                                <td>lorem ipsum dolor amet lorem ipsum dolor</td>
-                                                <td>10:30 AM | 7 Mar, 2018</td>
-                                                <td>RM 3000</td>
-                                                <td>
-                                                    <a href="#" className="btn btn-primary btn-xs">Edit</a> &nbsp;
-                                                    <a href="#" className="btn btn-danger btn-xs">Delete</a>
-                                                </td>
-                                            </tr>
+                                        {this.state.expenseData.map(accData=>
+                                            accData.in_ex_status==='expenditure' ?
+                                            (                                                
+                                                <tr key={accData.id}>
+                                                    <td>{accData.item_name}</td>
+                                                    <td>{accData.note}</td>
+                                                    <td>{accData.date}</td>
+                                                    <td>RM{accData.price}</td>
+                                                    <td>
+                                                        <a href="#" className="btn btn-primary btn-xs">Edit</a> &nbsp;
+                                                        <a href="#" className="btn btn-danger btn-xs">Delete</a>
+                                                    </td>
+                                                </tr>
+                                            )
+                                            :
+                                            (  <></> )                                            
+                                            )} 
                                             <tr style={{background: '#eb9316',color: '#fff',fontSize: '15px'}}>
-                                                <td colSpan="7"><strong>Total Overall Expense:</strong> RM 10000</td>
+                                                <td colSpan="7"><strong>Total Overall Expense:</strong>{this.state.expenseTotal}</td>
                                             </tr>
                                         </tbody>
                                     </table>
