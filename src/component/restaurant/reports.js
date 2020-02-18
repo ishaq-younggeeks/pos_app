@@ -1,8 +1,24 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import {  GetData, PostData} from "./services/postData.js";
 
 class Report extends Component {
+    constructor(props) {
+        super(props);
+        this.state={
+            reportData:[]
+        }
+    }
+
+    componentWillMount(){
+        GetData('consumer_report').then(result=>{
+            let report=result.response.data;
+            this.setState({reportData:report});
+        })        
+    }
+
     render() { 
+        console.log(this.state.reportData);
         return (
             <>
             <div className="content-wrapper">
@@ -36,10 +52,11 @@ class Report extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Deepak Mishra</td>
-                                                <td><Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#response">Quality was not good</Link></td>
+                                            {this.state.reportData.map((consumerIssue,i)=>
+                                            <tr key={consumerIssue.id}>
+                                                <td>{i+1}</td>
+                                                <td>{consumerIssue.name}</td>
+                                                <td onClick="showpop()" style={{maxWidth: '250px',whiteSpace:'nowrap',overflow:"hidden", textOverflow:"ellipsis"}}>{consumerIssue.comment}</td>
                                                 <td>-</td>
                                                 <td><span className="label label-warning" style={{fontSize: '12px',fontWeight: 'normal'}}>Active</span></td>
                                                 <td>
@@ -47,79 +64,8 @@ class Report extends Component {
                                                     <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#refund" className="btn btn-primary btn-xs">Refund Product</Link> &nbsp; &nbsp;
                                                     <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#response-consumer" className="btn btn-primary btn-xs">Disagree with Consumer</Link>
                                                 </td>
-                                            </tr>
-                                            <tr>
-                                                <td>2</td>
-                                                <td>Deepak Mishra</td>
-                                                <td><Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#response">Quality was not good</Link></td>
-                                                <td><Link>View</Link></td>
-                                                <td><span className="label label-warning" style={{fontSize: '12px',fontWeight: 'normal'}}>Active</span></td>
-                                                <td>
-                                                    <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#view-order" className="btn btn-primary btn-xs">View Order</Link> &nbsp; &nbsp;
-                                                    <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#refund" className="btn btn-primary btn-xs">Refund Product</Link> &nbsp; &nbsp;
-                                                    <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#response-consumer" className="btn btn-primary btn-xs">Disagree with Consumer</Link>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>3</td>
-                                                <td>Deepak Mishra</td>
-                                                <td><Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#response">Quality was not good</Link></td>
-                                                <td>-</td>
-                                                <td><span className="label label-success" style={{fontSize: '12px',fontWeight: 'normal'}}>Closed</span></td>
-                                                <td>
-                                                    <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#view-order" className="btn btn-primary btn-xs">View Order</Link> &nbsp; &nbsp;
-                                                    <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#refund" className="btn btn-primary btn-xs">Refund Product</Link> &nbsp; &nbsp;
-                                                    <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#response-consumer" className="btn btn-primary btn-xs">Disagree with Consumer</Link>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>4</td>
-                                                <td>Deepak Mishra</td>
-                                                <td><Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#response">Quality was not good</Link></td>
-                                                <td><Link>View</Link></td>
-                                                <td><span className="label label-warning" style={{fontSize: '12px',fontWeight: 'normal'}}>Active</span></td>
-                                                <td>
-                                                    <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#view-order" className="btn btn-primary btn-xs">View Order</Link> &nbsp; &nbsp;
-                                                    <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#refund" className="btn btn-primary btn-xs">Refund Product</Link> &nbsp; &nbsp;
-                                                    <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#response-consumer" className="btn btn-primary btn-xs">Disagree with Consumer</Link>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>5</td>
-                                                <td>Deepak Mishra</td>
-                                                <td><Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#response">Quality was not good</Link></td>
-                                                <td><Link>View</Link></td>
-                                                <td><span className="label label-warning" style={{fontSize: '12px',fontWeight: 'normal'}}>Active</span></td>
-                                                <td>
-                                                    <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#view-order" className="btn btn-primary btn-xs">View Order</Link> &nbsp; &nbsp;
-                                                    <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#refund" className="btn btn-primary btn-xs">Refund Product</Link> &nbsp; &nbsp;
-                                                    <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#response-consumer" className="btn btn-primary btn-xs">Disagree with Consumer</Link>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>6</td>
-                                                <td>Deepak Mishra</td>
-                                                <td><Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#response">Quality was not good</Link></td>
-                                                <td>-</td>
-                                                <td><span className="label label-warning" style={{fontSize: '12px',fontWeight: 'normal'}}>Active</span></td>
-                                                <td>
-                                                    <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#view-order" className="btn btn-primary btn-xs">View Order</Link> &nbsp; &nbsp;
-                                                    <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#refund" className="btn btn-primary btn-xs">Refund Product</Link> &nbsp; &nbsp;
-                                                    <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#response-consumer" className="btn btn-primary btn-xs">Disagree with Consumer</Link>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>7</td>
-                                                <td>Deepak Mishra</td>
-                                                <td><Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#response">Quality was not good</Link></td>
-                                                <td>-</td>
-                                                <td><span className="label label-warning" style={{fontSize: '12px',fontWeight: 'normal'}}>Active</span></td>
-                                                <td>
-                                                    <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#view-order" className="btn btn-primary btn-xs">View Order</Link> &nbsp; &nbsp;
-                                                    <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#refund" className="btn btn-primary btn-xs">Refund Product</Link> &nbsp; &nbsp;
-                                                    <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#response-consumer" className="btn btn-primary btn-xs">Disagree with Consumer</Link>
-                                                </td>
-                                            </tr>
+                                            </tr>    
+                                            )}
                                         </tbody>
                                     </table>
                                 </div>
@@ -132,7 +78,7 @@ class Report extends Component {
                                     <tr>
                                         <td style={{lineHeight: '24px'}}>
                                             <strong>Name:</strong> Deepak Mishra<br/>
-                                            <strong>Product Issue:</strong> <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#response">Quality was not good</Link><br/>
+                                            <strong>Product Issue:</strong><Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#response">Quality was not good</Link><br/>
                                             <strong>Photo:</strong> -<br/>
                                             <strong>Status:</strong> <span className="label label-warning" style={{fontSize: '12px',fontWeight: 'normal'}}>Active</span><br/>
                                             <Link onClick={e => e.preventDefault()} data-toggle="modal" data-target="#view-order" className="btn btn-primary btn-xs">View Order</Link> &nbsp; &nbsp;
